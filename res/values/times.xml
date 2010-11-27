@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<array name="gorecki_weekday_times">
+		<item>7:31 a.m.</item>
+		<item>8:00 a.m.</item>
+		<item>8:30 a.m.</item>
+		<item>9:26 a.m.</item>
+		<item>9:45 a.m.</item>
+		<item>10:15 a.m.</item>
+		<item>11:06 a.m.</item>
+		<item>11:15 a.m.</item>
+		<item>11:45 a.m.</item>
+		<item>12:46 p.m.</item>
+		<item>1:00 p.m.</item>
+		<item>1:30 p.m.</item>
+		<item>2:26 p.m.</item>
+		<item>2:45 p.m.</item>
+		<item>3:15 p.m.</item>
+		<item>4:03 p.m.</item>
+		<item>4:30 p.m.</item>
+		<item>5:00 p.m.</item>	
+		<item>5:30 p.m.</item>	
+	</array>
+	<array name="gorecki_weekday_labels">
+		<item>7:20-7:31 a.m.</item>
+		<item>8:00 a.m.</item>
+		<item>8:30 a.m.</item>
+		<item>9:00-9:26 a.m.</item>
+		<item>9:45 a.m.</item>
+		<item>10:15 a.m.</item>
+		<item>10:40-11:06 a.m.</item>
+		<item>11:15 a.m.</item>
+		<item>11:45 a.m.</item>
+		<item>12:20-12:46 p.m.</item>
+		<item>1:00 p.m.</item>
+		<item>1:30 p.m.</item>
+		<item>2:00-2:26 p.m.</item>
+		<item>2:45 p.m.</item>
+		<item>3:15 p.m.</item>
+		<item>3:50-4:03 p.m.</item>
+		<item>4:30 p.m.</item>	
+		<item>5:00 p.m.</item>	
+		<item>5:30 p.m.</item>	
+	</array>
+
+
+	<array name="sexton_weekday_times">
+		<item>7:46 a.m.</item>
+		<item>8:15 a.m.<item>
+		<item>8:45 a.m.<item>
+		<item>9:26 a.m.</item>
+		<item>9:45 a.m.<item>
+		<item>10:15 a.m.<item>
+		<item>11:06 a.m.</item>
+		<item>11:15 a.m.</item>
+		<item>11:45 a.m.</item>
+		<item>12:46 p.m.</item>
+		<item>1:00 p.m.</item>
+		<item>1:30 p.m.</item>
+		<item>2:26 p.m.</item>
+		<item>2:45 p.m.</item>
+		<item>3:15 p.m.</item>
+		<item>4:06 p.m.</item>
+		<item>4:45 p.m.</item>
+		<item>5:15 p.m.</item>
+		<item>5:45 p.m.</item>
+	</array>
+
+	<array name="sexton_weekday_labels">
+		<item>7:35-7:46 a.m.</item>
+		<item>8:15 a.m.<item>
+		<item>8:45 a.m.<item>
+		<item>9:00-9:26 a.m.</item>
+		<item>9:45 a.m.<item>
+		<item>10:15 a.m.<item>
+		<item>10:40-11:06 a.m.</item>
+		<item>11:15 a.m.</item>
+		<item>11:45 a.m.</item>
+		<item>12:20-12:46 p.m.</item>
+		<item>1:00 p.m.</item>
+		<item>1:30 p.m.</item>
+		<item>2:00-2:26 p.m.</item>
+		<item>2:45 p.m.</item>
+		<item>3:15 p.m.</item>
+		<item>3:50-4:06 p.m.</item>
+		<item>4:45 p.m.</item>
+		<item>5:15 p.m.</item>
+		<item>5:45 p.m.</item>
+	</array>
+
+	<array name="flynntown_weekday_times">
+		<item>7:38 a.m.</item>
+		<item>8:08 a.m.</item>
+		<item>8:38 a.m.</item>
+		<item>9:12 a.m.</item>
+		<item>9:53 a.m.</item>
+		<item>10:23 a.m.</item>
+		<item>10:52 a.m.</item>
+		<item>11:23 a.m.</item>
+		<item>11:53 a.m.</item>
+		<item>12:32 p.m.</item>
+		<item>1:08 p.m.</item>
+		<item>1:38 p.m.</item>
+		<item>2:12 p.m.</item>
+		<item>2:53 p.m.</item>
+		<item>3:23 p.m.</item>
+		<item>4:02 p.m.</item>
+		<item>4:38 p.m.</item>
+		<item>5:08 p.m.</item>
+		<item>5:38 p.m.</item>
+	</array>
+
+	<array name="hcc_weekday_times">
+		<item>8:30 a.m.</item>
+		<item>10:15 a.m.</item>
+		<item>11:45 a.m.</item>
+		<item>1:30 p.m.</item>
+		<item>3:15 p.m.</item>
+		<item>4:30 p.m.</item>
+		<item>5:30 p.m.</item>
+	</array>
+
+</resources>
