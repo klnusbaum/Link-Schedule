@@ -5,7 +5,7 @@
 	<string name="gorecki_weekend_day_start">10:00 a.m.</string>
 	<string name="gorecki_weekend_day_end">5:30 p.m.</string>
 	<string name="gorecki_weekend_morning_start">12:00 a.m.</string>
-	<string name="gorecki_weekend_morning_start">2:00 a.m.</string>
+	<string name="gorecki_weekend_morning_stop">2:00 a.m.</string>
 
 	<string name="sexton_night_start">6:15 p.m.</string>
 	<string name="sexton_night_end">11:45 p.m.</string>

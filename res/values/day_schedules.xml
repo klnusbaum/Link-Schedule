@@ -49,11 +49,11 @@
 	<array name="sexton_weekday_times">
 		<item>12:15 a.m.</item>
 		<item>7:46 a.m.</item>
-		<item>8:15 a.m.<item>
-		<item>8:45 a.m.<item>
+		<item>8:15 a.m.</item>
+		<item>8:45 a.m.</item>
 		<item>9:26 a.m.</item>
-		<item>9:45 a.m.<item>
-		<item>10:15 a.m.<item>
+		<item>9:45 a.m.</item>
+		<item>10:15 a.m.</item>
 		<item>11:06 a.m.</item>
 		<item>11:15 a.m.</item>
 		<item>11:45 a.m.</item>
@@ -72,11 +72,11 @@
 	<array name="sexton_weekday_labels">
 		<item>12:15 a.m.</item>
 		<item>7:35-7:46 a.m.</item>
-		<item>8:15 a.m.<item>
-		<item>8:45 a.m.<item>
+		<item>8:15 a.m.</item>
+		<item>8:45 a.m.</item>
 		<item>9:00-9:26 a.m.</item>
-		<item>9:45 a.m.<item>
-		<item>10:15 a.m.<item>
+		<item>9:45 a.m.</item>
+		<item>10:15 a.m.</item>
 		<item>10:40-11:06 a.m.</item>
 		<item>11:15 a.m.</item>
 		<item>11:45 a.m.</item>

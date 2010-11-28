@@ -1,4 +1,7 @@
-package org.klnusbaum.linkschedule
+package org.klnusbaum.linkschedule;
+
+import java.util.GregorianCalendar;
+import java.util.TreeMap;
 
 public class DaySchedule{
 	TreeMap<GregorianCalendar, String>

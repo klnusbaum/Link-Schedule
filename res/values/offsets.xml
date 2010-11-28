@@ -2,4 +2,4 @@
 <resources>
 	<integer name="flynntown_offset">-7</integer>
 	<integer name="standard_bus_interval">30</integer>
-</resource>
+</resources>

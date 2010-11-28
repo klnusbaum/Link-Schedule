@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 
 import java.util.TreeMap;
 import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 public class LinkSchedule{
 
@@ -52,9 +53,9 @@ public class LinkSchedule{
 			getCalendarFromString(res.getString(R.string.gorecki_weekend_monring_start)),
 			getCalendarFromString(res.getString(R.string.gorecki_weekend_monring_end)),
 			getCalendarFromString(res.getString(R.string.gorecki_weekend_day_start)),
-			getCalendarFromString(res.getString(R.string.gorecki_weekend_day_end))
+			getCalendarFromString(res.getString(R.string.gorecki_weekend_day_end)),
 			getCalendarFromString(res.getString(R.string.gorecki_weekday_night_start)),
-			getCalendarFromString(res.getString(R.string.gorecki_weekday_night_end))
+			getCalendarFromString(res.getString(R.string.gorecki_weekday_night_end)),
 			0
 		);
 
@@ -62,9 +63,9 @@ public class LinkSchedule{
 			getCalendarFromString(res.getString(R.string.sexton_weekend_monring_start)),
 			getCalendarFromString(res.getString(R.string.sexton_weekend_monring_end)),
 			getCalendarFromString(res.getString(R.string.sexton_weekend_day_start)),
-			getCalendarFromString(res.getString(R.string.sexton_weekend_day_end))
+			getCalendarFromString(res.getString(R.string.sexton_weekend_day_end)),
 			getCalendarFromString(res.getString(R.string.sexton_weekday_night_start)),
-			getCalendarFromString(res.getString(R.string.sexton_weekday_night_end))
+			getCalendarFromString(res.getString(R.string.sexton_weekday_night_end)),
 			0
 		);
 
@@ -72,9 +73,9 @@ public class LinkSchedule{
 			getCalendarFromString(res.getString(R.string.sexton_weekend_monring_start)),
 			getCalendarFromString(res.getString(R.string.sexton_weekend_monring_end)),
 			getCalendarFromString(res.getString(R.string.sexton_weekend_day_start)),
-			getCalendarFromString(res.getString(R.string.sexton_weekend_day_end))
+			getCalendarFromString(res.getString(R.string.sexton_weekend_day_end)),
 			getCalendarFromString(res.getString(R.string.sexton_weekday_night_start)),
-			getCalendarFromString(res.getString(R.string.sexton_weekday_night_end))
+			getCalendarFromString(res.getString(R.string.sexton_weekday_night_end)),
 			res.getInteger(R.integer.flynntown_offset)
 		);
 
@@ -82,9 +83,9 @@ public class LinkSchedule{
 			getCalendarFromString(res.getString(R.string.gorecki_weekend_monring_start)),
 			getCalendarFromString(res.getString(R.string.gorecki_weekend_monring_end)),
 			getCalendarFromString(res.getString(R.string.gorecki_weekend_day_start)),
-			getCalendarFromString(res.getString(R.string.gorecki_weekend_day_end))
+			getCalendarFromString(res.getString(R.string.gorecki_weekend_day_end)),
 			getCalendarFromString(res.getString(R.string.gorecki_weekday_night_start)),
-			getCalendarFromString(res.getString(R.string.gorecki_weekday_night_end))
+			getCalendarFromString(res.getString(R.string.gorecki_weekday_night_end)),
 			0
 		);
 		return new DaySchedule(flynntownMap, goreckiMap, hccMap, sextonMap);
@@ -121,7 +122,7 @@ public class LinkSchedule{
 		return new DaySchedule(flynntownMap, goreckiMap, hccMap, sextonMap);
 	}
 
-	TreeMap<GregorianCalendar, String> getSimpleCalendars((
+	TreeMap<GregorianCalendar, String> getSimpleCalendars(
 		GregorianCalendar morningStart,
 		GregorianCalendar morningEnd,
 		GregorianCalendar dayStart, 
@@ -163,7 +164,7 @@ public class LinkSchedule{
 		for(int i=0; i<dayTimes.getIndexCount(); i++){
 			toReturn.put(getCalendarFromString(dayTimes.getString(i)), dayLabels.getString(i));
 		}
-		iterateInsert(toReturn, nightStart, nightEnd)
+		iterateInsert(toReturn, nightStart, nightEnd);
 		return toReturn;
 	}
 
@@ -186,13 +187,14 @@ public class LinkSchedule{
 
 	GregorianCalendar getCalendarFromString(String timeString){
 		GregorianCalendar toReturn = GregorianCalendar.getInstance();
-		String toks = timeString.split(":*\s");
-		toReturn.set(Calendar.HOUR, Integer.parseInt(toks[0]))
-		toReturn.set(Calendar.MINUTE, Integer.parseInt(toks[1]));
-		if(toks[2].equals("a.m.")){
+		String toks1[] = timeString.split(":");
+		String toks2[] = toks1[1].split(" ");
+		toReturn.set(Calendar.HOUR, Integer.parseInt(toks1[0]));
+		toReturn.set(Calendar.MINUTE, Integer.parseInt(toks2[0]));
+		if(toks2[1].equals("a.m.")){
 			toReturn.set(Calendar.AM_PM, Calendar.AM);
 		}
-		else if(toks[2].equals("p.m.")){
+		else if(toks2[1].equals("p.m.")){
 			toReturn.set(Calendar.AM_PM, Calendar.PM);
 		}
 		return toReturn;

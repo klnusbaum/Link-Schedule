@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ScheduleActivity</string>
-		<string name="flyntown_name">Flynntown</string>
+		<string name="flynntown_name">Flynntown</string>
 		<string name="gorecki_name">Gorecki</string>
 		<string name="hcc_name">HCC</string>
 		<string name="sexton_name">Sexton</string>
