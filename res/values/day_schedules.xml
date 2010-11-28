@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<array name="gorecki_weekday_times">
+		<item>12:00 a.m.</item>
 		<item>7:31 a.m.</item>
 		<item>8:00 a.m.</item>
 		<item>8:30 a.m.</item>
@@ -21,7 +22,9 @@
 		<item>5:00 p.m.</item>	
 		<item>5:30 p.m.</item>	
 	</array>
+
 	<array name="gorecki_weekday_labels">
+		<item>12:00 a.m.</item>
 		<item>7:20-7:31 a.m.</item>
 		<item>8:00 a.m.</item>
 		<item>8:30 a.m.</item>
@@ -43,8 +46,8 @@
 		<item>5:30 p.m.</item>	
 	</array>
 
-
 	<array name="sexton_weekday_times">
+		<item>12:15 a.m.</item>
 		<item>7:46 a.m.</item>
 		<item>8:15 a.m.<item>
 		<item>8:45 a.m.<item>
@@ -67,6 +70,7 @@
 	</array>
 
 	<array name="sexton_weekday_labels">
+		<item>12:15 a.m.</item>
 		<item>7:35-7:46 a.m.</item>
 		<item>8:15 a.m.<item>
 		<item>8:45 a.m.<item>
@@ -89,6 +93,7 @@
 	</array>
 
 	<array name="flynntown_weekday_times">
+		<item>12:08 a.m.</item>
 		<item>7:38 a.m.</item>
 		<item>8:08 a.m.</item>
 		<item>8:38 a.m.</item>
@@ -111,6 +116,7 @@
 	</array>
 
 	<array name="hcc_weekday_times">
+		<item>12:00 a.m.</item>
 		<item>8:30 a.m.</item>
 		<item>10:15 a.m.</item>
 		<item>11:45 a.m.</item>

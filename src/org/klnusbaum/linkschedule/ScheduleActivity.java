@@ -15,25 +15,29 @@ public class ScheduleActivity extends Activity{
 		registerReciever(new TickReciever(), new IntentFilter(Intent.ACTION_TIME_TICK));
 
 		flynntownView = (ViewGroup)findViewByID(flynntown_clock);
-		((TextView)flynntownView.findViewByID(R.id.stopName)).setText(R.string.flyntown_name);
+		setStopText(flynntownView, R.string.flynntown_name);
 		goreckiView = (ViewGroup)findViewByID(gorecki_clock);
-		((TextView)goreckiView.findViewByID(R.id.stopName)).setText(R.string.gorecki_name);
+		setStopText(goreckiView, gorecki_name);
 		hccView = (ViewGroup)findViewByID(hcc_clock);
-		((TextView)hccView.findViewByID(R.id.stopName)).setText(R.string.hcc_name);
+		setStopTime(hccView, hcc_name);
 		sextonView = (ViewGroup)findViewByID(sexton_clock);
-		((TextView)sextonView.findViewByID(R.id.stopName)).setText(R.string.sexton_name);
-		refresh();
+		setStopTime(sextonView, sexton_name);
+		refreshTimes();
   }
 
-	private void refresh(){
-		setStopTime(flynntownView, linkSchedule.getNextFlynntownTime());
-		setStopTime(goreckiView, linkSchedule.getNextGoreckiTime());
-		setStopTime(hccView, linkSchedule.getNextHCCTime());
-		setStopTime(sextonView, linkSchedule.getNextSextonTime());
+	private void refreshTimes(){
+		setStopTime(flynntownView, linkSchedule.getNextTime(BusStop.flynntown));
+		setStopTime(goreckiView, linkSchedule.getNextTime(BusStop.gorecki));
+		setStopTime(hccView, linkSchedule.getNextHCCTime(BusStop.hcc));
+		setStopTime(sextonView, linkSchedule.getNextSextonTime(BusStop.sexton));
 	}
 
 	private void setStopTime(ViewGroup busStopView, String time){
 		((TextView)busStopView.findViewByID(R.id.time)).setText(time);
+	}
+
+	private void setStopText(ViewGroup busStopView, int name_id){
+		((TextView)busStopView.findViewByID(R.id.stopName)).setText(name_id);
 	}
 
 	private class TickReciever extends BroadcastReciever{

@@ -16,6 +16,33 @@ public class DaySchedule{
 		this.sextonSchedule = sextonSchedule;
 	}
 
+	public String getNextTime(
+		LinkSchedule.BusStop busStop, GregorianCalendar currentTime)
+	{
+		TreeMap<GregorianCalendar, String> schedule = null;
+		switch(busStop){
+		case flynntown:
+			schedule = flynntownSchedule;
+			break;
+		case gorecki:
+			schedule = goreckiSchedule;
+			break;
+		case hcc:
+			schedule = hccSchedule;
+			break;
+		case sexton:
+			schedule = sextonSchedule;
+			break;
+		}
+		
+		for(GregorianCalendar c: schedule.keySet()){
+			if(currentTime.compareTo(c) < 0){
+				return getTimeString(currentTime);
+			}
+		}	
+		return null;
+	}
+
 	public void dayIncrement(){
 		dayIncrementBusStop(flynntownSchedule);
 		dayIncrementBusStop(goreckiSchedule);
