@@ -1,7 +1,10 @@
 package org.klnusbaum.linkschedule;
 
 import java.util.GregorianCalendar;
+import java.util.Calendar;
 import java.util.TreeMap;
+import java.util.Iterator;
+import android.util.Log;
 
 public class DaySchedule{
 	TreeMap<GregorianCalendar, String>
@@ -37,13 +40,20 @@ public class DaySchedule{
 			schedule = sextonSchedule;
 			break;
 		}
-		
+	
 		for(GregorianCalendar c: schedule.keySet()){
 			if(currentTime.compareTo(c) < 0){
-				return getTimeString(currentTime);
+				return schedule.get(c);
 			}
 		}	
 		return null;
+	}
+
+	public void printGDToLog(){
+		Log.i("special", "g sched");
+		for(GregorianCalendar c: goreckiSchedule.keySet()){
+			Log.i("special", goreckiSchedule.get(c) + " Day: " + c.get(Calendar.DATE));
+		}
 	}
 
 	public void dayIncrement(){
@@ -57,8 +67,8 @@ public class DaySchedule{
 		TreeMap<GregorianCalendar, String> newMap = new TreeMap<GregorianCalendar, String>();
 		GregorianCalendar tempCal;
 		for(GregorianCalendar c: map.keySet()){
-			tempCal = c.clone();
-			tempCal.add(Calendar.DAY, 1);
+			tempCal = (GregorianCalendar)c.clone();
+			tempCal.add(Calendar.DATE, 1);
 			newMap.put(tempCal, map.get(c));
 		}
 		map = newMap;

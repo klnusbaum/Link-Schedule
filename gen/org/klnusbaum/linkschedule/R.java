@@ -19,20 +19,21 @@ public final class R {
     public static final class attr {
     }
     public static final class id {
-        public static final int flynntown_clock=0x7f060004;
-        public static final int gorecki_clock=0x7f060003;
-        public static final int hcc_clock=0x7f060005;
-        public static final int sexton_clock=0x7f060002;
-        public static final int stopName=0x7f060001;
-        public static final int time=0x7f060000;
+        public static final int flynntown_label=0x7f060006;
+        public static final int flynntown_time=0x7f060004;
+        public static final int gorecki_label=0x7f060003;
+        public static final int gorecki_time=0x7f060001;
+        public static final int hcc_label=0x7f060007;
+        public static final int hcc_time=0x7f060005;
+        public static final int sexton_label=0x7f060002;
+        public static final int sexton_time=0x7f060000;
     }
     public static final class integer {
         public static final int flynntown_offset=0x7f040000;
         public static final int standard_bus_interval=0x7f040001;
     }
     public static final class layout {
-        public static final int bus_stop_clock=0x7f020000;
-        public static final int main=0x7f020001;
+        public static final int main=0x7f020000;
     }
     public static final class string {
         public static final int app_name=0x7f050000;
@@ -42,8 +43,8 @@ public final class R {
         public static final int gorecki_night_start=0x7f050005;
         public static final int gorecki_weekend_day_end=0x7f050008;
         public static final int gorecki_weekend_day_start=0x7f050007;
+        public static final int gorecki_weekend_morning_end=0x7f05000a;
         public static final int gorecki_weekend_morning_start=0x7f050009;
-        public static final int gorecki_weekend_morning_stop=0x7f05000a;
         public static final int hcc_name=0x7f050003;
         public static final int sexton_name=0x7f050004;
         public static final int sexton_night_end=0x7f05000c;

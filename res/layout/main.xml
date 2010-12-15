@@ -10,21 +10,89 @@
     	android:orientation="horizontal"
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
+			android:layout_weight="1"
 	>
-		<include android:id="@+id/sexton_clock" layout="@layout/bus_stop_clock"/>
-		<include android:id="@+id/gorecki_clock" layout="@layout/bus_stop_clock"/>
+			<TextView
+				android:id="@+id/sexton_time"
+				android:layout_width="wrap_content"
+				android:layout_height="fill_parent"
+			android:layout_weight="1"
+			/>
+			<TextView
+				android:id="@+id/gorecki_time"
+				android:layout_width="wrap_content"
+				android:layout_height="fill_parent"
+			android:layout_weight="1"
+			/>
 	</LinearLayout>
 
+	<LinearLayout
+			android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+			android:layout_weight="1"
+			>
+			<TextView
+				android:id="@+id/sexton_label"
+				android:layout_width="wrap_content"
+				android:layout_height="fill_parent"
+				android:text="@string/sexton_name"
+			android:layout_weight="1"
+			/>
+			<TextView
+				android:id="@+id/gorecki_label"
+				android:layout_width="wrap_content"
+				android:layout_height="fill_parent"
+				android:text="@string/gorecki_name"
+			android:layout_weight="1"
+			/>
+	</LinearLayout>
 
 
 	<LinearLayout 
     	android:orientation="horizontal"
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
+			android:layout_weight="1"
 	>
-		<include android:id="@+id/flynntown_clock" layout="@layout/bus_stop_clock"/>
-		<include android:id="@+id/hcc_clock" layout="@layout/bus_stop_clock"/>
+			<TextView
+				android:id="@+id/flynntown_time"
+				android:layout_width="wrap_content"
+				android:layout_height="fill_parent"
+			android:layout_weight="1"
+			/>
+			<TextView
+				android:id="@+id/hcc_time"
+				android:layout_width="wrap_content"
+				android:layout_height="fill_parent"
+			android:layout_weight="1"
+			/>
 	</LinearLayout>
+
+	<LinearLayout
+			android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+			android:layout_weight="1"
+			>
+			<TextView
+				android:id="@+id/flynntown_label"
+				android:layout_width="wrap_content"
+				android:layout_height="fill_parent"
+				android:text="@string/flynntown_name"
+			android:layout_weight="1"
+			/>
+			<TextView
+				android:id="@+id/hcc_label"
+				android:layout_width="wrap_content"
+				android:layout_height="fill_parent"
+				android:text="@string/hcc_name"
+			android:layout_weight="1"
+			/>
+	</LinearLayout>
+
+
+
 
 
 
