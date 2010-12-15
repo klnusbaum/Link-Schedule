@@ -12,16 +12,31 @@ public class LinkSchedule{
 
 	private Resources res;
 	private GregorianCalendar instanceToUse;
+	private boolean useCustomInstance;
 
 	public enum BusStop{flynntown, gorecki, hcc, sexton}
 
 	public LinkSchedule(Resources res){
 		this.res = res;
+		useCustomInstance = false;
+	}
+
+	public LinkSchedule(Resources res, GregorianCalendar customInstance){
+		this.res = res;
+		instanceToUse = customInstance;
+		useCustomInstance = true;
+	}
+
+	public GregorianCalendar getCalendarInstance(){
+		if(useCustomInstance){
+			return (GregorianCalendar)instanceToUse.clone();
+		}
+		return (GregorianCalendar)GregorianCalendar.getInstance();
 	}
 
 	public String getNextTime(BusStop busStop){
 		String toReturn = null;
-		GregorianCalendar currentTime = (GregorianCalendar)GregorianCalendar.getInstance();
+		GregorianCalendar currentTime = getCalendarInstance();
 		DaySchedule dailySched = getDailySchedule();
 		DaySchedule weekendSched = getWeekendSchedule();	
 		if(isWeekday(currentTime)){
@@ -200,7 +215,7 @@ public class LinkSchedule{
 
 	public GregorianCalendar getCalendarFromString(String timeString){
 			
-		GregorianCalendar toReturn = (GregorianCalendar)GregorianCalendar.getInstance();
+		GregorianCalendar toReturn = getCalendarInstance();
 		if(timeString.equals("12:46 p.m.")){
 			Log.i("special", "12:46 -> " + String.valueOf(toReturn.get(Calendar.DATE)));
 		}

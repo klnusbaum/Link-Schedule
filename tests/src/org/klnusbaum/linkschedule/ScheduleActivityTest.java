@@ -69,17 +69,15 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 
 		public void testGoreckiDaily(){
 			LinkSchedule goreckiSchedule = 
-				new LinkSchedule(resources);
+				new LinkSchedule(resources, mondayCalendar);
 			String acquiredTime = 
 				goreckiSchedule.getNextTime(LinkSchedule.BusStop.gorecki);
 			assertEquals("10:15 a.m.", acquiredTime);
 		}
 
 		public void testGoreckiWeekdayRollover(){
-			assert(SystemClock.setCurrentTimeMillis(thursdayAt1150PM.getTimeInMillis()));
-			assert(thursdayAt1150PM.compareTo((GregorianCalendar)GregorianCalendar.getInstance()) == 0);
 			LinkSchedule goreckiSchedule = 
-				new LinkSchedule(resources);
+				new LinkSchedule(resources, thursdayAt1150PM);
 			String acquiredTime = 
 				goreckiSchedule.getNextTime(LinkSchedule.BusStop.gorecki);
 			assertEquals("12:00 a.m.", acquiredTime);
