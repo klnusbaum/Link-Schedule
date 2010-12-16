@@ -22,6 +22,10 @@ public class ScheduleActivity extends Activity{
 		tickReceiver = new TickReceiver(this);
 		registerReceiver(
 			tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
+		registerReceiver(
+			tickReceiver, new IntentFilter(Intent.ACTION_TIME_CHANGED));
+		registerReceiver(
+			tickReceiver, new IntentFilter(Intent.ACTION_TIMEZONE_CHANGED));
 
 		refreshTimes();
   }

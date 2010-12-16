@@ -22,6 +22,7 @@ public class DaySchedule{
 		this.sextonSchedule = sextonSchedule;
 	}
 
+
 	public String getNextTime(
 		LinkSchedule.BusStop busStop, GregorianCalendar currentTime)
 	{

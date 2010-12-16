@@ -216,9 +216,9 @@ public class LinkSchedule{
 	public GregorianCalendar getCalendarFromString(String timeString){
 			
 		GregorianCalendar toReturn = getCalendarInstance();
-		if(timeString.equals("12:46 p.m.")){
+		/*if(timeString.equals("12:46 p.m.")){
 			Log.i("special", "12:46 -> " + String.valueOf(toReturn.get(Calendar.DATE)));
-		}
+		}*/
 		String toks1[] = timeString.split(":");
 		String toks2[] = toks1[1].split(" ");
 		toReturn.set(Calendar.HOUR, Integer.parseInt(toks1[0]));

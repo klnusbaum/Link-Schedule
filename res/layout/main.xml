@@ -16,13 +16,17 @@
 				android:id="@+id/sexton_time"
 				android:layout_width="wrap_content"
 				android:layout_height="fill_parent"
-			android:layout_weight="1"
+				android:layout_weight="1"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:gravity="center_vertical|center_horizontal"
 			/>
 			<TextView
 				android:id="@+id/gorecki_time"
 				android:layout_width="wrap_content"
 				android:layout_height="fill_parent"
-			android:layout_weight="1"
+				android:layout_weight="1"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:gravity="center_vertical|center_horizontal"
 			/>
 	</LinearLayout>
 
@@ -38,6 +42,7 @@
 				android:layout_height="fill_parent"
 				android:text="@string/sexton_name"
 			android:layout_weight="1"
+				android:gravity="top|center_horizontal"
 			/>
 			<TextView
 				android:id="@+id/gorecki_label"
@@ -45,6 +50,7 @@
 				android:layout_height="fill_parent"
 				android:text="@string/gorecki_name"
 			android:layout_weight="1"
+				android:gravity="top|center_horizontal"
 			/>
 	</LinearLayout>
 
@@ -59,13 +65,17 @@
 				android:id="@+id/flynntown_time"
 				android:layout_width="wrap_content"
 				android:layout_height="fill_parent"
-			android:layout_weight="1"
+				android:layout_weight="1"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:gravity="center_vertical|center_horizontal"
 			/>
 			<TextView
 				android:id="@+id/hcc_time"
 				android:layout_width="wrap_content"
 				android:layout_height="fill_parent"
-			android:layout_weight="1"
+				android:layout_weight="1"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:gravity="center_vertical|center_horizontal"
 			/>
 	</LinearLayout>
 
@@ -81,6 +91,7 @@
 				android:layout_height="fill_parent"
 				android:text="@string/flynntown_name"
 			android:layout_weight="1"
+				android:gravity="top|center_horizontal"
 			/>
 			<TextView
 				android:id="@+id/hcc_label"
@@ -88,6 +99,7 @@
 				android:layout_height="fill_parent"
 				android:text="@string/hcc_name"
 			android:layout_weight="1"
+				android:gravity="top|center_horizontal"
 			/>
 	</LinearLayout>
 
