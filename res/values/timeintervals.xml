@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="gorecki_night_start">6:00 p.m.</string>
-	<string name="gorecki_night_end">11:30 p.m.</string>
-	<string name="gorecki_weekend_day_start">10:00 a.m.</string>
-	<string name="gorecki_weekend_day_end">5:30 p.m.</string>
-	<string name="gorecki_weekend_morning_start">12:00 a.m.</string>
-	<string name="gorecki_weekend_morning_end">2:00 a.m.</string>
+	<string name="gorecki_night_start">18:00</string>
+	<string name="gorecki_night_end">23:30</string>
+	<string name="gorecki_weekend_day_start">10:00</string>
+	<string name="gorecki_weekend_day_end">17:30</string>
+	<string name="gorecki_weekend_morning_start">0:00</string>
+	<string name="gorecki_weekend_morning_end">2:00</string>
 
-	<string name="sexton_night_start">6:15 p.m.</string>
-	<string name="sexton_night_end">11:45 p.m.</string>
-	<string name="sexton_weekend_day_start">10:15 a.m.</string>
-	<string name="sexton_weekend_day_end">5:45 p.m.</string>
-	<string name="sexton_weekend_morning_start">12:15 a.m.</string>
-	<string name="sexton_weekend_morning_end">2:15 a.m.</string>
+	<string name="sexton_night_start">18:15</string>
+	<string name="sexton_night_end">23:45</string>
+	<string name="sexton_weekend_day_start">10:15</string>
+	<string name="sexton_weekend_day_end">17:45</string>
+	<string name="sexton_weekend_morning_start">0:15</string>
+	<string name="sexton_weekend_morning_end">2:15</string>
 </resources>
 

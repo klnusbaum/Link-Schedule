@@ -214,21 +214,10 @@ public class LinkSchedule{
 	}
 
 	public GregorianCalendar getCalendarFromString(String timeString){
-			
 		GregorianCalendar toReturn = getCalendarInstance();
-		/*if(timeString.equals("12:46 p.m.")){
-			Log.i("special", "12:46 -> " + String.valueOf(toReturn.get(Calendar.DATE)));
-		}*/
 		String toks1[] = timeString.split(":");
-		String toks2[] = toks1[1].split(" ");
-		toReturn.set(Calendar.HOUR, Integer.parseInt(toks1[0]));
-		toReturn.set(Calendar.MINUTE, Integer.parseInt(toks2[0]));
-		if(toks2[1].equals("a.m.")){
-			toReturn.set(Calendar.AM_PM, Calendar.AM);
-		}
-		else if(toks2[1].equals("p.m.")){
-			toReturn.set(Calendar.AM_PM, Calendar.PM);
-		}
+		toReturn.set(Calendar.HOUR_OF_DAY, Integer.parseInt(toks1[0]));
+		toReturn.set(Calendar.MINUTE, Integer.parseInt(toks1[1]));
 		return toReturn;
 	}
 

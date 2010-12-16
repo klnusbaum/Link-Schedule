@@ -51,7 +51,7 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			thursdayAt1150PM.set(Calendar.MINUTE, 50);
 		}
 
-		public void testIsWeekday(){
+/*		public void testIsWeekday(){
 			assertTrue(LinkSchedule.isWeekday(mondayCalendar));
 		}
 
@@ -69,7 +69,7 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			String acquiredTime = 
 				goreckiSchedule.getNextTime(LinkSchedule.BusStop.gorecki);
 			assertEquals("10:15 a.m.", acquiredTime);
-		}
+		}*/
 
 		public void testGoreckiWeekdayRollover(){
 			LinkSchedule goreckiSchedule = 
