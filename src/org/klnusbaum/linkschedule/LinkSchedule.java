@@ -40,11 +40,9 @@ public class LinkSchedule{
 		DaySchedule dailySched = getDailySchedule();
 		DaySchedule weekendSched = getWeekendSchedule();	
 		if(isWeekday(currentTime)){
-			Log.i("special", "in wrong if");
 			toReturn = dailySched.getNextTime(busStop, currentTime);
 			if(toReturn == null && isFriday(currentTime)){
 				weekendSched.dayIncrement();
-				weekendSched.printGDToLog();
 				return weekendSched.getNextTime(busStop, currentTime);
 			}
 			else if(toReturn == null){
@@ -54,13 +52,18 @@ public class LinkSchedule{
 			return toReturn;
 		}
 		else{
-			Log.i("special", "in correct if");
 			toReturn = weekendSched.getNextTime(busStop, currentTime);
+			if(toReturn != null){
+				Log.i("special", "no rolling over");
+				weekendSched.printGDToLog();
+			}
 			if(toReturn == null && isSunday(currentTime)){
+				Log.i("special", "in correct rollover");
 				dailySched.dayIncrement();
 				return dailySched.getNextTime(busStop, currentTime);
 			}
 			else if(toReturn == null){
+				Log.i("special", "in wrong  rollover");
 				weekendSched.dayIncrement();
 				return weekendSched.getNextTime(busStop, currentTime);
 			}

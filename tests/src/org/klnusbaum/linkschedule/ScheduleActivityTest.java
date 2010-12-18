@@ -107,38 +107,84 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 		}
 
 		public void testSaturdayLateNight(){
-			GregorianCalendar saturdayCalendar = (GregorianCalendar)GregorianCalendar.getInstance();
-			saturdayCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-			saturdayCalendar.set(Calendar.HOUR_OF_DAY, 1);
-			saturdayCalendar.set(Calendar.MINUTE, 26);
+			GregorianCalendar saturdayLateCalendar = (GregorianCalendar)GregorianCalendar.getInstance();
+			saturdayLateCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+			saturdayLateCalendar.set(Calendar.HOUR_OF_DAY, 1);
+			saturdayLateCalendar.set(Calendar.MINUTE, 26);
 			LinkSchedule goreckiSchedule = 
-				new LinkSchedule(resources, saturdayCalendar);
+				new LinkSchedule(resources, saturdayLateCalendar);
 			String acquiredTime = 
 				goreckiSchedule.getNextTime(LinkSchedule.BusStop.gorecki);
 			assertEquals("1:30 a.m.", acquiredTime);
 	
 		}
-/*
+
 		public void testSaturday(){
+			GregorianCalendar saturdayCalendar = (GregorianCalendar)GregorianCalendar.getInstance();
+			saturdayCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+			saturdayCalendar.set(Calendar.HOUR_OF_DAY, 12);
+			saturdayCalendar.set(Calendar.MINUTE, 15);
+			LinkSchedule goreckiSchedule = 
+				new LinkSchedule(resources, saturdayCalendar);
+			String acquiredTime = 
+				goreckiSchedule.getNextTime(LinkSchedule.BusStop.gorecki);
+			assertEquals("12:30 p.m.", acquiredTime);
 	
 		}
 
 		public void testSaturdayRollover(){
+			GregorianCalendar saturdayLateCalendar = (GregorianCalendar)GregorianCalendar.getInstance();
+			saturdayLateCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+			saturdayLateCalendar.set(Calendar.HOUR_OF_DAY, 23);
+			saturdayLateCalendar.set(Calendar.MINUTE, 59);
+			LinkSchedule goreckiSchedule = 
+				new LinkSchedule(resources, saturdayLateCalendar);
+			String acquiredTime = 
+				goreckiSchedule.getNextTime(LinkSchedule.BusStop.gorecki);
+			assertEquals("12:00 a.m.", acquiredTime);
 	
 		}
 
 		public void testSundayLateNight(){
+			GregorianCalendar sundayLateCalendar = (GregorianCalendar)GregorianCalendar.getInstance();
+			sundayLateCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+			sundayLateCalendar.set(Calendar.HOUR_OF_DAY, 1);
+			sundayLateCalendar.set(Calendar.MINUTE, 59);
+			LinkSchedule goreckiSchedule = 
+				new LinkSchedule(resources, sundayLateCalendar);
+			String acquiredTime = 
+				goreckiSchedule.getNextTime(LinkSchedule.BusStop.gorecki);
+			assertEquals("2:00 a.m.", acquiredTime);
 	
 		}
 
 		public void testSunday(){
+			GregorianCalendar sundayCalendar = (GregorianCalendar)GregorianCalendar.getInstance();
+			sundayCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+			sundayCalendar.set(Calendar.HOUR_OF_DAY, 8);
+			sundayCalendar.set(Calendar.MINUTE, 40);
+			LinkSchedule goreckiSchedule = 
+				new LinkSchedule(resources, sundayCalendar);
+			String acquiredTime = 
+				goreckiSchedule.getNextTime(LinkSchedule.BusStop.gorecki);
+			assertEquals("10:00 a.m.", acquiredTime);
 	
 		}
 
 		public void testSundayRollover(){
+			Log.i("special", "in sunday rollover");
+			GregorianCalendar sundayLateCalendar = (GregorianCalendar)GregorianCalendar.getInstance();
+			sundayLateCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+			sundayLateCalendar.set(Calendar.HOUR_OF_DAY, 23);
+			sundayLateCalendar.set(Calendar.MINUTE, 59);
+			Log.i("special", "date " + sundayLateCalendar.get(Calendar.DATE));
+			LinkSchedule goreckiSchedule = 
+				new LinkSchedule(resources, sundayLateCalendar);
+			String acquiredTime = 
+				goreckiSchedule.getNextTime(LinkSchedule.BusStop.gorecki);
+			assertEquals("12:00 a.m.", acquiredTime);
 
 		}
-	*/
 
 
 }
