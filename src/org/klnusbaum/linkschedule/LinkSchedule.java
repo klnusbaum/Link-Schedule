@@ -40,9 +40,9 @@ public class LinkSchedule{
 		DaySchedule dailySched = getDailySchedule();
 		DaySchedule weekendSched = getWeekendSchedule();	
 		if(isWeekday(currentTime)){
+			Log.i("special", "in wrong if");
 			toReturn = dailySched.getNextTime(busStop, currentTime);
 			if(toReturn == null && isFriday(currentTime)){
-				Log.i("special","rolled over correctly");
 				weekendSched.dayIncrement();
 				weekendSched.printGDToLog();
 				return weekendSched.getNextTime(busStop, currentTime);
@@ -54,6 +54,7 @@ public class LinkSchedule{
 			return toReturn;
 		}
 		else{
+			Log.i("special", "in correct if");
 			toReturn = weekendSched.getNextTime(busStop, currentTime);
 			if(toReturn == null && isSunday(currentTime)){
 				dailySched.dayIncrement();
@@ -233,8 +234,8 @@ public class LinkSchedule{
 	}
 
 	public static boolean isWeekday(GregorianCalendar date){
-		return !(date.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY 
-			&& date.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY);
+		return !(date.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)
+			&& !(date.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY);
 	}
 
 	public static boolean isFriday(GregorianCalendar date){

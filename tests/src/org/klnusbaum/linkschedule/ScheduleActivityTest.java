@@ -54,14 +54,17 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 
 		public void testIsWeekday(){
 			assertTrue(LinkSchedule.isWeekday(mondayCalendar));
+			assertFalse(LinkSchedule.isWeekday(sundayCalendar));
 		}
 
 		public void testIsFriday(){
 			assertTrue(LinkSchedule.isFriday(fridayCalendar));
+			assertFalse(LinkSchedule.isFriday(mondayCalendar));
 		}
 
 		public void testIsSunday(){
 			assertTrue(LinkSchedule.isSunday(sundayCalendar));
+			assertFalse(LinkSchedule.isSunday(mondayCalendar));
 		}
 
 		public void testIncrement(){
@@ -83,7 +86,6 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 		}
 
 		public void testWeekdayRollover(){
-			Log.i("special", "In rollover test");
 			LinkSchedule goreckiSchedule = 
 				new LinkSchedule(resources, thursdayAt1150PM);
 			String acquiredTime = 
