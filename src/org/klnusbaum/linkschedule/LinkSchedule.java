@@ -53,17 +53,11 @@ public class LinkSchedule{
 		}
 		else{
 			toReturn = weekendSched.getNextTime(busStop, currentTime);
-			if(toReturn != null){
-				Log.i("special", "no rolling over");
-				weekendSched.printGDToLog();
-			}
 			if(toReturn == null && isSunday(currentTime)){
-				Log.i("special", "in correct rollover");
 				dailySched.dayIncrement();
 				return dailySched.getNextTime(busStop, currentTime);
 			}
 			else if(toReturn == null){
-				Log.i("special", "in wrong  rollover");
 				weekendSched.dayIncrement();
 				return weekendSched.getNextTime(busStop, currentTime);
 			}

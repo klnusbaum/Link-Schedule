@@ -45,8 +45,7 @@ public class DaySchedule implements Comparable{
 		}
 	
 		for(GregorianCalendar c: schedule.keySet()){
-			if(currentTime.compareTo(c) < 0){
-				Log.i("special", "going to return with " + schedule.get(c));
+			if(currentTime.compareTo(c) <= 0){
 				return schedule.get(c);
 			}
 		}	
