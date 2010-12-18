@@ -166,7 +166,8 @@ public class LinkSchedule{
 			new TreeMap<GregorianCalendar, String>();
 		String currentTimeString;
 		for(int i=0; i<dayTimes.length; i++){
-			toReturn.put(getCalendarFromString(dayTimes[i]), dayTimes[i]);
+			GregorianCalendar toInsert = getCalendarFromString(dayTimes[i]);
+			toReturn.put(toInsert, getStandardLabel(toInsert));
 		}
 		iterateInsert(toReturn, nightStart, nightEnd, offset);
 		return toReturn;

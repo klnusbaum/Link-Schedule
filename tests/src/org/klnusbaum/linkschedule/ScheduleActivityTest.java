@@ -19,9 +19,6 @@ import android.util.Log;
  */
 public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<ScheduleActivity> {
 		private Resources resources;
-		private GregorianCalendar mondayCalendar, fridayCalendar,
-			sundayCalendar, thursdayAt1150PM;
-		
 
     public ScheduleActivityTest() {
         super("org.klnusbaum.linkschedule", ScheduleActivity.class);
@@ -75,6 +72,12 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			acquiredTime = 
 				schedule.getNextTime(LinkSchedule.BusStop.sexton);
 			assertEquals("10:15 a.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+			assertEquals("9:53 a.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+			assertEquals("10:15 a.m.", acquiredTime);
 		}
 
 		public void testWeekdayRollover(){
@@ -87,6 +90,12 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			acquiredTime = 
 				schedule.getNextTime(LinkSchedule.BusStop.sexton);
 			assertEquals("12:15 a.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+			assertEquals("12:08 a.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+			assertEquals("12:00 a.m.", acquiredTime);
 		}
 
 		public void testFridayRollover(){
@@ -99,6 +108,12 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			acquiredTime = 
 				schedule.getNextTime(LinkSchedule.BusStop.sexton);
 			assertEquals("12:15 a.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+			assertEquals("12:08 a.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+			assertEquals("12:00 a.m.", acquiredTime);
 	
 		}
 
@@ -112,6 +127,12 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			acquiredTime = 
 				schedule.getNextTime(LinkSchedule.BusStop.sexton);
 			assertEquals("1:45 a.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+			assertEquals("1:38 a.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+			assertEquals("1:30 a.m.", acquiredTime);
 	
 		}
 
@@ -125,6 +146,12 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			acquiredTime = 
 				schedule.getNextTime(LinkSchedule.BusStop.sexton);
 			assertEquals("12:15 p.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+			assertEquals("12:38 p.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+			assertEquals("12:30 p.m.", acquiredTime);
 	
 		}
 
@@ -138,6 +165,12 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			acquiredTime = 
 				schedule.getNextTime(LinkSchedule.BusStop.sexton);
 			assertEquals("12:15 a.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+			assertEquals("12:08 a.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+			assertEquals("12:00 a.m.", acquiredTime);
 	
 		}
 
@@ -151,6 +184,12 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			acquiredTime = 
 				schedule.getNextTime(LinkSchedule.BusStop.sexton);
 			assertEquals("2:15 a.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+			assertEquals("2:08 a.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+			assertEquals("2:00 a.m.", acquiredTime);
 		}
 
 		public void testSunday(){
@@ -164,6 +203,12 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 				schedule.getNextTime(LinkSchedule.BusStop.sexton);
 			assertEquals("10:15 a.m.", acquiredTime);
 	
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+			assertEquals("10:08 a.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+			assertEquals("10:00 a.m.", acquiredTime);
 		}
 
 		public void testSundayRollover(){
@@ -179,6 +224,12 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			acquiredTime = 
 				schedule.getNextTime(LinkSchedule.BusStop.sexton);
 			assertEquals("12:15 a.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+			assertEquals("12:08 a.m.", acquiredTime);
+			acquiredTime = 
+				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+			assertEquals("12:00 a.m.", acquiredTime);
 		}
 
 
