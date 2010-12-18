@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.Calendar;
 import android.content.res.Resources;
 import android.os.SystemClock;
+import android.util.Log;
 
 /**
  * This is a simple framework for a test of an Application.  See
@@ -51,7 +52,7 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			thursdayAt1150PM.set(Calendar.MINUTE, 50);
 		}
 
-/*		public void testIsWeekday(){
+		public void testIsWeekday(){
 			assertTrue(LinkSchedule.isWeekday(mondayCalendar));
 		}
 
@@ -63,21 +64,79 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			assertTrue(LinkSchedule.isSunday(sundayCalendar));
 		}
 
-		public void testGoreckiDaily(){
+		public void testIncrement(){
+			LinkSchedule goreckiSchedule = 
+				new LinkSchedule(resources, thursdayAt1150PM);
+			DaySchedule regularSchedule = goreckiSchedule.getDailySchedule();
+			DaySchedule toIncrement = goreckiSchedule.getDailySchedule();
+			toIncrement.dayIncrement();
+			assertTrue(toIncrement.compareTo(regularSchedule) > 0);
+		}
+			
+
+		public void testDaily(){
 			LinkSchedule goreckiSchedule = 
 				new LinkSchedule(resources, mondayCalendar);
 			String acquiredTime = 
 				goreckiSchedule.getNextTime(LinkSchedule.BusStop.gorecki);
 			assertEquals("10:15 a.m.", acquiredTime);
-		}*/
+		}
 
-		public void testGoreckiWeekdayRollover(){
+		public void testWeekdayRollover(){
+			Log.i("special", "In rollover test");
 			LinkSchedule goreckiSchedule = 
 				new LinkSchedule(resources, thursdayAt1150PM);
 			String acquiredTime = 
 				goreckiSchedule.getNextTime(LinkSchedule.BusStop.gorecki);
 			assertEquals("12:00 a.m.", acquiredTime);
 		}
+
+		public void testFridayRollover(){
+			GregorianCalendar fridayLateCalendar = (GregorianCalendar)GregorianCalendar.getInstance();
+			fridayLateCalendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+			fridayLateCalendar.set(Calendar.HOUR_OF_DAY, 23);
+			fridayLateCalendar.set(Calendar.MINUTE, 50);
+			LinkSchedule goreckiSchedule = 
+				new LinkSchedule(resources, fridayLateCalendar);
+			String acquiredTime = 
+				goreckiSchedule.getNextTime(LinkSchedule.BusStop.gorecki);
+			assertEquals("12:00 a.m.", acquiredTime);
+	
+		}
+
+		public void testSaturdayLateNight(){
+			GregorianCalendar saturdayCalendar = (GregorianCalendar)GregorianCalendar.getInstance();
+			saturdayCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+			saturdayCalendar.set(Calendar.HOUR_OF_DAY, 1);
+			saturdayCalendar.set(Calendar.MINUTE, 26);
+			LinkSchedule goreckiSchedule = 
+				new LinkSchedule(resources, saturdayCalendar);
+			String acquiredTime = 
+				goreckiSchedule.getNextTime(LinkSchedule.BusStop.gorecki);
+			assertEquals("1:30 a.m.", acquiredTime);
+	
+		}
+/*
+		public void testSaturday(){
+	
+		}
+
+		public void testSaturdayRollover(){
+	
+		}
+
+		public void testSundayLateNight(){
+	
+		}
+
+		public void testSunday(){
+	
+		}
+
+		public void testSundayRollover(){
+
+		}
+	*/
 
 
 }

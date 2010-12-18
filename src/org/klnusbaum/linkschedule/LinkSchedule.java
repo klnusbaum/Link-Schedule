@@ -41,18 +41,14 @@ public class LinkSchedule{
 		DaySchedule weekendSched = getWeekendSchedule();	
 		if(isWeekday(currentTime)){
 			toReturn = dailySched.getNextTime(busStop, currentTime);
-			if(getStandardLabel(currentTime).equals("11:50 p.m.")){
-				Log.i("special", "Return val: " +toReturn);
-				dailySched.printGDToLog();
-			}
 			if(toReturn == null && isFriday(currentTime)){
-				Log.i("special", "rolled over incorrectly");
+				Log.i("special","rolled over correctly");
 				weekendSched.dayIncrement();
+				weekendSched.printGDToLog();
 				return weekendSched.getNextTime(busStop, currentTime);
 			}
 			else if(toReturn == null){
 				dailySched.dayIncrement();
-				Log.i("special", "rolled over correctly");
 				return dailySched.getNextTime(busStop, currentTime);
 			}
 			return toReturn;
@@ -71,7 +67,7 @@ public class LinkSchedule{
 		}
 	}
 
-	private DaySchedule getWeekendSchedule(){
+	public DaySchedule getWeekendSchedule(){
 		TreeMap<GregorianCalendar, String> goreckiMap = getSimpleCalendars(
 			getCalendarFromString(res.getString(R.string.gorecki_weekend_morning_start)),
 			getCalendarFromString(res.getString(R.string.gorecki_weekend_morning_end)),
@@ -114,7 +110,7 @@ public class LinkSchedule{
 		return new DaySchedule(flynntownMap, goreckiMap, hccMap, sextonMap);
 	}
 
-	private DaySchedule getDailySchedule(){
+	public DaySchedule getDailySchedule(){
 		TreeMap<GregorianCalendar, String> goreckiMap = getCalendarsWithLabels(
 			res.getStringArray(R.array.gorecki_weekday_times),
 			res.getStringArray(R.array.gorecki_weekday_labels),
@@ -227,8 +223,11 @@ public class LinkSchedule{
 		if(minute.length() == 1){
 			minute = "0" + minute;
 		}
-		toReturn = calendar.get(Calendar.HOUR) + ":" + 
-			minute + " " + 
+		String hour = String.valueOf(calendar.get(Calendar.HOUR));
+		if(hour.equals("0")){
+			hour = "12";
+		}
+		toReturn = hour + ":" + minute + " " + 
 			(calendar.get(Calendar.AM_PM) == Calendar.AM ? "a.m." : "p.m.");
 		return toReturn;
 	}

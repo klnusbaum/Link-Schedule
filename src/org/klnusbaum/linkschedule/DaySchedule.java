@@ -6,7 +6,7 @@ import java.util.TreeMap;
 import java.util.Iterator;
 import android.util.Log;
 
-public class DaySchedule{
+public class DaySchedule implements Comparable{
 	TreeMap<GregorianCalendar, String>
 		flynntownSchedule, goreckiSchedule, hccSchedule, sextonSchedule;
 
@@ -26,6 +26,7 @@ public class DaySchedule{
 	public String getNextTime(
 		LinkSchedule.BusStop busStop, GregorianCalendar currentTime)
 	{
+		//Log.i("special", "getNext called");
 		TreeMap<GregorianCalendar, String> schedule = null;
 		switch(busStop){
 		case flynntown:
@@ -47,24 +48,27 @@ public class DaySchedule{
 				return schedule.get(c);
 			}
 		}	
+	//	Log.i("special", "getNext returing null");
 		return null;
 	}
 
 	public void printGDToLog(){
 		Log.i("special", "g sched");
 		for(GregorianCalendar c: goreckiSchedule.keySet()){
-			Log.i("special", goreckiSchedule.get(c) + " Day: " + c.get(Calendar.DATE));
+			//Log.i("special", goreckiSchedule.get(c) + " Day: " + c.get(Calendar.DATE));
+			String ap = c.get(Calendar.AM_PM) == Calendar.AM ? "a.m." : "p.m.";
+			Log.i("special",c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + " " + ap);
 		}
 	}
 
 	public void dayIncrement(){
-		dayIncrementBusStop(flynntownSchedule);
-		dayIncrementBusStop(goreckiSchedule);
-		dayIncrementBusStop(hccSchedule);
-		dayIncrementBusStop(sextonSchedule);
+		flynntownSchedule = dayIncrementBusStop(flynntownSchedule);
+		goreckiSchedule = dayIncrementBusStop(goreckiSchedule);
+		hccSchedule = dayIncrementBusStop(hccSchedule);
+		sextonSchedule = dayIncrementBusStop(sextonSchedule);
 	}	
 
-	private void dayIncrementBusStop(TreeMap<GregorianCalendar, String> map){
+	private TreeMap<GregorianCalendar, String> dayIncrementBusStop(TreeMap<GregorianCalendar, String> map){
 		TreeMap<GregorianCalendar, String> newMap = new TreeMap<GregorianCalendar, String>();
 		GregorianCalendar tempCal;
 		for(GregorianCalendar c: map.keySet()){
@@ -72,6 +76,11 @@ public class DaySchedule{
 			tempCal.add(Calendar.DATE, 1);
 			newMap.put(tempCal, map.get(c));
 		}
-		map = newMap;
+		return newMap;
+	}
+
+	public int compareTo(Object o){
+		DaySchedule otherSchedule = (DaySchedule)o;
+		return flynntownSchedule.firstKey().compareTo(otherSchedule.flynntownSchedule.firstKey());
 	}
 }
