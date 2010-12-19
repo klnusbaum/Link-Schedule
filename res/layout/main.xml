@@ -18,6 +18,7 @@
  --> 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:app="http://schemas.android.com/apk/res/org.klnusbaum.linkschedule"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -27,100 +28,53 @@
 	<LinearLayout 
     	android:orientation="horizontal"
     	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
+    	android:layout_height="wrap_content"
 			android:layout_weight="1"
 	>
-			<TextView
-				android:id="@+id/sexton_time"
-				android:layout_width="wrap_content"
-				android:layout_height="fill_parent"
-				android:layout_weight="1"
-				android:textAppearance="?android:attr/textAppearanceLarge"
-				android:gravity="center_vertical|center_horizontal"
-			/>
-			<TextView
-				android:id="@+id/gorecki_time"
-				android:layout_width="wrap_content"
-				android:layout_height="fill_parent"
-				android:layout_weight="1"
-				android:textAppearance="?android:attr/textAppearanceLarge"
-				android:gravity="center_vertical|center_horizontal"
-			/>
+		<org.klnusbaum.linkschedule.ClockView
+			android:id="@+id/sexton_clock"
+			app:stopName="@string/sexton_name"
+			android:orientation="vertical"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:gravity="center_vertical|center_horizontal"
+		/>
+		<org.klnusbaum.linkschedule.ClockView
+			android:id="@+id/flynntown_clock"
+			app:stopName="@string/flynntown_name"
+			android:orientation="vertical"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:gravity="center_vertical|center_horizontal"
+		/>
 	</LinearLayout>
-
-	<LinearLayout
-			android:orientation="horizontal"
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-			android:layout_weight="1"
-			>
-			<TextView
-				android:id="@+id/sexton_label"
-				android:layout_width="wrap_content"
-				android:layout_height="fill_parent"
-				android:text="@string/sexton_name"
-			android:layout_weight="1"
-				android:gravity="top|center_horizontal"
-			/>
-			<TextView
-				android:id="@+id/gorecki_label"
-				android:layout_width="wrap_content"
-				android:layout_height="fill_parent"
-				android:text="@string/gorecki_name"
-			android:layout_weight="1"
-				android:gravity="top|center_horizontal"
-			/>
-	</LinearLayout>
-
-
 	<LinearLayout 
     	android:orientation="horizontal"
     	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
+    	android:layout_height="wrap_content"
 			android:layout_weight="1"
 	>
-			<TextView
-				android:id="@+id/flynntown_time"
-				android:layout_width="wrap_content"
-				android:layout_height="fill_parent"
-				android:layout_weight="1"
-				android:textAppearance="?android:attr/textAppearanceLarge"
-				android:gravity="center_vertical|center_horizontal"
-			/>
-			<TextView
-				android:id="@+id/hcc_time"
-				android:layout_width="wrap_content"
-				android:layout_height="fill_parent"
-				android:layout_weight="1"
-				android:textAppearance="?android:attr/textAppearanceLarge"
-				android:gravity="center_vertical|center_horizontal"
-			/>
+		<org.klnusbaum.linkschedule.ClockView
+			android:id="@+id/gorecki_clock"
+			app:stopName="@string/gorecki_name"
+			android:orientation="vertical"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:gravity="center_vertical|center_horizontal"
+		/>
+		<org.klnusbaum.linkschedule.ClockView
+			android:id="@+id/hcc_clock"
+			app:stopName="@string/hcc_name"
+			android:orientation="vertical"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:gravity="center_vertical|center_horizontal"
+		/>
 	</LinearLayout>
-
-	<LinearLayout
-			android:orientation="horizontal"
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-			android:layout_weight="1"
-			>
-			<TextView
-				android:id="@+id/flynntown_label"
-				android:layout_width="wrap_content"
-				android:layout_height="fill_parent"
-				android:text="@string/flynntown_name"
-			android:layout_weight="1"
-				android:gravity="top|center_horizontal"
-			/>
-			<TextView
-				android:id="@+id/hcc_label"
-				android:layout_width="wrap_content"
-				android:layout_height="fill_parent"
-				android:text="@string/hcc_name"
-			android:layout_weight="1"
-				android:gravity="top|center_horizontal"
-			/>
-	</LinearLayout>
-
 
 
 

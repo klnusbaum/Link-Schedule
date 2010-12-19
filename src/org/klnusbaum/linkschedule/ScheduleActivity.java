@@ -35,6 +35,7 @@ import android.net.Uri;
 public class ScheduleActivity extends Activity{
 	private LinkSchedule linkSchedule;
 	private TickReceiver tickReceiver;
+	private ClockView sextonClock, flynntownClock, hccClock, goreckiClock;
 
   @Override
   protected void onCreate(Bundle savedInstanceState){
@@ -48,6 +49,10 @@ public class ScheduleActivity extends Activity{
 			tickReceiver, new IntentFilter(Intent.ACTION_TIME_CHANGED));
 		registerReceiver(
 			tickReceiver, new IntentFilter(Intent.ACTION_TIMEZONE_CHANGED));
+		sextonClock = (ClockView)findViewById(R.id.sexton_clock);
+		goreckiClock = (ClockView)findViewById(R.id.gorecki_clock);
+		hccClock = (ClockView)findViewById(R.id.hcc_clock);
+		flynntownClock = (ClockView)findViewById(R.id.flynntown_clock);
 
 		refreshTimes();
   }
@@ -72,10 +77,12 @@ public class ScheduleActivity extends Activity{
 			Intent showAboutIntent =
 				new Intent(ScheduleActivity.this, AboutActivity.class);
 				startActivity(showAboutIntent);
+				return true;
 		case R.id.menuLinkWebsite:
 			Intent linkWebsiteIntent =
 				new Intent(Intent.ACTION_VIEW, new Uri.Builder().scheme("http").authority("csbsju.edu").appendPath("Transportation").build());
 				startActivity(linkWebsiteIntent);
+				return true;
     default:
       return super.onOptionsItemSelected(item);
     }
@@ -83,14 +90,10 @@ public class ScheduleActivity extends Activity{
 
 			
 	private void refreshTimes(){
-		setStopTime(R.id.sexton_time, linkSchedule.getNextTime(LinkSchedule.BusStop.sexton));
-		setStopTime(R.id.gorecki_time, linkSchedule.getNextTime(LinkSchedule.BusStop.gorecki));
-		setStopTime(R.id.flynntown_time, linkSchedule.getNextTime(LinkSchedule.BusStop.flynntown));
-		setStopTime(R.id.hcc_time, linkSchedule.getNextTime(LinkSchedule.BusStop.hcc));
-	}
-
-	private void setStopTime(int id, String time){
-		((TextView)findViewById(id)).setText(time);
+		sextonClock.setClockTime(linkSchedule.getNextTime(LinkSchedule.BusStop.sexton));
+		goreckiClock.setClockTime(linkSchedule.getNextTime(LinkSchedule.BusStop.gorecki));
+		flynntownClock.setClockTime(linkSchedule.getNextTime(LinkSchedule.BusStop.flynntown));
+		hccClock.setClockTime(linkSchedule.getNextTime(LinkSchedule.BusStop.hcc));
 	}
 
 	private class TickReceiver extends BroadcastReceiver{

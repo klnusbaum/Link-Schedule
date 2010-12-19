@@ -44,8 +44,6 @@ public class DaySchedule implements Comparable{
 	public String getNextTime(
 		LinkSchedule.BusStop busStop, GregorianCalendar currentTime)
 	{
-		Log.i("special", "Get next called with time of "+ currentTime.get(Calendar.HOUR_OF_DAY) + ":" + 
-			currentTime.get(Calendar.MINUTE));
 		TreeMap<GregorianCalendar, String> schedule = null;
 		switch(busStop){
 		case flynntown:
@@ -68,14 +66,6 @@ public class DaySchedule implements Comparable{
 			}
 		}	
 		return null;
-	}
-
-	public void printGDToLog(){
-		Log.i("special", "g sched");
-		for(GregorianCalendar c: goreckiSchedule.keySet()){
-			//Log.i("special", goreckiSchedule.get(c) + " Day: " + c.get(Calendar.DATE));
-			Log.i("special",c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + " " + goreckiSchedule.get(c) + " Day " + c.get(Calendar.DATE));
-		}
 	}
 
 	public void dayIncrement(){

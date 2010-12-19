@@ -17,19 +17,25 @@ public final class R {
         public static final int sexton_weekday_times=0x7f040002;
     }
     public static final class attr {
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int stopName=0x7f010000;
     }
     public static final class id {
         public static final int about_text=0x7f080000;
-        public static final int flynntown_label=0x7f080007;
-        public static final int flynntown_time=0x7f080005;
-        public static final int gorecki_label=0x7f080004;
-        public static final int gorecki_time=0x7f080002;
-        public static final int hcc_label=0x7f080008;
-        public static final int hcc_time=0x7f080006;
-        public static final int menuAbout=0x7f080009;
-        public static final int menuLinkWebsite=0x7f08000a;
-        public static final int sexton_label=0x7f080003;
-        public static final int sexton_time=0x7f080001;
+        public static final int flynntown_clock=0x7f080004;
+        public static final int gorecki_clock=0x7f080005;
+        public static final int hcc_clock=0x7f080006;
+        public static final int menuAbout=0x7f080007;
+        public static final int menuLinkWebsite=0x7f080008;
+        public static final int sexton_clock=0x7f080003;
+        public static final int stopLabel=0x7f080002;
+        public static final int time=0x7f080001;
     }
     public static final class integer {
         public static final int flynntown_offset=0x7f050000;
@@ -37,7 +43,8 @@ public final class R {
     }
     public static final class layout {
         public static final int about_layout=0x7f020000;
-        public static final int main=0x7f020001;
+        public static final int clock_layout=0x7f020001;
+        public static final int main=0x7f020002;
     }
     public static final class menu {
         public static final int sched_menu=0x7f070000;
@@ -66,4 +73,33 @@ public final class R {
         public static final int sexton_weekend_morning_start=0x7f060011;
         public static final int website=0x7f060006;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a ClockView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #ClockView_stopName org.klnusbaum.linkschedule:stopName}</code></td><td></td></tr>
+           </table>
+           @see #ClockView_stopName
+         */
+        public static final int[] ClockView = {
+            0x7f010000
+        };
+        /**
+          <p>This symbol is the offset where the {@link org.klnusbaum.linkschedule.R.attr#stopName}
+          attribute's value can be found in the {@link #ClockView} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:stopName
+        */
+        public static final int ClockView_stopName = 0;
+    };
 }
