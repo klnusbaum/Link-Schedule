@@ -34,7 +34,7 @@ import android.net.Uri;
 
 public class ScheduleActivity extends Activity{
 	private LinkSchedule linkSchedule;
-	private TickReceiver tickReceiver;
+	private TimeChangeReceiver timeChangeReceiver;
 	private ClockView sextonClock, flynntownClock, hccClock, goreckiClock;
 
   @Override
@@ -42,13 +42,13 @@ public class ScheduleActivity extends Activity{
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
 		linkSchedule = new LinkSchedule(getResources());	
-		tickReceiver = new TickReceiver(this);
+		timeChangeReceiver = new TimeChangeReceiver(this);
 		registerReceiver(
-			tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
+			timeChangeReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
 		registerReceiver(
-			tickReceiver, new IntentFilter(Intent.ACTION_TIME_CHANGED));
+			timeChangeReceiver, new IntentFilter(Intent.ACTION_TIME_CHANGED));
 		registerReceiver(
-			tickReceiver, new IntentFilter(Intent.ACTION_TIMEZONE_CHANGED));
+			timeChangeReceiver, new IntentFilter(Intent.ACTION_TIMEZONE_CHANGED));
 		sextonClock = (ClockView)findViewById(R.id.sexton_clock);
 		goreckiClock = (ClockView)findViewById(R.id.gorecki_clock);
 		hccClock = (ClockView)findViewById(R.id.hcc_clock);
@@ -60,7 +60,7 @@ public class ScheduleActivity extends Activity{
 	@Override
 	protected void onDestroy(){
 		super.onDestroy();
-		unregisterReceiver(tickReceiver);
+		unregisterReceiver(timeChangeReceiver);
 	}
 
   @Override
@@ -90,25 +90,36 @@ public class ScheduleActivity extends Activity{
 
 			
 	private void refreshTimes(){
-		sextonClock.setClockTime(linkSchedule.getNextTime(LinkSchedule.BusStop.sexton));
-		goreckiClock.setClockTime(linkSchedule.getNextTime(LinkSchedule.BusStop.gorecki));
-		flynntownClock.setClockTime(linkSchedule.getNextTime(LinkSchedule.BusStop.flynntown));
-		hccClock.setClockTime(linkSchedule.getNextTime(LinkSchedule.BusStop.hcc));
+		sextonClock.setClockTime(
+			linkSchedule.getNextTime(LinkSchedule.BusStop.sexton));
+		goreckiClock.setClockTime(
+			linkSchedule.getNextTime(LinkSchedule.BusStop.gorecki));
+		flynntownClock.setClockTime(
+			linkSchedule.getNextTime(LinkSchedule.BusStop.flynntown));
+		hccClock.setClockTime(
+			linkSchedule.getNextTime(LinkSchedule.BusStop.hcc));
 	}
 
-	private class TickReceiver extends BroadcastReceiver{
+
+	private class TimeChangeReceiver extends BroadcastReceiver{
 		
 		private ScheduleActivity scheduleActivity;
 
-		public TickReceiver(ScheduleActivity scheduleActivity){
+		public TimeChangeReceiver(ScheduleActivity scheduleActivity){
 			super();
 			this.scheduleActivity = scheduleActivity;
 		}
 			
 		@Override
 		public void onReceive(Context context, Intent intent){
+			if(Intent.ACTION_TIME_CHANGED.equals(intent.getAction()) ||
+				Intent.ACTION_TIMEZONE_CHANGED.equals(intent.getAction()))
+			{
+				scheduleActivity.linkSchedule.reset();
+			}
 			scheduleActivity.refreshTimes();
 		}
 	}
+
 
 }

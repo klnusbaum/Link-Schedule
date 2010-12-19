@@ -31,19 +31,32 @@ public class LinkSchedule{
 	private Resources res;
 	private GregorianCalendar instanceToUse;
 	private boolean useCustomInstance;
+	private DaySchedule dailySched, weekendSched;
 
 	public enum BusStop{flynntown, gorecki, hcc, sexton}
 
 	public LinkSchedule(Resources res){
-		this.res = res;
 		useCustomInstance = false;
+		init(res);
 	}
 
 	public LinkSchedule(Resources res, GregorianCalendar customInstance){
-		this.res = res;
 		instanceToUse = customInstance;
 		useCustomInstance = true;
+		init(res);
 	}
+
+	private void init(Resources res){
+		this.res = res;
+		dailySched = getDailySchedule();
+		weekendSched = getWeekendSchedule();	
+	}
+
+	public void reset(){
+		dailySched = getDailySchedule();
+		weekendSched = getWeekendSchedule();	
+	}
+		
 
 	public GregorianCalendar getCalendarInstance(){
 		if(useCustomInstance){
@@ -55,8 +68,6 @@ public class LinkSchedule{
 	public String getNextTime(BusStop busStop){
 		String toReturn = null;
 		GregorianCalendar currentTime = getCalendarInstance();
-		DaySchedule dailySched = getDailySchedule();
-		DaySchedule weekendSched = getWeekendSchedule();	
 		if(isWeekday(currentTime)){
 			toReturn = dailySched.getNextTime(busStop, currentTime);
 			if(toReturn == null && isFriday(currentTime)){
