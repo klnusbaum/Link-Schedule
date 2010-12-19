@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Copyright 2010 Kurtis Nusbaum
  *
@@ -17,13 +17,9 @@
  * http://www.gnu.org/licenses/.
  --> 
 
-<resources>
-    <string name="app_name">Link Schedule</string>
-		<string name="flynntown_name">Flynntown</string>
-		<string name="gorecki_name">Gorecki</string>
-		<string name="hcc_name">HCC</string>
-		<string name="sexton_name">Sexton</string>
-		<string name="about">About</string>
-		<string name="website">Link Website</string>
-		
-</resources>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menuAbout"
+          android:title="@string/about" />
+    <item android:id="@+id/menuLinkWebsite"
+          android:title="@string/website" />
+</menu>

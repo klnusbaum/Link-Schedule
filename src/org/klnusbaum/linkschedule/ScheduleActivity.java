@@ -27,6 +27,10 @@ import android.content.IntentFilter;
 import android.content.Intent;
 import android.content.Context;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.net.Uri;
 
 public class ScheduleActivity extends Activity{
 	private LinkSchedule linkSchedule;
@@ -53,6 +57,30 @@ public class ScheduleActivity extends Activity{
 		super.onDestroy();
 		unregisterReceiver(tickReceiver);
 	}
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu){
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.sched_menu, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+		case R.id.menuAbout:
+			Intent showAboutIntent =
+				new Intent(ScheduleActivity.this, AboutActivity.class);
+				startActivity(showAboutIntent);
+		case R.id.menuLinkWebsite:
+			Intent linkWebsiteIntent =
+				new Intent(Intent.ACTION_VIEW, new Uri.Builder().scheme("http").authority("csbsju.edu").appendPath("Transportation").build());
+				startActivity(linkWebsiteIntent);
+    default:
+      return super.onOptionsItemSelected(item);
+    }
+  }
+
 			
 	private void refreshTimes(){
 		setStopTime(R.id.sexton_time, linkSchedule.getNextTime(LinkSchedule.BusStop.sexton));
