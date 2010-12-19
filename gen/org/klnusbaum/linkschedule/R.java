@@ -28,8 +28,8 @@ containing a value of this type.
     }
     public static final class id {
         public static final int about_text=0x7f080000;
-        public static final int flynntown_clock=0x7f080004;
-        public static final int gorecki_clock=0x7f080005;
+        public static final int flynntown_clock=0x7f080005;
+        public static final int gorecki_clock=0x7f080004;
         public static final int hcc_clock=0x7f080006;
         public static final int menuAbout=0x7f080007;
         public static final int menuLinkWebsite=0x7f080008;
