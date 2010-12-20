@@ -23,6 +23,7 @@ import android.content.res.TypedArray;
 import android.util.Log;
 
 import java.util.TreeMap;
+import java.util.SortedMap;
 import java.util.GregorianCalendar;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -114,7 +115,7 @@ public class LinkSchedule{
 		compositeSchedule.putAll(snapshotYesterday.getBusStopSched(busStop));
 		compositeSchedule.putAll(snapshotToday.getBusStopSched(busStop));
 		compositeSchedule.putAll(snapshotTomorrow.getBusStopSched(busStop));
-		TreeMap<GregorianCalendar, String> snapshotMap = (TreeMap)compositeSchedule.subMap(
+		SortedMap<GregorianCalendar, String> snapshotMap = compositeSchedule.subMap(
 			findOneBeforeNext(compositeSchedule, currentTime),
 			findSeveralPastNext(compositeSchedule, currentTime, 8));
 		for(GregorianCalendar c: snapshotMap.keySet()){
@@ -124,7 +125,7 @@ public class LinkSchedule{
 	}
 
 	private GregorianCalendar findSeveralPastNext(
-		TreeMap<GregorianCalendar, String> compositeSchedule, 
+		SortedMap<GregorianCalendar, String> compositeSchedule, 
 		GregorianCalendar currentTime,
 		int numberPast)
 	{
@@ -138,7 +139,7 @@ public class LinkSchedule{
 		
 
 	private GregorianCalendar findOneBeforeNext(
-		TreeMap<GregorianCalendar, String> compositeSchedule, 
+		SortedMap<GregorianCalendar, String> compositeSchedule, 
 		GregorianCalendar currentTime)
 	{
 		Iterator<GregorianCalendar> itr = compositeSchedule.keySet().iterator();

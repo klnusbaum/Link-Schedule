@@ -43,13 +43,13 @@ public class BusStopActivity extends ListActivity{
     super.onCreate(savedInstanceState);
 		
 		busStop = getIntent().getStringExtra(EXTRA_STOPNAME);
-		linkSchedule = new LinkSchedule(getResources());
-		setListAdapter(new ArrayAdapter<String>(
-			this, R.layout.stop_time_item, linkSchedule.getSnapshot(busStop)));
 		TextView header = new TextView(this);
 		header.setText(busStop);
 		getListView().addHeaderView(header);
 		
+		linkSchedule = new LinkSchedule(getResources());
+		setListAdapter(new ArrayAdapter<String>(
+			this, R.layout.stop_time_item, linkSchedule.getSnapshot(busStop)));
   }
 
 
