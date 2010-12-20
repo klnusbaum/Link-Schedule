@@ -131,7 +131,7 @@ public class LinkSchedule{
 	{
 		Iterator<GregorianCalendar> itr = compositeSchedule.keySet().iterator();
 		while(itr.hasNext() && itr.next().compareTo(currentTime) < 0){}
-		for(int i=0; i<numberPast-1 && itr.hasNext(); i++){
+		for(int i=0; i<numberPast && itr.hasNext(); i++){
 			itr.next();
 		}		
 		return itr.next();

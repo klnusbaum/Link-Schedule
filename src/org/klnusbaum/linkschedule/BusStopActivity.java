@@ -22,8 +22,10 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.content.BroadcastReceiver;
 import android.view.ViewGroup;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.content.IntentFilter;
 import android.content.Intent;
 import android.content.Context;
@@ -32,6 +34,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.net.Uri;
+import android.view.Gravity;
+import android.graphics.drawable.ColorDrawable;
+
+import java.util.List;
 
 public class BusStopActivity extends ListActivity{
 	private LinkSchedule linkSchedule;
@@ -45,12 +51,60 @@ public class BusStopActivity extends ListActivity{
 		busStop = getIntent().getStringExtra(EXTRA_STOPNAME);
 		TextView header = new TextView(this);
 		header.setText(busStop);
-		getListView().addHeaderView(header);
+		header.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL);
+		header.setTextSize(30);
+		ListView lv = getListView();
+
+		lv.addHeaderView(header);
+		lv.setDividerHeight(0);
+		lv.setDivider(new ColorDrawable(0x00FFFFFF));
+		
 		
 		linkSchedule = new LinkSchedule(getResources());
-		setListAdapter(new ArrayAdapter<String>(
+		setListAdapter(new BusStopAdapter<String>(
 			this, R.layout.stop_time_item, linkSchedule.getSnapshot(busStop)));
   }
 
+	private class BusStopAdapter<T> extends ArrayAdapter<T>{
+
+		public BusStopAdapter(
+			Context context, int textViewResourceId,
+			List<T> objects)
+		{
+			super(context, textViewResourceId, objects);
+		}
+
+		public View getView(int position, View convertView, 
+			ViewGroup parent)
+		{
+			TextView toReturn = 
+				(TextView)super.getView(position, convertView, parent);
+			if(position == 0){
+				toReturn.setTextSize(12);
+				toReturn.setText("Previous Bus: " + toReturn.getText());
+				toReturn.setPadding(0,0,0,0);
+			}
+			else if(position == 1){
+				toReturn.setTextSize(20);
+				toReturn.setPadding(
+					toReturn.getPaddingLeft(),
+					0,
+					toReturn.getPaddingRight(),
+					0
+				);
+				toReturn.setText("Next Bus: " + toReturn.getText());
+				toReturn.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.TOP);
+			}
+			return toReturn;
+		}
+
+		public boolean areAllItemsEnabled(){
+			return false;
+		}
+
+		public boolean isEnabled(int position){
+			return false;
+		}
+	}
 
 }
