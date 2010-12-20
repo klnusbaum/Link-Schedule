@@ -20,10 +20,8 @@ package org.klnusbaum.linkschedule;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.content.BroadcastReceiver;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.content.IntentFilter;
 import android.content.Intent;
 import android.content.Context;
 import android.util.Log;
@@ -33,7 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.net.Uri;
 
-public class ScheduleActivity extends Activity{
+public class ScheduleActivity extends Activity implements Refreshable{
 	private LinkSchedule linkSchedule;
 	private TimeChangeReceiver timeChangeReceiver;
 	private ClockView sextonClock, flynntownClock, hccClock, goreckiClock;
@@ -56,12 +54,7 @@ public class ScheduleActivity extends Activity{
     setContentView(R.layout.main);
 		linkSchedule = new LinkSchedule(getResources());	
 		timeChangeReceiver = new TimeChangeReceiver(this);
-		registerReceiver(
-			timeChangeReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
-		registerReceiver(
-			timeChangeReceiver, new IntentFilter(Intent.ACTION_TIME_CHANGED));
-		registerReceiver(
-			timeChangeReceiver, new IntentFilter(Intent.ACTION_TIMEZONE_CHANGED));
+		timeChangeReceiver.registerIntents(this);
 		sextonClock = (ClockView)findViewById(R.id.sexton_clock);
 		goreckiClock = (ClockView)findViewById(R.id.gorecki_clock);
 		hccClock = (ClockView)findViewById(R.id.hcc_clock);
@@ -72,7 +65,7 @@ public class ScheduleActivity extends Activity{
 		hccClock.setOnClickListener(clockClickListener);
 		flynntownClock.setOnClickListener(clockClickListener);
 
-		refreshTimes();
+		refreshSchedule();
   }
 
 	@Override
@@ -107,7 +100,7 @@ public class ScheduleActivity extends Activity{
   }
 
 			
-	private void refreshTimes(){
+	public void refreshSchedule(){
 		sextonClock.setClockTime(
 			linkSchedule.getNextTime(getString(R.string.sexton_name)));
 		goreckiClock.setClockTime(
@@ -118,25 +111,9 @@ public class ScheduleActivity extends Activity{
 			linkSchedule.getNextTime(getString(R.string.hcc_name)));
 	}
 
-
-	private class TimeChangeReceiver extends BroadcastReceiver{
-		
-		private ScheduleActivity scheduleActivity;
-
-		public TimeChangeReceiver(ScheduleActivity scheduleActivity){
-			super();
-			this.scheduleActivity = scheduleActivity;
-		}
-			
-		@Override
-		public void onReceive(Context context, Intent intent){
-			if(Intent.ACTION_TIME_CHANGED.equals(intent.getAction()) ||
-				Intent.ACTION_TIMEZONE_CHANGED.equals(intent.getAction()))
-			{
-				scheduleActivity.linkSchedule.reset();
-			}
-			scheduleActivity.refreshTimes();
-		}
+	public void resetSchedule(){
+		linkSchedule.reset();
 	}
+
 
 }

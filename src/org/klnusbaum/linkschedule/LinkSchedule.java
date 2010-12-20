@@ -60,6 +60,7 @@ public class LinkSchedule{
 	public void reset(){
 		dailySched = getDailySchedule();
 		weekendSched = getWeekendSchedule();	
+		lastSnapshotDate = null;
 	}
 		
 

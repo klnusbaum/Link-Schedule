@@ -38,11 +38,13 @@ import android.view.Gravity;
 import android.graphics.drawable.ColorDrawable;
 
 import java.util.List;
+import java.util.ArrayList;
 
-public class BusStopActivity extends ListActivity{
+public class BusStopActivity extends ListActivity implements Refreshable{
 	private LinkSchedule linkSchedule;
 	private String busStop;
 	public static final String EXTRA_STOPNAME = "stop_name";
+	private TimeChangeReceiver timeChangeReceiver;
 
   @Override
   protected void onCreate(Bundle savedInstanceState){
@@ -63,7 +65,25 @@ public class BusStopActivity extends ListActivity{
 		linkSchedule = new LinkSchedule(getResources());
 		setListAdapter(new BusStopAdapter<String>(
 			this, R.layout.stop_time_item, linkSchedule.getSnapshot(busStop)));
+
+		timeChangeReceiver = new TimeChangeReceiver(this);
+		timeChangeReceiver.registerIntents(this);
   }
+
+	@Override
+	protected void onDestroy(){
+		super.onDestroy();
+		unregisterReceiver(timeChangeReceiver);
+	}
+
+	public void refreshSchedule(){
+		setListAdapter(new BusStopAdapter<String>(
+			this, R.layout.stop_time_item, linkSchedule.getSnapshot(busStop)));
+	}
+
+	public void resetSchedule(){
+		linkSchedule.reset();	
+	}
 
 	private class BusStopAdapter<T> extends ArrayAdapter<T>{
 
