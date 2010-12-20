@@ -30,12 +30,25 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.net.Uri;
 
 public class ScheduleActivity extends Activity{
 	private LinkSchedule linkSchedule;
 	private TimeChangeReceiver timeChangeReceiver;
 	private ClockView sextonClock, flynntownClock, hccClock, goreckiClock;
+
+	private View.OnClickListener clockClickListener = new View.OnClickListener(){
+		public void onClick(View v){
+			Intent busStopIntent = 
+				new Intent(ScheduleActivity.this, BusStopActivity.class);
+			busStopIntent.putExtra(BusStopActivity.EXTRA_STOPNAME,
+				((ClockView)v).getStopName());
+			startActivity(busStopIntent);
+		}
+	};
+
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState){
@@ -53,6 +66,11 @@ public class ScheduleActivity extends Activity{
 		goreckiClock = (ClockView)findViewById(R.id.gorecki_clock);
 		hccClock = (ClockView)findViewById(R.id.hcc_clock);
 		flynntownClock = (ClockView)findViewById(R.id.flynntown_clock);
+
+		sextonClock.setOnClickListener(clockClickListener);
+		goreckiClock.setOnClickListener(clockClickListener);
+		hccClock.setOnClickListener(clockClickListener);
+		flynntownClock.setOnClickListener(clockClickListener);
 
 		refreshTimes();
   }
@@ -91,13 +109,13 @@ public class ScheduleActivity extends Activity{
 			
 	private void refreshTimes(){
 		sextonClock.setClockTime(
-			linkSchedule.getNextTime(LinkSchedule.BusStop.sexton));
+			linkSchedule.getNextTime(getString(R.string.sexton_name)));
 		goreckiClock.setClockTime(
-			linkSchedule.getNextTime(LinkSchedule.BusStop.gorecki));
+			linkSchedule.getNextTime(getString(R.string.gorecki_name)));
 		flynntownClock.setClockTime(
-			linkSchedule.getNextTime(LinkSchedule.BusStop.flynntown));
+			linkSchedule.getNextTime(getString(R.string.flynntown_name)));
 		hccClock.setClockTime(
-			linkSchedule.getNextTime(LinkSchedule.BusStop.hcc));
+			linkSchedule.getNextTime(getString(R.string.hcc_name)));
 	}
 
 
@@ -120,6 +138,5 @@ public class ScheduleActivity extends Activity{
 			scheduleActivity.refreshTimes();
 		}
 	}
-
 
 }

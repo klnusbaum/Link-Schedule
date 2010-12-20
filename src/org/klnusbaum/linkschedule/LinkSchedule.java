@@ -25,6 +25,8 @@ import android.util.Log;
 import java.util.TreeMap;
 import java.util.GregorianCalendar;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 public class LinkSchedule{
 
@@ -32,8 +34,10 @@ public class LinkSchedule{
 	private GregorianCalendar instanceToUse;
 	private boolean useCustomInstance;
 	private DaySchedule dailySched, weekendSched;
+	private GregorianCalendar lastSnapshotDate;
+	private DaySchedule snapshotYesterday,
+		snapshotToday, snapshotTomorrow;
 
-	public enum BusStop{flynntown, gorecki, hcc, sexton}
 
 	public LinkSchedule(Resources res){
 		useCustomInstance = false;
@@ -65,7 +69,7 @@ public class LinkSchedule{
 		return (GregorianCalendar)GregorianCalendar.getInstance();
 	}
 
-	public String getNextTime(BusStop busStop){
+	public String getNextTime(String busStop){
 		String toReturn = null;
 		GregorianCalendar currentTime = getCalendarInstance();
 		if(isWeekday(currentTime)){
@@ -93,6 +97,91 @@ public class LinkSchedule{
 			return toReturn;
 		}
 	}
+
+	public ArrayList<String> getSnapshot(String busStop){
+		GregorianCalendar currentTime = getCalendarInstance();
+		ArrayList<String> toReturn = new ArrayList<String>();
+		TreeMap<GregorianCalendar, String> compositeSchedule = 
+			new TreeMap<GregorianCalendar, String>();
+
+		if(lastSnapshotDate == null || 
+			!((isMidWeek(lastSnapshotDate) && isMidWeek(currentTime)) || 
+			sameDayOfWeek(lastSnapshotDate, currentTime)))
+		{
+			setSnapShotDates(currentTime);
+		}	
+
+		compositeSchedule.putAll(snapshotYesterday.getBusStopSched(busStop));
+		compositeSchedule.putAll(snapshotToday.getBusStopSched(busStop));
+		compositeSchedule.putAll(snapshotTomorrow.getBusStopSched(busStop));
+		TreeMap<GregorianCalendar, String> snapshotMap = (TreeMap)compositeSchedule.subMap(
+			findOneBeforeNext(compositeSchedule, currentTime),
+			findSeveralPastNext(compositeSchedule, currentTime, 8));
+		for(GregorianCalendar c: snapshotMap.keySet()){
+			toReturn.add(snapshotMap.get(c));
+		}
+		return toReturn;
+	}
+
+	private GregorianCalendar findSeveralPastNext(
+		TreeMap<GregorianCalendar, String> compositeSchedule, 
+		GregorianCalendar currentTime,
+		int numberPast)
+	{
+		Iterator<GregorianCalendar> itr = compositeSchedule.keySet().iterator();
+		while(itr.hasNext() && itr.next().compareTo(currentTime) < 0){}
+		for(int i=0; i<numberPast-1 && itr.hasNext(); i++){
+			itr.next();
+		}		
+		return itr.next();
+	}
+		
+
+	private GregorianCalendar findOneBeforeNext(
+		TreeMap<GregorianCalendar, String> compositeSchedule, 
+		GregorianCalendar currentTime)
+	{
+		Iterator<GregorianCalendar> itr = compositeSchedule.keySet().iterator();
+		GregorianCalendar previous = itr.next();
+		GregorianCalendar current = itr.next();
+		while(itr.hasNext() && current.compareTo(currentTime) < 0){
+			previous = current;
+			current = itr.next();
+		}
+		return previous;
+	}
+		
+
+	private void setSnapShotDates(GregorianCalendar currentTime){
+		if(isMonday(currentTime)){
+			snapshotYesterday = getWeekendSchedule();
+			snapshotToday = getDailySchedule();
+			snapshotTomorrow = getDailySchedule();
+		}
+		else if(isFriday(currentTime)){
+			snapshotYesterday = getDailySchedule();
+			snapshotToday = getDailySchedule();
+			snapshotTomorrow = getWeekendSchedule();
+		}
+		else if(isWeekday(currentTime)){
+			snapshotYesterday = getDailySchedule();
+			snapshotToday = getDailySchedule();
+			snapshotTomorrow = getDailySchedule();
+		}
+		else if(isSaturday(currentTime)){
+			snapshotYesterday = getDailySchedule();
+			snapshotToday = getWeekendSchedule();
+			snapshotTomorrow = getWeekendSchedule();
+		}
+		else if(isSunday(currentTime)){
+			snapshotYesterday = getWeekendSchedule();
+			snapshotToday = getWeekendSchedule();
+			snapshotTomorrow = getDailySchedule();
+		}
+		snapshotYesterday.dayDecrement();
+		snapshotTomorrow.dayIncrement();
+	}
+		
 
 	public DaySchedule getWeekendSchedule(){
 		TreeMap<GregorianCalendar, String> goreckiMap = getSimpleCalendars(
@@ -134,7 +223,7 @@ public class LinkSchedule{
 			getCalendarFromString(res.getString(R.string.gorecki_night_end)),
 			0
 		);
-		return new DaySchedule(flynntownMap, goreckiMap, hccMap, sextonMap);
+		return new DaySchedule(flynntownMap, goreckiMap, hccMap, sextonMap, res);
 	}
 
 	public DaySchedule getDailySchedule(){
@@ -165,7 +254,7 @@ public class LinkSchedule{
 			getCalendarFromString(res.getString(R.string.gorecki_night_end)),
 			0
 		);
-		return new DaySchedule(flynntownMap, goreckiMap, hccMap, sextonMap);
+		return new DaySchedule(flynntownMap, goreckiMap, hccMap, sextonMap, res);
 	}
 
 	private TreeMap<GregorianCalendar, String> getSimpleCalendars(
@@ -269,8 +358,26 @@ public class LinkSchedule{
 		return date.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY; 
 	}
 
+	public static boolean isMonday(GregorianCalendar date){
+		return date.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY; 
+	}
+
 	public static boolean isSunday(GregorianCalendar date){
 		return date.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY; 
+	}
+
+	public static boolean isSaturday(GregorianCalendar date){
+		return date.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY; 
+	}
+
+	public static boolean isMidWeek(GregorianCalendar date){
+		return date.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY
+			|| date.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY
+			|| date.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY;
+	}
+
+	public static boolean sameDayOfWeek(GregorianCalendar date1, GregorianCalendar date2){
+		return date1.get(Calendar.DAY_OF_WEEK) == date2.get(Calendar.DAY_OF_WEEK);
 	}
 
 }

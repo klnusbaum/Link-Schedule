@@ -23,42 +23,33 @@ import java.util.Calendar;
 import java.util.TreeMap;
 import java.util.Iterator;
 import android.util.Log;
+import android.content.res.Resources;
 
 public class DaySchedule implements Comparable{
-	TreeMap<GregorianCalendar, String>
+	private TreeMap<GregorianCalendar, String>
 		flynntownSchedule, goreckiSchedule, hccSchedule, sextonSchedule;
+	private Resources res;
 
 	public DaySchedule(
 		TreeMap<GregorianCalendar, String> flynntownSchedule,
 		TreeMap<GregorianCalendar, String> goreckiSchedule,
 		TreeMap<GregorianCalendar, String> hccSchedule,
-		TreeMap<GregorianCalendar, String> sextonSchedule)
+		TreeMap<GregorianCalendar, String> sextonSchedule,
+		Resources res)
 	{
 		this.flynntownSchedule = flynntownSchedule;
 		this.goreckiSchedule = goreckiSchedule;
 		this.hccSchedule = hccSchedule;
 		this.sextonSchedule = sextonSchedule;
+		this.res = res;
 	}
 
 
+
 	public String getNextTime(
-		LinkSchedule.BusStop busStop, GregorianCalendar currentTime)
+		String busStop, GregorianCalendar currentTime)
 	{
-		TreeMap<GregorianCalendar, String> schedule = null;
-		switch(busStop){
-		case flynntown:
-			schedule = flynntownSchedule;
-			break;
-		case gorecki:
-			schedule = goreckiSchedule;
-			break;
-		case hcc:
-			schedule = hccSchedule;
-			break;
-		case sexton:
-			schedule = sextonSchedule;
-			break;
-		}
+		TreeMap<GregorianCalendar, String> schedule = getBusStopSched(busStop);
 	
 		for(GregorianCalendar c: schedule.keySet()){
 			if(currentTime.compareTo(c) <= 0){
@@ -69,22 +60,52 @@ public class DaySchedule implements Comparable{
 	}
 
 	public void dayIncrement(){
-		flynntownSchedule = dayIncrementBusStop(flynntownSchedule);
-		goreckiSchedule = dayIncrementBusStop(goreckiSchedule);
-		hccSchedule = dayIncrementBusStop(hccSchedule);
-		sextonSchedule = dayIncrementBusStop(sextonSchedule);
+		flynntownSchedule = dayAddBusStop(flynntownSchedule,1);
+		goreckiSchedule = dayAddBusStop(goreckiSchedule,1);
+		hccSchedule = dayAddBusStop(hccSchedule,1);
+		sextonSchedule = dayAddBusStop(sextonSchedule,1);
 	}	
 
-	private TreeMap<GregorianCalendar, String> dayIncrementBusStop(TreeMap<GregorianCalendar, String> map){
-		TreeMap<GregorianCalendar, String> newMap = new TreeMap<GregorianCalendar, String>();
+	public void dayDecrement(){
+		flynntownSchedule = dayAddBusStop(flynntownSchedule,-1);
+		goreckiSchedule = dayAddBusStop(goreckiSchedule,-1);
+		hccSchedule = dayAddBusStop(hccSchedule,-1);
+		sextonSchedule = dayAddBusStop(sextonSchedule,-1);
+	}	
+
+	private TreeMap<GregorianCalendar, String> 
+		dayAddBusStop(TreeMap<GregorianCalendar, String> map, int step){
+		TreeMap<GregorianCalendar, String> newMap = 
+			new TreeMap<GregorianCalendar, String>();
 		GregorianCalendar tempCal;
 		for(GregorianCalendar c: map.keySet()){
 			tempCal = (GregorianCalendar)c.clone();
-			tempCal.add(Calendar.DATE, 1);
+			tempCal.add(Calendar.DATE, step);
 			newMap.put(tempCal, map.get(c));
 		}
 		return newMap;
 	}
+
+
+	public TreeMap<GregorianCalendar, String> getBusStopSched(String busStop){
+		if(busStop.equals(res.getString(R.string.sexton_name))){
+			return sextonSchedule;
+		}
+		else if(busStop.equals(res.getString(R.string.gorecki_name))){
+			return goreckiSchedule;
+		}
+		else if(busStop.equals(res.getString(R.string.hcc_name))){
+			return hccSchedule;
+		}
+		else if(busStop.equals(res.getString(R.string.flynntown_name))){
+			return flynntownSchedule;
+		}
+		else{
+			return null;
+		}
+	}
+		
+
 
 	public int compareTo(Object o){
 		DaySchedule otherSchedule = (DaySchedule)o;

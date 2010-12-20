@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+/**
  * Copyright 2010 Kurtis Nusbaum
  *
  * This file is part of LinkSchedule.  
@@ -15,15 +14,17 @@
  * for more details.  You should have received a copy of the GNU  General 
  * Public License along with LinkSchedule. If not, see 
  * http://www.gnu.org/licenses/.
- --> 
+ */
 
-<resources>
-    <string name="app_name">Link Schedule</string>
-		<string name="flynntown_name">Flynntown</string>
-		<string name="gorecki_name">Gorecki</string>
-		<string name="hcc_name">HCC</string>
-		<string name="sexton_name">Sexton</string>
-		<string name="about">About</string>
-		<string name="website">Link Website</string>
-		<string name="bus_stop">Bus Stop</string>
-</resources>
+package org.klnusbaum.linkschedule;
+
+import java.util.GregorianCalendar;
+
+public class CalendarStringPair{
+	public GregorianCalendar calendar;
+	public String string;
+	public CalendarStringPair(GregorianCalendar calendar, String string){
+		this.calendar = calendar;
+		this.string = string;
+	}
+}
