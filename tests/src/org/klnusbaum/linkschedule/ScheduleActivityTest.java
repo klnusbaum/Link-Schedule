@@ -85,16 +85,16 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			LinkSchedule schedule = 
 				new LinkSchedule(resources, mondayCalendar);
 			String acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.gorecki);
+				schedule.getNextTime(resources.getString(R.string.gorecki_name));
 			assertEquals("10:15 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.sexton);
+				schedule.getNextTime(resources.getString(R.string.sexton_name));
 			assertEquals("10:15 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+				schedule.getNextTime(resources.getString(R.string.flynntown_name));
 			assertEquals("9:53 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+				schedule.getNextTime(resources.getString(R.string.hcc_name));
 			assertEquals("10:15 a.m.", acquiredTime);
 		}
 
@@ -103,16 +103,16 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			LinkSchedule schedule = 
 				new LinkSchedule(resources, thursdayAt1150PM);
 			String acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.gorecki);
+				schedule.getNextTime(resources.getString(R.string.gorecki_name));
 			assertEquals("12:00 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.sexton);
+				schedule.getNextTime(resources.getString(R.string.sexton_name));
 			assertEquals("12:15 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+				schedule.getNextTime(resources.getString(R.string.flynntown_name));
 			assertEquals("12:08 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+				schedule.getNextTime(resources.getString(R.string.hcc_name));
 			assertEquals("12:00 a.m.", acquiredTime);
 		}
 
@@ -121,16 +121,16 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			LinkSchedule schedule = 
 				new LinkSchedule(resources, fridayLateCalendar);
 			String acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.gorecki);
+				schedule.getNextTime(resources.getString(R.string.gorecki_name));
 			assertEquals("12:00 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.sexton);
+				schedule.getNextTime(resources.getString(R.string.sexton_name));
 			assertEquals("12:15 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+				schedule.getNextTime(resources.getString(R.string.flynntown_name));
 			assertEquals("12:08 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+				schedule.getNextTime(resources.getString(R.string.hcc_name));
 			assertEquals("12:00 a.m.", acquiredTime);
 	
 		}
@@ -140,16 +140,16 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			LinkSchedule schedule = 
 				new LinkSchedule(resources, saturdayLateCalendar);
 			String acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.gorecki);
+				schedule.getNextTime(resources.getString(R.string.gorecki_name));
 			assertEquals("1:30 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.sexton);
+				schedule.getNextTime(resources.getString(R.string.sexton_name));
 			assertEquals("1:45 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+				schedule.getNextTime(resources.getString(R.string.flynntown_name));
 			assertEquals("1:38 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+				schedule.getNextTime(resources.getString(R.string.hcc_name));
 			assertEquals("1:30 a.m.", acquiredTime);
 	
 		}
@@ -159,16 +159,16 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			LinkSchedule schedule = 
 				new LinkSchedule(resources, saturdayCalendar);
 			String acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.gorecki);
+				schedule.getNextTime(resources.getString(R.string.gorecki_name));
 			assertEquals("12:30 p.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.sexton);
+				schedule.getNextTime(resources.getString(R.string.sexton_name));
 			assertEquals("12:15 p.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+				schedule.getNextTime(resources.getString(R.string.flynntown_name));
 			assertEquals("12:38 p.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+				schedule.getNextTime(resources.getString(R.string.hcc_name));
 			assertEquals("12:30 p.m.", acquiredTime);
 	
 		}
@@ -178,16 +178,16 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			LinkSchedule schedule = 
 				new LinkSchedule(resources, saturdayLateCalendar);
 			String acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.gorecki);
+				schedule.getNextTime(resources.getString(R.string.gorecki_name));
 			assertEquals("12:00 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.sexton);
+				schedule.getNextTime(resources.getString(R.string.sexton_name));
 			assertEquals("12:15 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+				schedule.getNextTime(resources.getString(R.string.flynntown_name));
 			assertEquals("12:08 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+				schedule.getNextTime(resources.getString(R.string.hcc_name));
 			assertEquals("12:00 a.m.", acquiredTime);
 	
 		}
@@ -197,16 +197,16 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			LinkSchedule schedule = 
 				new LinkSchedule(resources, sundayLateCalendar);
 			String acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.gorecki);
+				schedule.getNextTime(resources.getString(R.string.gorecki_name));
 			assertEquals("2:00 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.sexton);
+				schedule.getNextTime(resources.getString(R.string.sexton_name));
 			assertEquals("2:15 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+				schedule.getNextTime(resources.getString(R.string.flynntown_name));
 			assertEquals("2:08 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+				schedule.getNextTime(resources.getString(R.string.hcc_name));
 			assertEquals("2:00 a.m.", acquiredTime);
 		}
 
@@ -215,17 +215,17 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			LinkSchedule schedule = 
 				new LinkSchedule(resources, sundayCalendar);
 			String acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.gorecki);
+				schedule.getNextTime(resources.getString(R.string.gorecki_name));
 			assertEquals("10:00 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.sexton);
+				schedule.getNextTime(resources.getString(R.string.sexton_name));
 			assertEquals("10:15 a.m.", acquiredTime);
 	
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+				schedule.getNextTime(resources.getString(R.string.flynntown_name));
 			assertEquals("10:08 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+				schedule.getNextTime(resources.getString(R.string.hcc_name));
 			assertEquals("10:00 a.m.", acquiredTime);
 		}
 
@@ -236,17 +236,17 @@ public class ScheduleActivityTest extends ActivityInstrumentationTestCase2<Sched
 			LinkSchedule schedule = 
 				new LinkSchedule(resources, sundayLateCalendar);
 			String acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.gorecki);
+				schedule.getNextTime(resources.getString(R.string.gorecki_name));
 			assertEquals("12:00 a.m.", acquiredTime);
 
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.sexton);
+				schedule.getNextTime(resources.getString(R.string.sexton_name));
 			assertEquals("12:15 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.flynntown);
+				schedule.getNextTime(resources.getString(R.string.flynntown_name));
 			assertEquals("12:08 a.m.", acquiredTime);
 			acquiredTime = 
-				schedule.getNextTime(LinkSchedule.BusStop.hcc);
+				schedule.getNextTime(resources.getString(R.string.hcc_name));
 			assertEquals("12:00 a.m.", acquiredTime);
 		}
 
