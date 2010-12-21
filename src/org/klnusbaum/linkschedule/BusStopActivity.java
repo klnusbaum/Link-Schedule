@@ -36,7 +36,6 @@ import android.view.MenuItem;
 import android.net.Uri;
 import android.view.Gravity;
 import android.graphics.drawable.ColorDrawable;
-
 import java.util.List;
 import java.util.ArrayList;
 

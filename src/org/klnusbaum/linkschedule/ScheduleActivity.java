@@ -30,6 +30,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.net.Uri;
+import android.os.Debug;
 
 public class ScheduleActivity extends Activity implements Refreshable{
 	private LinkSchedule linkSchedule;
