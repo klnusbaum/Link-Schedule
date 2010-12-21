@@ -30,7 +30,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.net.Uri;
-import android.os.Debug;
 
 public class ScheduleActivity extends Activity implements Refreshable{
 	private LinkSchedule linkSchedule;
@@ -52,7 +51,6 @@ public class ScheduleActivity extends Activity implements Refreshable{
   @Override
   protected void onCreate(Bundle savedInstanceState){
     super.onCreate(savedInstanceState);
-		Debug.startMethodTracing("init");
     setContentView(R.layout.main);
 		linkSchedule = LinkSchedule.getLinkSchedule(getResources());
 		timeChangeReceiver = new TimeChangeReceiver(this);
@@ -68,7 +66,6 @@ public class ScheduleActivity extends Activity implements Refreshable{
 		flynntownClock.setOnClickListener(clockClickListener);
 
 		refreshSchedule();
-		Debug.stopMethodTracing();
   }
 
 	@Override
