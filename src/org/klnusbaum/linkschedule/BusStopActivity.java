@@ -78,8 +78,11 @@ public class BusStopActivity extends ListActivity implements Refreshable{
 	}
 
 	public void refreshSchedule(){
-		setListAdapter(new BusStopAdapter(
-			this, R.layout.stop_time_item, linkSchedule.getSnapshot(busStop)));
+		BusStopAdapter adapter = (BusStopAdapter)getListAdapter();
+		adapter.clear();	
+		for(String s: linkSchedule.getSnapshot(busStop)){
+			adapter.add(s);
+		}
 	}
 
 	public void resetSchedule(){
@@ -105,7 +108,7 @@ public class BusStopActivity extends ListActivity implements Refreshable{
 			TextView toReturn = (TextView)mInflater.inflate(R.layout.stop_time_item, parent, false);
 			if(position == 0){
 				toReturn.setTextSize(12);
-				toReturn.setText("Previous Bus: " + toReturn.getText());
+				toReturn.setText("Previous Bus: " + getItem(position));
 				toReturn.setPadding(0,0,0,0);
 			}
 			else if(position == 1){
@@ -116,7 +119,7 @@ public class BusStopActivity extends ListActivity implements Refreshable{
 					toReturn.getPaddingRight(),
 					0
 				);
-				toReturn.setText("Next Bus: " + toReturn.getText());
+				toReturn.setText("Next Bus: " + getItem(position));
 				toReturn.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.TOP);
 			}
 			else{
