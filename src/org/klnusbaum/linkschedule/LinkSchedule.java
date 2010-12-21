@@ -34,33 +34,34 @@ public class LinkSchedule{
 	private Resources res;
 	private GregorianCalendar instanceToUse;
 	private boolean useCustomInstance;
-	private DaySchedule dailySched, weekendSched;
-	private GregorianCalendar lastSnapshotDate;
+	private GregorianCalendar lastQueryDate;
 	private DaySchedule snapshotYesterday,
 		snapshotToday, snapshotTomorrow;
+
+	private static LinkSchedule singletonInstance;
+
+	public static LinkSchedule getLinkSchedule(Resources res){
+		if(singletonInstance == null){
+			singletonInstance = new LinkSchedule(res);
+		}
+		return singletonInstance;
+	}
 
 
 	public LinkSchedule(Resources res){
 		useCustomInstance = false;
-		init(res);
+		this.res = res;
 	}
 
 	public LinkSchedule(Resources res, GregorianCalendar customInstance){
 		instanceToUse = customInstance;
 		useCustomInstance = true;
-		init(res);
+		this.res = res;
 	}
 
-	private void init(Resources res){
-		this.res = res;
-		dailySched = getDailySchedule();
-		weekendSched = getWeekendSchedule();	
-	}
 
 	public void reset(){
-		dailySched = getDailySchedule();
-		weekendSched = getWeekendSchedule();	
-		lastSnapshotDate = null;
+		lastQueryDate = null;
 	}
 		
 
@@ -72,50 +73,24 @@ public class LinkSchedule{
 	}
 
 	public String getNextTime(String busStop){
-		String toReturn = null;
 		GregorianCalendar currentTime = getCalendarInstance();
-		if(isWeekday(currentTime)){
-			toReturn = dailySched.getNextTime(busStop, currentTime);
-			if(toReturn == null && isFriday(currentTime)){
-				weekendSched.dayIncrement();
-				return weekendSched.getNextTime(busStop, currentTime);
+		queryPrep(currentTime);
+		TreeMap<GregorianCalendar, String> compositeSchedule = 
+			getCompositeSchedule(busStop);
+		for(GregorianCalendar c: compositeSchedule.keySet()){
+			if(currentTime.compareTo(c) <= 0){
+				return compositeSchedule.get(c);
 			}
-			else if(toReturn == null){
-				dailySched.dayIncrement();
-				return dailySched.getNextTime(busStop, currentTime);
-			}
-			return toReturn;
-		}
-		else{
-			toReturn = weekendSched.getNextTime(busStop, currentTime);
-			if(toReturn == null && isSunday(currentTime)){
-				dailySched.dayIncrement();
-				return dailySched.getNextTime(busStop, currentTime);
-			}
-			else if(toReturn == null){
-				weekendSched.dayIncrement();
-				return weekendSched.getNextTime(busStop, currentTime);
-			}
-			return toReturn;
-		}
+		}	
+		return "";
 	}
 
 	public ArrayList<String> getSnapshot(String busStop){
 		GregorianCalendar currentTime = getCalendarInstance();
 		ArrayList<String> toReturn = new ArrayList<String>();
+		queryPrep(currentTime);
 		TreeMap<GregorianCalendar, String> compositeSchedule = 
-			new TreeMap<GregorianCalendar, String>();
-
-		if(lastSnapshotDate == null || 
-			!((isMidWeek(lastSnapshotDate) && isMidWeek(currentTime)) || 
-			sameDayOfWeek(lastSnapshotDate, currentTime)))
-		{
-			setSnapShotDates(currentTime);
-		}	
-
-		compositeSchedule.putAll(snapshotYesterday.getBusStopSched(busStop));
-		compositeSchedule.putAll(snapshotToday.getBusStopSched(busStop));
-		compositeSchedule.putAll(snapshotTomorrow.getBusStopSched(busStop));
+			getCompositeSchedule(busStop);
 		SortedMap<GregorianCalendar, String> snapshotMap = compositeSchedule.subMap(
 			findOneBeforeNext(compositeSchedule, currentTime),
 			findSeveralPastNext(compositeSchedule, currentTime, 8));
@@ -123,6 +98,15 @@ public class LinkSchedule{
 			toReturn.add(snapshotMap.get(c));
 		}
 		return toReturn;
+	}
+
+	private TreeMap<GregorianCalendar, String> getCompositeSchedule(String busStop){
+		TreeMap<GregorianCalendar, String> compositeSchedule = 
+			new TreeMap<GregorianCalendar, String>();
+		compositeSchedule.putAll(snapshotYesterday.getBusStopSched(busStop));
+		compositeSchedule.putAll(snapshotToday.getBusStopSched(busStop));
+		compositeSchedule.putAll(snapshotTomorrow.getBusStopSched(busStop));
+		return compositeSchedule;
 	}
 
 	private GregorianCalendar findSeveralPastNext(
@@ -154,34 +138,40 @@ public class LinkSchedule{
 	}
 		
 
-	private void setSnapShotDates(GregorianCalendar currentTime){
-		if(isMonday(currentTime)){
-			snapshotYesterday = getWeekendSchedule();
-			snapshotToday = getDailySchedule();
-			snapshotTomorrow = getDailySchedule();
+	private void queryPrep(GregorianCalendar currentTime){
+		if(lastQueryDate == null || 
+			!((isMidWeek(lastQueryDate) && isMidWeek(currentTime)) || 
+			sameDayOfWeek(lastQueryDate, currentTime)))
+		{
+			if(isMonday(currentTime)){
+				snapshotYesterday = getWeekendSchedule();
+				snapshotToday = getDailySchedule();
+				snapshotTomorrow = getDailySchedule();
+			}
+			else if(isFriday(currentTime)){
+				snapshotYesterday = getDailySchedule();
+				snapshotToday = getDailySchedule();
+				snapshotTomorrow = getWeekendSchedule();
+			}
+			else if(isWeekday(currentTime)){
+				snapshotYesterday = getDailySchedule();
+				snapshotToday = getDailySchedule();
+				snapshotTomorrow = getDailySchedule();
+			}
+			else if(isSaturday(currentTime)){
+				snapshotYesterday = getDailySchedule();
+				snapshotToday = getWeekendSchedule();
+				snapshotTomorrow = getWeekendSchedule();
+			}
+			else if(isSunday(currentTime)){
+				snapshotYesterday = getWeekendSchedule();
+				snapshotToday = getWeekendSchedule();
+				snapshotTomorrow = getDailySchedule();
+			}
+			snapshotYesterday.dayDecrement();
+			snapshotTomorrow.dayIncrement();
 		}
-		else if(isFriday(currentTime)){
-			snapshotYesterday = getDailySchedule();
-			snapshotToday = getDailySchedule();
-			snapshotTomorrow = getWeekendSchedule();
-		}
-		else if(isWeekday(currentTime)){
-			snapshotYesterday = getDailySchedule();
-			snapshotToday = getDailySchedule();
-			snapshotTomorrow = getDailySchedule();
-		}
-		else if(isSaturday(currentTime)){
-			snapshotYesterday = getDailySchedule();
-			snapshotToday = getWeekendSchedule();
-			snapshotTomorrow = getWeekendSchedule();
-		}
-		else if(isSunday(currentTime)){
-			snapshotYesterday = getWeekendSchedule();
-			snapshotToday = getWeekendSchedule();
-			snapshotTomorrow = getDailySchedule();
-		}
-		snapshotYesterday.dayDecrement();
-		snapshotTomorrow.dayIncrement();
+		lastQueryDate = currentTime;	
 	}
 		
 

@@ -36,6 +36,7 @@ import android.view.MenuItem;
 import android.net.Uri;
 import android.view.Gravity;
 import android.graphics.drawable.ColorDrawable;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -61,7 +62,7 @@ public class BusStopActivity extends ListActivity implements Refreshable{
 		lv.setDivider(new ColorDrawable(0x00FFFFFF));
 		
 		
-		linkSchedule = new LinkSchedule(getResources());
+		linkSchedule = LinkSchedule.getLinkSchedule(getResources());
 		setListAdapter(new BusStopAdapter<String>(
 			this, R.layout.stop_time_item, linkSchedule.getSnapshot(busStop)));
 

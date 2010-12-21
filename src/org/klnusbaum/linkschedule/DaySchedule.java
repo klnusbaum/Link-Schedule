@@ -44,21 +44,6 @@ public class DaySchedule implements Comparable{
 		this.res = res;
 	}
 
-
-
-	public String getNextTime(
-		String busStop, GregorianCalendar currentTime)
-	{
-		TreeMap<GregorianCalendar, String> schedule = getBusStopSched(busStop);
-	
-		for(GregorianCalendar c: schedule.keySet()){
-			if(currentTime.compareTo(c) <= 0){
-				return schedule.get(c);
-			}
-		}	
-		return null;
-	}
-
 	public void dayIncrement(){
 		flynntownSchedule = dayAddBusStop(flynntownSchedule,1);
 		goreckiSchedule = dayAddBusStop(goreckiSchedule,1);

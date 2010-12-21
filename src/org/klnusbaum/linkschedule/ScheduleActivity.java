@@ -52,8 +52,9 @@ public class ScheduleActivity extends Activity implements Refreshable{
   @Override
   protected void onCreate(Bundle savedInstanceState){
     super.onCreate(savedInstanceState);
+		Debug.startMethodTracing("init");
     setContentView(R.layout.main);
-		linkSchedule = new LinkSchedule(getResources());	
+		linkSchedule = LinkSchedule.getLinkSchedule(getResources());
 		timeChangeReceiver = new TimeChangeReceiver(this);
 		timeChangeReceiver.registerIntents(this);
 		sextonClock = (ClockView)findViewById(R.id.sexton_clock);
@@ -67,6 +68,7 @@ public class ScheduleActivity extends Activity implements Refreshable{
 		flynntownClock.setOnClickListener(clockClickListener);
 
 		refreshSchedule();
+		Debug.stopMethodTracing();
   }
 
 	@Override
