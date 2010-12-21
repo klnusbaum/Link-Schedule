@@ -19,17 +19,18 @@
 package org.klnusbaum.linkschedule;
 
 import android.app.ListActivity;
-import android.os.Bundle;
 import android.content.BroadcastReceiver;
+import android.os.Bundle;
 import android.view.ViewGroup;
 import android.view.View;
+import android.view.LayoutInflater;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.content.IntentFilter;
 import android.content.Intent;
 import android.content.Context;
-import android.util.Log;
+import android.content.res.Resources;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -57,13 +58,13 @@ public class BusStopActivity extends ListActivity implements Refreshable{
 		header.setTextSize(30);
 		ListView lv = getListView();
 
-		lv.addHeaderView(header);
+		lv.addHeaderView(header, busStop, false);
 		lv.setDividerHeight(0);
 		lv.setDivider(new ColorDrawable(0x00FFFFFF));
 		
 		
 		linkSchedule = LinkSchedule.getLinkSchedule(getResources());
-		setListAdapter(new BusStopAdapter<String>(
+		setListAdapter(new BusStopAdapter(
 			this, R.layout.stop_time_item, linkSchedule.getSnapshot(busStop)));
 
 		timeChangeReceiver = new TimeChangeReceiver(this);
@@ -77,7 +78,7 @@ public class BusStopActivity extends ListActivity implements Refreshable{
 	}
 
 	public void refreshSchedule(){
-		setListAdapter(new BusStopAdapter<String>(
+		setListAdapter(new BusStopAdapter(
 			this, R.layout.stop_time_item, linkSchedule.getSnapshot(busStop)));
 	}
 
@@ -85,20 +86,23 @@ public class BusStopActivity extends ListActivity implements Refreshable{
 		linkSchedule.reset();	
 	}
 
-	private class BusStopAdapter<T> extends ArrayAdapter<T>{
+	private class BusStopAdapter extends ArrayAdapter<String>{
+    private LayoutInflater mInflater;
+		private Resources res;
 
 		public BusStopAdapter(
 			Context context, int textViewResourceId,
-			List<T> objects)
+			List<String> objects)
 		{
 			super(context, textViewResourceId, objects);
+			res = context.getResources();
+      mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		}
 
 		public View getView(int position, View convertView, 
 			ViewGroup parent)
 		{
-			TextView toReturn = 
-				(TextView)super.getView(position, convertView, parent);
+			TextView toReturn = (TextView)mInflater.inflate(R.layout.stop_time_item, parent, false);
 			if(position == 0){
 				toReturn.setTextSize(12);
 				toReturn.setText("Previous Bus: " + toReturn.getText());
@@ -115,6 +119,10 @@ public class BusStopActivity extends ListActivity implements Refreshable{
 				toReturn.setText("Next Bus: " + toReturn.getText());
 				toReturn.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.TOP);
 			}
+			else{
+				toReturn.setText(getItem(position));
+			}
+				
 			return toReturn;
 		}
 
