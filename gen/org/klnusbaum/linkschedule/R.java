@@ -9,12 +9,12 @@ package org.klnusbaum.linkschedule;
 
 public final class R {
     public static final class array {
-        public static final int flynntown_weekday_times=0x7f040004;
-        public static final int gorecki_weekday_labels=0x7f040001;
-        public static final int gorecki_weekday_times=0x7f040000;
-        public static final int hcc_weekday_times=0x7f040005;
-        public static final int sexton_weekday_labels=0x7f040003;
-        public static final int sexton_weekday_times=0x7f040002;
+        public static final int flynntown_weekday_times=0x7f050004;
+        public static final int gorecki_weekday_labels=0x7f050001;
+        public static final int gorecki_weekday_times=0x7f050000;
+        public static final int hcc_weekday_times=0x7f050005;
+        public static final int sexton_weekday_labels=0x7f050003;
+        public static final int sexton_weekday_times=0x7f050002;
     }
     public static final class attr {
         /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
@@ -27,53 +27,58 @@ containing a value of this type.
         public static final int stopName=0x7f010000;
     }
     public static final class id {
-        public static final int about_text=0x7f080000;
-        public static final int flynntown_clock=0x7f080005;
-        public static final int gorecki_clock=0x7f080004;
-        public static final int hcc_clock=0x7f080006;
-        public static final int menuAbout=0x7f080007;
-        public static final int menuLinkWebsite=0x7f080008;
-        public static final int sexton_clock=0x7f080003;
-        public static final int stopLabel=0x7f080002;
-        public static final int time=0x7f080001;
+        public static final int about_text=0x7f090000;
+        public static final int flynntown_clock=0x7f090005;
+        public static final int gorecki_clock=0x7f090004;
+        public static final int hcc_clock=0x7f090006;
+        public static final int menuAbout=0x7f090007;
+        public static final int menuLinkWebsite=0x7f090008;
+        public static final int sexton_clock=0x7f090003;
+        public static final int stopLabel=0x7f090002;
+        public static final int time=0x7f090001;
     }
     public static final class integer {
-        public static final int flynntown_offset=0x7f050000;
-        public static final int standard_bus_interval=0x7f050001;
+        public static final int flynntown_offset=0x7f060000;
+        public static final int standard_bus_interval=0x7f060001;
     }
     public static final class layout {
         public static final int about_layout=0x7f020000;
-        public static final int clock_layout=0x7f020001;
-        public static final int main=0x7f020002;
-        public static final int stop_time_item=0x7f020003;
+        public static final int bus_stop_widget=0x7f020001;
+        public static final int clock_layout=0x7f020002;
+        public static final int main=0x7f020003;
+        public static final int stop_time_item=0x7f020004;
     }
     public static final class menu {
-        public static final int sched_menu=0x7f070000;
+        public static final int sched_menu=0x7f080000;
     }
     public static final class raw {
-        public static final int about=0x7f030000;
+        public static final int about=0x7f040000;
     }
     public static final class string {
-        public static final int about=0x7f060005;
-        public static final int app_name=0x7f060000;
-        public static final int bus_stop=0x7f060007;
-        public static final int flynntown_name=0x7f060001;
-        public static final int gorecki_name=0x7f060002;
-        public static final int gorecki_night_end=0x7f060009;
-        public static final int gorecki_night_start=0x7f060008;
-        public static final int gorecki_weekend_day_end=0x7f06000b;
-        public static final int gorecki_weekend_day_start=0x7f06000a;
-        public static final int gorecki_weekend_morning_end=0x7f06000d;
-        public static final int gorecki_weekend_morning_start=0x7f06000c;
-        public static final int hcc_name=0x7f060003;
-        public static final int sexton_name=0x7f060004;
-        public static final int sexton_night_end=0x7f06000f;
-        public static final int sexton_night_start=0x7f06000e;
-        public static final int sexton_weekend_day_end=0x7f060011;
-        public static final int sexton_weekend_day_start=0x7f060010;
-        public static final int sexton_weekend_morning_end=0x7f060013;
-        public static final int sexton_weekend_morning_start=0x7f060012;
-        public static final int website=0x7f060006;
+        public static final int about=0x7f070005;
+        public static final int app_name=0x7f070000;
+        public static final int bus_stop=0x7f070007;
+        public static final int flynntown_name=0x7f070001;
+        public static final int gorecki_name=0x7f070002;
+        public static final int gorecki_night_end=0x7f07000a;
+        public static final int gorecki_night_start=0x7f070009;
+        public static final int gorecki_weekend_day_end=0x7f07000c;
+        public static final int gorecki_weekend_day_start=0x7f07000b;
+        public static final int gorecki_weekend_morning_end=0x7f07000e;
+        public static final int gorecki_weekend_morning_start=0x7f07000d;
+        public static final int hcc_name=0x7f070003;
+        public static final int sexton_name=0x7f070004;
+        public static final int sexton_night_end=0x7f070010;
+        public static final int sexton_night_start=0x7f07000f;
+        public static final int sexton_weekend_day_end=0x7f070012;
+        public static final int sexton_weekend_day_start=0x7f070011;
+        public static final int sexton_weekend_morning_end=0x7f070014;
+        public static final int sexton_weekend_morning_start=0x7f070013;
+        public static final int website=0x7f070006;
+        public static final int widget_update_action=0x7f070008;
+    }
+    public static final class xml {
+        public static final int bus_stop_widget_info=0x7f030000;
     }
     public static final class styleable {
         /** Attributes that can be used with a ClockView.
