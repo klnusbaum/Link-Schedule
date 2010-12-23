@@ -40,11 +40,13 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 	@Override
 	public void onReceive(Context context, Intent intent){
 		super.onReceive(context, intent);
+		Log.i("special", "in on recieve with" + intent.getAction());
 		if(
 			intent.getAction().equals(context.getString(R.string.widget_update_action)) ||
 			intent.getAction().equals(Intent.ACTION_TIME_CHANGED) ||
 			intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED))
 		{
+		Log.i("special", "was an update broadcast");
 			AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
 			ComponentName appWidgetName = 
 				new ComponentName(context, BusStopWidgetProvider.class);	
@@ -55,26 +57,29 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 
 	@Override
 	public void onEnabled(Context context){
+		Log.i("special", "in on enabled");
+		linkSchedule = LinkSchedule.getLinkSchedule(context.getResources());
 		Intent updateIntent = 
 			new Intent(context.getString(R.string.widget_update_action));
 		pendingIntent = 
 			PendingIntent.getBroadcast(context, 0, updateIntent, 0);
 		alarmManager = 
 			(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-		GregorianCalendar rightNow = (GregorianCalendar)Calendar.getInstance();
+		//GregorianCalendar rightNow = (GregorianCalendar)Calendar.getInstance();
 		GregorianCalendar nextMinute = (GregorianCalendar)Calendar.getInstance();
 		nextMinute.add(Calendar.MINUTE, 1);
 		nextMinute.set(Calendar.SECOND, 0);
+		//Log.i("special", "difference =" + (nextMinute.getTimeInMillis() - rightNow.getTimeInMillis()));
 		alarmManager.setRepeating(
 			AlarmManager.RTC, 
-			nextMinute.getTimeInMillis() - rightNow.getTimeInMillis(),
+			nextMinute.getTimeInMillis(),
 			60000,
 			pendingIntent);
-		linkSchedule = LinkSchedule.getLinkSchedule(context.getResources());
 	}
 
 	@Override
 	public void onDisabled(Context context){
+		Log.i("special", "in on disabled");
 		alarmManager.cancel(pendingIntent);
 	}
 
@@ -88,6 +93,7 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 			RemoteViews views = new RemoteViews(context.getPackageName(), 
 				R.layout.bus_stop_widget);
 			views.setTextViewText(R.id.time, linkSchedule.getNextTime(context.getString(R.string.sexton_name)));
+			views.setTextViewText(R.id.stopLabel, context.getString(R.string.sexton_name));
 			appWidgetManager.updateAppWidget(appWidgetId, views);
 		}
 	}
