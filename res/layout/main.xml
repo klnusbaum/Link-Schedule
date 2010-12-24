@@ -35,7 +35,6 @@
 		<org.klnusbaum.linkschedule.ClockView
 			android:id="@+id/sexton_clock"
 			app:stopName="@string/sexton_name"
-			android:orientation="vertical"
 			android:layout_width="wrap_content"
 			android:layout_height="fill_parent"
 			android:layout_weight="1"
@@ -44,7 +43,6 @@
 		<org.klnusbaum.linkschedule.ClockView
 			android:id="@+id/gorecki_clock"
 			app:stopName="@string/gorecki_name"
-			android:orientation="vertical"
 			android:layout_width="wrap_content"
 			android:layout_height="fill_parent"
 			android:layout_weight="1"
@@ -60,7 +58,6 @@
 		<org.klnusbaum.linkschedule.ClockView
 			android:id="@+id/flynntown_clock"
 			app:stopName="@string/flynntown_name"
-			android:orientation="vertical"
 			android:layout_width="wrap_content"
 			android:layout_height="fill_parent"
 			android:layout_weight="1"
@@ -69,7 +66,6 @@
 		<org.klnusbaum.linkschedule.ClockView
 			android:id="@+id/hcc_clock"
 			app:stopName="@string/hcc_name"
-			android:orientation="vertical"
 			android:layout_width="wrap_content"
 			android:layout_height="fill_parent"
 			android:layout_weight="1"

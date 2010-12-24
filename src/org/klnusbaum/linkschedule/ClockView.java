@@ -46,6 +46,7 @@ public class ClockView extends LinearLayout{
 		LayoutInflater inflater = 
 			(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			inflater.inflate(R.layout.clock_layout, this);
+		setOrientation(VERTICAL);
 		stopLabel = (TextView)findViewById(R.id.stopLabel);
 		time = (TextView)findViewById(R.id.time);
 		if(stopName != null){

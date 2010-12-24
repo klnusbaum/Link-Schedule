@@ -19,20 +19,20 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 			<TextView
 				android:id="@+id/time"
-				android:layout_width="wrap_content"
-				android:layout_height="fill_parent"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
 				android:layout_weight="1"
 				android:singleLine="true"
 				android:textAppearance="?android:attr/textAppearanceLarge"
-				android:gravity="center_vertical"
+				android:gravity="center_vertical|center_horizontal"
 			/>
 			<TextView
 				android:id="@+id/stopLabel"
-				android:layout_width="wrap_content"
-				android:layout_height="fill_parent"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
 				android:layout_weight="1"
 				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:gravity="top"
+				android:gravity="top|center_horizontal"
 			/>
 </merge>
 
