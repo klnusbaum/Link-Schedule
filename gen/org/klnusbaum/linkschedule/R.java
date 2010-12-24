@@ -31,14 +31,19 @@ containing a value of this type.
     }
     public static final class id {
         public static final int about_text=0x7f0a0000;
-        public static final int flynntown_clock=0x7f0a0005;
-        public static final int gorecki_clock=0x7f0a0004;
-        public static final int hcc_clock=0x7f0a0006;
-        public static final int menuAbout=0x7f0a0007;
-        public static final int menuLinkWebsite=0x7f0a0008;
-        public static final int sexton_clock=0x7f0a0003;
-        public static final int stopLabel=0x7f0a0002;
-        public static final int time=0x7f0a0001;
+        public static final int configureOkButton=0x7f0a0005;
+        public static final int flynntown_clock=0x7f0a000a;
+        public static final int flynntown_radio=0x7f0a0001;
+        public static final int gorecki_clock=0x7f0a0009;
+        public static final int gorecki_radio=0x7f0a0002;
+        public static final int hcc_clock=0x7f0a000b;
+        public static final int hcc_radio=0x7f0a0003;
+        public static final int menuAbout=0x7f0a000c;
+        public static final int menuLinkWebsite=0x7f0a000d;
+        public static final int sexton_clock=0x7f0a0008;
+        public static final int sexton_radio=0x7f0a0004;
+        public static final int stopLabel=0x7f0a0007;
+        public static final int time=0x7f0a0006;
     }
     public static final class integer {
         public static final int flynntown_offset=0x7f070000;
@@ -46,10 +51,11 @@ containing a value of this type.
     }
     public static final class layout {
         public static final int about_layout=0x7f030000;
-        public static final int bus_stop_widget=0x7f030001;
-        public static final int clock_layout=0x7f030002;
-        public static final int main=0x7f030003;
-        public static final int stop_time_item=0x7f030004;
+        public static final int bus_stop_configure=0x7f030001;
+        public static final int bus_stop_widget=0x7f030002;
+        public static final int clock_layout=0x7f030003;
+        public static final int main=0x7f030004;
+        public static final int stop_time_item=0x7f030005;
     }
     public static final class menu {
         public static final int sched_menu=0x7f090000;
@@ -63,20 +69,21 @@ containing a value of this type.
         public static final int bus_stop=0x7f080007;
         public static final int flynntown_name=0x7f080001;
         public static final int gorecki_name=0x7f080002;
-        public static final int gorecki_night_end=0x7f08000a;
-        public static final int gorecki_night_start=0x7f080009;
-        public static final int gorecki_weekend_day_end=0x7f08000c;
-        public static final int gorecki_weekend_day_start=0x7f08000b;
-        public static final int gorecki_weekend_morning_end=0x7f08000e;
-        public static final int gorecki_weekend_morning_start=0x7f08000d;
+        public static final int gorecki_night_end=0x7f08000b;
+        public static final int gorecki_night_start=0x7f08000a;
+        public static final int gorecki_weekend_day_end=0x7f08000d;
+        public static final int gorecki_weekend_day_start=0x7f08000c;
+        public static final int gorecki_weekend_morning_end=0x7f08000f;
+        public static final int gorecki_weekend_morning_start=0x7f08000e;
         public static final int hcc_name=0x7f080003;
+        public static final int no_bus_stop_selected=0x7f080009;
         public static final int sexton_name=0x7f080004;
-        public static final int sexton_night_end=0x7f080010;
-        public static final int sexton_night_start=0x7f08000f;
-        public static final int sexton_weekend_day_end=0x7f080012;
-        public static final int sexton_weekend_day_start=0x7f080011;
-        public static final int sexton_weekend_morning_end=0x7f080014;
-        public static final int sexton_weekend_morning_start=0x7f080013;
+        public static final int sexton_night_end=0x7f080011;
+        public static final int sexton_night_start=0x7f080010;
+        public static final int sexton_weekend_day_end=0x7f080013;
+        public static final int sexton_weekend_day_start=0x7f080012;
+        public static final int sexton_weekend_morning_end=0x7f080015;
+        public static final int sexton_weekend_morning_start=0x7f080014;
         public static final int website=0x7f080006;
         public static final int widget_update_action=0x7f080008;
     }

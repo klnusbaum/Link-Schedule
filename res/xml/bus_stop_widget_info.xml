@@ -20,6 +20,7 @@
 	android:minWidth="146dp"
 	android:minHeight="74dp"
 	android:updatePeriodMillis="0"
+	android:configure="org.klnusbaum.linkschedule.BusStopWidgetConfigure"
 	android:initialLayout="@layout/bus_stop_widget">
 </appwidget-provider>
 

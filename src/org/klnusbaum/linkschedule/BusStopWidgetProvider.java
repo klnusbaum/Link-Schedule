@@ -20,6 +20,7 @@ package org.klnusbaum.linkschedule;
 
 import android.content.Intent;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.ComponentName;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -36,6 +37,8 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 	private static AlarmManager alarmManager;
 	private static PendingIntent pendingIntent;
 	private static LinkSchedule linkSchedule;
+	public static final String PREF_FILE_NAME = "WIDGET_PREFERENCES";
+	private static final String DEFAULT_STOP_NAME = "Unknown Stop";
 			
 	@Override
 	public void onReceive(Context context, Intent intent){
@@ -73,6 +76,18 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 	}
 
 	@Override
+	public void onDeleted(Context context, int[] appWidgetIds){
+		SharedPreferences settings = context.getSharedPreferences(
+			PREF_FILE_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor prefEditor = settings.edit();
+		for(int i=0; i<appWidgetIds.length; i++){
+			prefEditor.remove(String.valueOf(appWidgetIds[i]));
+		}
+		prefEditor.commit();
+	}
+			
+
+	@Override
 	public void onDisabled(Context context){
 		alarmManager.cancel(pendingIntent);
 	}
@@ -82,12 +97,16 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 		Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
 	{
 		final int N = appWidgetIds.length;
+		SharedPreferences settings = context.getSharedPreferences(
+			PREF_FILE_NAME, Context.MODE_PRIVATE);
 		for(int i=0; i<N; i++){
 			int appWidgetId = appWidgetIds[i];
 			RemoteViews views = new RemoteViews(context.getPackageName(), 
 				R.layout.bus_stop_widget);
-			views.setTextViewText(R.id.time, linkSchedule.getNextTime(context.getString(R.string.sexton_name)));
-			views.setTextViewText(R.id.stopLabel, context.getString(R.string.sexton_name));
+			views.setTextViewText(R.id.time, 
+				linkSchedule.getNextTime(context.getString(R.string.sexton_name)));
+			views.setTextViewText(
+				R.id.stopLabel, settings.getString(String.valueOf(appWidgetId), DEFAULT_STOP_NAME));
 			appWidgetManager.updateAppWidget(appWidgetId, views);
 		}
 	}

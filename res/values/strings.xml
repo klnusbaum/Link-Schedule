@@ -27,4 +27,5 @@
 		<string name="website">Link Website</string>
 		<string name="bus_stop">Bus Stop</string>
 		<string name="widget_update_action">ACTION_TIME_UPDATE</string>
+		<string name="no_bus_stop_selected">No bus stop has been selected. Please select a bus stop</string>
 </resources>

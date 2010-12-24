@@ -34,12 +34,11 @@
                   android:label="@string/about"/>
         <activity android:name="BusStopActivity"
                   android:label="@string/bus_stop"/>
-	<!-- 
-        <activity android:name=".BusStopWidgetConfigure">
+				<activity android:name=".BusStopWidgetConfigure">
 					<intent-filter>
 						<action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
 					</intent-filter>
-				</activity> -->
+				</activity>	
 				<receiver android:name="BusStopWidgetProvider">
 					<intent-filter>
 						<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
