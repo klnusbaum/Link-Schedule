@@ -45,13 +45,7 @@
 						<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
 					</intent-filter>
 					<intent-filter>
-						<action android:name="android.appwidget.action.TIME_CHANGED" />
-					</intent-filter>
-					<intent-filter>
-						<action android:name="android.appwidget.action.TIMEZONE_CHANGED" />
-					</intent-filter>
-					<intent-filter>
-						<action android:name="@string/widget_update_action" />
+						<action android:name="ACTION_TIME_UPDATE"/>
 					</intent-filter>
 					<meta-data android:name="android.appwidget.provider"
 						android:resource="@xml/bus_stop_widget_info"/>
