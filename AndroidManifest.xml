@@ -34,7 +34,8 @@
                   android:label="@string/about"/>
         <activity android:name="BusStopActivity"
                   android:label="@string/bus_stop"/>
-				<activity android:name=".BusStopWidgetConfigure">
+				<activity android:name=".BusStopWidgetConfigure"
+									android:theme="@android:style/Theme.Dialog">
 					<intent-filter>
 						<action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
 					</intent-filter>

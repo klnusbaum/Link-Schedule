@@ -18,43 +18,31 @@
 
 package org.klnusbaum.linkschedule;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.RadioButton;
+import android.widget.ListView;
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.RemoteViews;
 import android.content.SharedPreferences;
 import android.appwidget.AppWidgetManager;
-import android.app.Dialog;
-import android.app.AlertDialog;
 import android.util.Log;
 
-public class BusStopWidgetConfigure extends Activity{
+import java.util.ArrayList;
 
-	private String selectedBusStop;
-
-	private static final int DIALOG_NONE_SELECTED = 0;
+public class BusStopWidgetConfigure extends ListActivity{
 
   int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-
-	private OnClickListener radio_listener= new OnClickListener(){
-		public void onClick(View v){
-			RadioButton rb = (RadioButton)v;
-			selectedBusStop = (String)rb.getText();
-		}
-	};
-
 
   @Override
   public void onCreate(Bundle savedInstanceState){
     super.onCreate(savedInstanceState);
     setResult(RESULT_CANCELED);
-		selectedBusStop = null;
     Intent intent = getIntent();
     Bundle extras = intent.getExtras();
     if(extras != null) {
@@ -65,69 +53,44 @@ public class BusStopWidgetConfigure extends Activity{
     if(appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
       finish();
     }
+		
+		ArrayList<String> stops = new ArrayList<String>();
+		stops.add(getString(R.string.flynntown_name));
+		stops.add(getString(R.string.gorecki_name));
+		stops.add(getString(R.string.hcc_name));
+		stops.add(getString(R.string.sexton_name));
 
-    setContentView(R.layout.bus_stop_configure);
-
-		final RadioButton flynntown_radio = 
-			(RadioButton) findViewById(R.id.flynntown_radio);
-		final RadioButton gorecki_radio = 
-			(RadioButton) findViewById(R.id.gorecki_radio);
-		final RadioButton hcc_radio = 
-			(RadioButton) findViewById(R.id.hcc_radio);
-		final RadioButton sexton_radio = 
-			(RadioButton) findViewById(R.id.sexton_radio);
-		flynntown_radio.setOnClickListener(radio_listener);
-		gorecki_radio.setOnClickListener(radio_listener);
-		hcc_radio.setOnClickListener(radio_listener);
-		sexton_radio.setOnClickListener(radio_listener);
+		setListAdapter(new ArrayAdapter<String>(
+			this,
+			R.layout.bus_stop_configure,
+			stops));
 
 
-		final Button ok_button = (Button) findViewById(R.id.configureOkButton);
-		ok_button.setOnClickListener(new OnClickListener(){
-			public void onClick(View v){
-				if(selectedBusStop == null){
-					showDialog(DIALOG_NONE_SELECTED);
-				}
-				else{
-					SharedPreferences settings = getSharedPreferences(
-						BusStopWidgetProvider.PREF_FILE_NAME, MODE_PRIVATE);
-					SharedPreferences.Editor prefEditor = settings.edit();
-					prefEditor.putString(String.valueOf(appWidgetId), selectedBusStop);
-					prefEditor.commit();
-					AppWidgetManager widgetManager = 
-						AppWidgetManager.getInstance(BusStopWidgetConfigure.this);
-					RemoteViews views = 
-						BusStopWidgetProvider.getWidgetView(BusStopWidgetConfigure.this, selectedBusStop);
-				Log.i("special", "updateing widget with id: " + appWidgetId + " and label " + selectedBusStop);
-					widgetManager.updateAppWidget(appWidgetId, views);
-					Intent result = new Intent();
-					result.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-					setResult(RESULT_OK, result);
-					finish();	
-				}
+		getListView().setOnItemClickListener(new OnItemClickListener(){
+      public void onItemClick(AdapterView<?> parent, View view,
+        int position, long id)
+			{
+				String selectedBusStop = 
+					((ArrayAdapter<String>)parent.getAdapter()).getItem(position);
+				SharedPreferences settings = getSharedPreferences(
+					BusStopWidgetProvider.PREF_FILE_NAME, MODE_PRIVATE);
+				SharedPreferences.Editor prefEditor = settings.edit();
+				prefEditor.putString(String.valueOf(appWidgetId), selectedBusStop);
+				prefEditor.commit();
+				AppWidgetManager widgetManager = 
+				AppWidgetManager.getInstance(BusStopWidgetConfigure.this);
+				RemoteViews views = BusStopWidgetProvider.getWidgetView(
+					BusStopWidgetConfigure.this, selectedBusStop);
+				widgetManager.updateAppWidget(appWidgetId, views);
+				Intent result = new Intent();
+				result.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+				setResult(RESULT_OK, result);
+				finish();	
 			}
 		});
 			
   }
 
-
-	protected Dialog onCreateDialog(int id, Bundle args){
-		Dialog dialog;
-		switch(id){
-		case DIALOG_NONE_SELECTED:
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(R.string.no_bus_stop_selected)
-			.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
-				public void onClick(DialogInterface dialog, int id){
-					dialog.dismiss();
-				}
-			});
-			dialog = builder.create();
-		default:
-			dialog = null;
-		}
-		return dialog;
-	}
 
 
 }

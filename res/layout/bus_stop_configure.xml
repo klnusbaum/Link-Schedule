@@ -16,53 +16,12 @@
  * Public License along with LinkSchedule. If not, see 
  * http://www.gnu.org/licenses/.
  --> 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
-	<RadioGroup
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		android:layout_weight="10"
-	>
-		<RadioButton
-			android:id="@+id/flynntown_radio"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/flynntown_name"
-		/>
-		<RadioButton
-			android:id="@+id/gorecki_radio"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/gorecki_name"
-		/>
-		<RadioButton
-			android:id="@+id/hcc_radio"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/hcc_name"
-		/>
-		<RadioButton
-			android:id="@+id/sexton_radio"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/sexton_name"
-		/>
-	</RadioGroup>	
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_weight="1"
-	>
-		<Button
-			android:id="@+id/configureOkButton"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:text="@android:string/ok"
-		/>
-	</LinearLayout>
-</LinearLayout>
+<TextView
+	xmlns:android="http://schemas.android.com/apk/res/android"	
+	android:id="@+id/stop_item"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:textSize="35dip"
+	android:padding="10dip"
+/>
 
