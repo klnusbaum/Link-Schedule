@@ -37,6 +37,7 @@ import android.view.MenuItem;
 import android.net.Uri;
 import android.view.Gravity;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -44,37 +45,48 @@ import java.util.ArrayList;
 public class BusStopActivity extends ListActivity implements Refreshable{
 	private LinkSchedule linkSchedule;
 	private String busStop;
-	public static final String EXTRA_STOPNAME = "stop_name";
+	public static final String EXTRA_STOPNAME = "STOP_NAME";
 	private TimeChangeReceiver timeChangeReceiver;
 
   @Override
   protected void onCreate(Bundle savedInstanceState){
     super.onCreate(savedInstanceState);
 		
-		busStop = getIntent().getStringExtra(EXTRA_STOPNAME);
-		TextView header = new TextView(this);
-		header.setText(busStop);
-		header.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL);
-		header.setTextSize(30);
-		ListView lv = getListView();
-
-		lv.addHeaderView(header, busStop, false);
-		lv.setDividerHeight(0);
-		lv.setDivider(new ColorDrawable(0x00FFFFFF));
-		
-		
-		linkSchedule = LinkSchedule.getLinkSchedule(getResources());
-		setListAdapter(new BusStopAdapter(
-			this, R.layout.stop_time_item, linkSchedule.getSnapshot(busStop)));
-
-		timeChangeReceiver = new TimeChangeReceiver(this);
-		timeChangeReceiver.registerIntents(this);
+		busStop = getString(R.string.unknown_stop);
+		if(getIntent().hasExtra(EXTRA_STOPNAME)){
+			busStop = getIntent().getStringExtra(EXTRA_STOPNAME);
+		}
+		if(busStop.equals(getString(R.string.unknown_stop))){
+			Log.e("special", "unknow bus stop: " + busStop);
+			finish();
+		}
+		else{
+			TextView header = new TextView(this);
+			header.setText(busStop);
+			header.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL);
+			header.setTextSize(30);
+			ListView lv = getListView();
+	
+			lv.addHeaderView(header, busStop, false);
+			lv.setDividerHeight(0);
+			lv.setDivider(new ColorDrawable(0x00FFFFFF));
+			
+			
+			linkSchedule = LinkSchedule.getLinkSchedule(getResources());
+			setListAdapter(new BusStopAdapter(
+				this, R.layout.stop_time_item, linkSchedule.getSnapshot(busStop)));
+	
+			timeChangeReceiver = new TimeChangeReceiver(this);
+			timeChangeReceiver.registerIntents(this);
+		}
   }
 
 	@Override
 	protected void onDestroy(){
 		super.onDestroy();
-		unregisterReceiver(timeChangeReceiver);
+		if(timeChangeReceiver != null){
+			unregisterReceiver(timeChangeReceiver);
+		}
 	}
 
 	public void refreshSchedule(){

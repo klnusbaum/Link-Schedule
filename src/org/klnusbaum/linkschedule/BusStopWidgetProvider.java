@@ -36,12 +36,14 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 
 	private static AlarmManager alarmManager;
 	private static PendingIntent pendingIntent;
-	private static LinkSchedule linkSchedule;
 	public static final String PREF_FILE_NAME = "WIDGET_PREFERENCES";
-	private static final String DEFAULT_STOP_NAME = "Unknown Stop";
+			
 			
 	@Override
 	public void onReceive(Context context, Intent intent){
+		if(intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)){
+			return;
+		}
 		super.onReceive(context, intent);
 		if(
 			intent.getAction().equals(context.getString(R.string.widget_update_action)) ||
@@ -58,7 +60,6 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 
 	@Override
 	public void onEnabled(Context context){
-		linkSchedule = LinkSchedule.getLinkSchedule(context.getResources());
 		Intent updateIntent = 
 			new Intent(context.getString(R.string.widget_update_action));
 		pendingIntent = 
@@ -101,13 +102,28 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 			PREF_FILE_NAME, Context.MODE_PRIVATE);
 		for(int i=0; i<N; i++){
 			int appWidgetId = appWidgetIds[i];
-			RemoteViews views = new RemoteViews(context.getPackageName(), 
-				R.layout.bus_stop_widget);
-			views.setTextViewText(R.id.time, 
-				linkSchedule.getNextTime(context.getString(R.string.sexton_name)));
-			views.setTextViewText(
-				R.id.stopLabel, settings.getString(String.valueOf(appWidgetId), DEFAULT_STOP_NAME));
+			String stopLabel = 
+				settings.getString(String.valueOf(appWidgetId), 
+				context.getString(R.string.unknown_stop));
+			RemoteViews views = getWidgetView(context, stopLabel);
 			appWidgetManager.updateAppWidget(appWidgetId, views);
 		}
+	}
+	
+	public static RemoteViews getWidgetView(Context context, String stopLabel){
+			LinkSchedule linkSchedule = 
+				LinkSchedule.getLinkSchedule(context.getResources());
+			RemoteViews views = new RemoteViews(context.getPackageName(), 
+				R.layout.bus_stop_widget);
+			views.setTextViewText(R.id.time, linkSchedule.getNextTime(stopLabel));
+			views.setTextViewText(R.id.stopLabel, stopLabel);
+			
+			Intent busStopIntent = new Intent(context, BusStopActivity.class);
+			busStopIntent.putExtra(BusStopActivity.EXTRA_STOPNAME, stopLabel);
+			busStopIntent.setAction("VIEW_" + stopLabel);
+			PendingIntent pendingIntent = 
+				PendingIntent.getActivity(context, 0, busStopIntent, 0);
+			views.setOnClickPendingIntent(R.id.bus_stop_widget, pendingIntent);
+			return views;
 	}
 }

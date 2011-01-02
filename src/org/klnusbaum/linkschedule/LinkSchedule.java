@@ -73,6 +73,11 @@ public class LinkSchedule{
 	}
 
 	public String getNextTime(String busStop){
+		if(busStop == null ||
+			busStop.equals(res.getString(R.string.unknown_stop)))
+		{
+			return null;
+		}
 		GregorianCalendar currentTime = getCalendarInstance();
 		queryPrep(currentTime);
 		TreeMap<GregorianCalendar, String> compositeSchedule = 
@@ -86,6 +91,11 @@ public class LinkSchedule{
 	}
 
 	public ArrayList<String> getSnapshot(String busStop){
+		if(busStop == null ||
+			busStop.equals(res.getString(R.string.unknown_stop)))
+		{
+			return null;
+		}
 		GregorianCalendar currentTime = getCalendarInstance();
 		ArrayList<String> toReturn = new ArrayList<String>();
 		queryPrep(currentTime);

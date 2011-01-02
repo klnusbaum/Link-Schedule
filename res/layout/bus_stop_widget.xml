@@ -18,12 +18,13 @@
  --> 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			xmlns:app="http://schemas.android.com/apk/res/org.klnusbaum.linkschedule"
-    android:orientation="vertical"
+		android:id="@+id/bus_stop_widget"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/widgetbg"
 		android:layout_weight="1"
 		android:gravity="center_vertical|center_horizontal"
+		android:orientation="vertical"
     >
 	<include layout="@layout/clock_layout"
 		android:gravity="center_horizontal"

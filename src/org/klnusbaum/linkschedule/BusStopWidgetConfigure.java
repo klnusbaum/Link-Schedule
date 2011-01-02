@@ -32,6 +32,7 @@ import android.content.SharedPreferences;
 import android.appwidget.AppWidgetManager;
 import android.app.Dialog;
 import android.app.AlertDialog;
+import android.util.Log;
 
 public class BusStopWidgetConfigure extends Activity{
 
@@ -95,14 +96,9 @@ public class BusStopWidgetConfigure extends Activity{
 					prefEditor.commit();
 					AppWidgetManager widgetManager = 
 						AppWidgetManager.getInstance(BusStopWidgetConfigure.this);
-					LinkSchedule linkSchedule = 
-						LinkSchedule.getLinkSchedule(getResources());
-					RemoteViews views = new RemoteViews(getPackageName(), 
-						R.layout.bus_stop_widget);
-					views.setTextViewText(
-						R.id.time, 
-						linkSchedule.getNextTime(selectedBusStop));
-					views.setTextViewText(R.id.stopLabel, selectedBusStop);
+					RemoteViews views = 
+						BusStopWidgetProvider.getWidgetView(BusStopWidgetConfigure.this, selectedBusStop);
+				Log.i("special", "updateing widget with id: " + appWidgetId + " and label " + selectedBusStop);
 					widgetManager.updateAppWidget(appWidgetId, views);
 					Intent result = new Intent();
 					result.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
