@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="AboutActivity"
+        <activity android:name="org.klnusbaum.aboutlib.AboutActivity"
                   android:label="@string/about"/>
         <activity android:name="BusStopActivity"
                   android:label="@string/bus_stop"/>

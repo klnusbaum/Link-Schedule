@@ -29,4 +29,10 @@
 		<string name="bus_stop">Bus Stop</string>
 		<string name="widget_update_action">ACTION_TIME_UPDATE</string>
 		<string name="no_bus_stop_selected">No bus stop has been selected. Please select a bus stop</string>
+		<string name="about_title_text">
+			Link Schedule by Bazaar Solutions 
+		</string>
+		<string name="about_extra_text">
+		NOTE: This App does not take into account special bus schedules due to holidays, finals, etc. Please check the CSB/SJU website for the most up-to-date and accurate bus schedule.
+		</string>
 </resources>

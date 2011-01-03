@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package org.klnusbaum.linkschedule;
+package org.klnusbaum.aboutlib;
 
 public final class R {
     public static final class array {
