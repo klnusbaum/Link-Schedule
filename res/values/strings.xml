@@ -35,4 +35,6 @@
 		<string name="about_extra_text">
 		NOTE: This App does not take into account special bus schedules due to holidays, finals, etc. Please check the CSB/SJU website for the most up-to-date and accurate bus schedule.
 		</string>
+		<string name="previous_bus">Previous Bus:</string>
+		<string name="next_bus">Next Bus:</string>
 </resources>

@@ -18,7 +18,7 @@
 
 package org.klnusbaum.linkschedule;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.os.Bundle;
 import android.view.ViewGroup;
@@ -42,7 +42,7 @@ import android.util.Log;
 import java.util.List;
 import java.util.ArrayList;
 
-public class BusStopActivity extends ListActivity implements Refreshable{
+public class BusStopActivity extends Activity implements Refreshable{
 	private LinkSchedule linkSchedule;
 	private String busStop;
 	public static final String EXTRA_STOPNAME = "STOP_NAME";
@@ -51,7 +51,7 @@ public class BusStopActivity extends ListActivity implements Refreshable{
   @Override
   protected void onCreate(Bundle savedInstanceState){
     super.onCreate(savedInstanceState);
-		
+    setContentView(R.layout.bus_stop_activity);
 		busStop = getString(R.string.unknown_stop);
 		if(getIntent().hasExtra(EXTRA_STOPNAME)){
 			busStop = getIntent().getStringExtra(EXTRA_STOPNAME);
@@ -61,23 +61,14 @@ public class BusStopActivity extends ListActivity implements Refreshable{
 			finish();
 		}
 		else{
-			TextView header = new TextView(this);
+			TextView header = (TextView)findViewById(R.id.stop_name);
 			header.setText(busStop);
-			header.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL);
-			header.setTextSize(30);
-			ListView lv = getListView();
-	
-			lv.addHeaderView(header, busStop, false);
-			lv.setDividerHeight(0);
-			lv.setDivider(new ColorDrawable(0x00FFFFFF));
-			
 			
 			linkSchedule = LinkSchedule.getLinkSchedule(getResources());
-			setListAdapter(new BusStopAdapter(
-				this, R.layout.stop_time_item, linkSchedule.getSnapshot(busStop)));
-	
+
 			timeChangeReceiver = new TimeChangeReceiver(this);
 			timeChangeReceiver.registerIntents(this);
+			refreshSchedule();
 		}
   }
 
@@ -90,64 +81,24 @@ public class BusStopActivity extends ListActivity implements Refreshable{
 	}
 
 	public void refreshSchedule(){
-		BusStopAdapter adapter = (BusStopAdapter)getListAdapter();
-		adapter.clear();	
-		for(String s: linkSchedule.getSnapshot(busStop)){
-			adapter.add(s);
-		}
+		ArrayList<String> snapshotTimes = linkSchedule.getSnapshot(busStop);
+		((TextView)findViewById(R.id.previousTime)).setText(
+			getString(R.string.previous_bus) + " " + snapshotTimes.get(0));
+		((TextView)findViewById(R.id.nextTime)).setText(
+			getString(R.string.next_bus) + " " + snapshotTimes.get(1));
+		((TextView)findViewById(R.id.time1)).setText(snapshotTimes.get(2));
+		((TextView)findViewById(R.id.time2)).setText(snapshotTimes.get(3));
+		((TextView)findViewById(R.id.time3)).setText(snapshotTimes.get(4));
+		((TextView)findViewById(R.id.time4)).setText(snapshotTimes.get(5));
+		((TextView)findViewById(R.id.time5)).setText(snapshotTimes.get(6));
+		((TextView)findViewById(R.id.time6)).setText(snapshotTimes.get(7));
+		((TextView)findViewById(R.id.time7)).setText(snapshotTimes.get(8));
+		((TextView)findViewById(R.id.time8)).setText(snapshotTimes.get(9));
 	}
 
 	public void resetSchedule(){
 		linkSchedule.reset();	
 	}
 
-	private class BusStopAdapter extends ArrayAdapter<String>{
-    private LayoutInflater mInflater;
-		private Resources res;
-
-		public BusStopAdapter(
-			Context context, int textViewResourceId,
-			List<String> objects)
-		{
-			super(context, textViewResourceId, objects);
-			res = context.getResources();
-      mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		}
-
-		public View getView(int position, View convertView, 
-			ViewGroup parent)
-		{
-			TextView toReturn = (TextView)mInflater.inflate(R.layout.stop_time_item, parent, false);
-			if(position == 0){
-				toReturn.setTextSize(12);
-				toReturn.setText("Previous Bus: " + getItem(position));
-				toReturn.setPadding(0,0,0,0);
-			}
-			else if(position == 1){
-				toReturn.setTextSize(20);
-				toReturn.setPadding(
-					toReturn.getPaddingLeft(),
-					0,
-					toReturn.getPaddingRight(),
-					0
-				);
-				toReturn.setText("Next Bus: " + getItem(position));
-				toReturn.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.TOP);
-			}
-			else{
-				toReturn.setText(getItem(position));
-			}
-				
-			return toReturn;
-		}
-
-		public boolean areAllItemsEnabled(){
-			return false;
-		}
-
-		public boolean isEnabled(int position){
-			return false;
-		}
-	}
 
 }

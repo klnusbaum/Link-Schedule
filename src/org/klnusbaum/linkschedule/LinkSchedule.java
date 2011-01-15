@@ -37,6 +37,7 @@ public class LinkSchedule{
 	private GregorianCalendar lastQueryDate;
 	private DaySchedule snapshotYesterday,
 		snapshotToday, snapshotTomorrow;
+	private static final int SNAPSHOT_NEXT_LENGTH = 8;
 
 	private static LinkSchedule singletonInstance;
 
@@ -90,6 +91,10 @@ public class LinkSchedule{
 		return "";
 	}
 
+	/**
+ 	 * 
+	 * @return ArrayList of Length 10
+	 */
 	public ArrayList<String> getSnapshot(String busStop){
 		if(busStop == null ||
 			busStop.equals(res.getString(R.string.unknown_stop)))
@@ -103,7 +108,7 @@ public class LinkSchedule{
 			getCompositeSchedule(busStop);
 		SortedMap<GregorianCalendar, String> snapshotMap = compositeSchedule.subMap(
 			findOneBeforeNext(compositeSchedule, currentTime),
-			findSeveralPastNext(compositeSchedule, currentTime, 8));
+			findSeveralPastNext(compositeSchedule, currentTime, SNAPSHOT_NEXT_LENGTH));
 		for(GregorianCalendar c: snapshotMap.keySet()){
 			toReturn.add(snapshotMap.get(c));
 		}
