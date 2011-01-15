@@ -50,5 +50,11 @@
 					<meta-data android:name="android.appwidget.provider"
 						android:resource="@xml/bus_stop_widget_info"/>
 				</receiver>
+<!--				<receiver android:name="AlarmReceiver">
+					<intent-filter>
+						<action 
+							android:name="ACTION_BUS_STOP_ALARM"/>
+					</intent-filter>
+				</receiver> -->
     </application>
 </manifest> 

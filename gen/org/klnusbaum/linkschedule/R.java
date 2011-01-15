@@ -37,11 +37,13 @@ containing a value of this type.
         public static final int flynntown_clock=0x7f0b0015;
         public static final int gorecki_clock=0x7f0b0014;
         public static final int hcc_clock=0x7f0b0016;
-        public static final int menuAbout=0x7f0b0017;
-        public static final int menuLinkWebsite=0x7f0b0018;
+        public static final int menuAbout=0x7f0b0019;
+        public static final int menuLinkWebsite=0x7f0b001a;
         public static final int nextTime=0x7f0b0006;
         public static final int previousTime=0x7f0b0005;
+        public static final int set_alarm=0x7f0b0017;
         public static final int sexton_clock=0x7f0b0013;
+        public static final int share_stop=0x7f0b0018;
         public static final int stopLabel=0x7f0b0012;
         public static final int stop_item=0x7f0b000f;
         public static final int stop_name=0x7f0b0004;
@@ -69,7 +71,8 @@ containing a value of this type.
         public static final int main=0x7f030005;
     }
     public static final class menu {
-        public static final int sched_menu=0x7f0a0000;
+        public static final int bus_stop_context=0x7f0a0000;
+        public static final int sched_menu=0x7f0a0001;
     }
     public static final class raw {
         public static final int about=0x7f050000;
@@ -84,23 +87,28 @@ containing a value of this type.
         public static final int bus_stop=0x7f06000c;
         public static final int flynntown_name=0x7f060006;
         public static final int gorecki_name=0x7f060007;
-        public static final int gorecki_night_end=0x7f060012;
-        public static final int gorecki_night_start=0x7f060011;
-        public static final int gorecki_weekend_day_end=0x7f060014;
-        public static final int gorecki_weekend_day_start=0x7f060013;
-        public static final int gorecki_weekend_morning_end=0x7f060016;
-        public static final int gorecki_weekend_morning_start=0x7f060015;
+        public static final int gorecki_night_end=0x7f060017;
+        public static final int gorecki_night_start=0x7f060016;
+        public static final int gorecki_weekend_day_end=0x7f060019;
+        public static final int gorecki_weekend_day_start=0x7f060018;
+        public static final int gorecki_weekend_morning_end=0x7f06001b;
+        public static final int gorecki_weekend_morning_start=0x7f06001a;
         public static final int hcc_name=0x7f060008;
         public static final int next_bus=0x7f060010;
         public static final int no_bus_stop_selected=0x7f06000e;
         public static final int previous_bus=0x7f06000f;
+        public static final int set_alarm=0x7f060012;
         public static final int sexton_name=0x7f06000a;
-        public static final int sexton_night_end=0x7f060018;
-        public static final int sexton_night_start=0x7f060017;
-        public static final int sexton_weekend_day_end=0x7f06001a;
-        public static final int sexton_weekend_day_start=0x7f060019;
-        public static final int sexton_weekend_morning_end=0x7f06001c;
-        public static final int sexton_weekend_morning_start=0x7f06001b;
+        public static final int sexton_night_end=0x7f06001d;
+        public static final int sexton_night_start=0x7f06001c;
+        public static final int sexton_weekend_day_end=0x7f06001f;
+        public static final int sexton_weekend_day_start=0x7f06001e;
+        public static final int sexton_weekend_morning_end=0x7f060021;
+        public static final int sexton_weekend_morning_start=0x7f060020;
+        public static final int share_message_1=0x7f060013;
+        public static final int share_message_2=0x7f060014;
+        public static final int share_stop=0x7f060011;
+        public static final int share_subject=0x7f060015;
         public static final int unknown_stop=0x7f060009;
         public static final int website=0x7f06000b;
         public static final int widget_update_action=0x7f06000d;
