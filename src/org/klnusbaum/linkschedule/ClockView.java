@@ -26,9 +26,13 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.LayoutInflater;
 
+import java.util.GregorianCalendar;
+import java.util.Map;
+
 public class ClockView extends LinearLayout{
 
 	private TextView time, stopLabel;
+	private GregorianCalendar cal;
 
 	public ClockView(Context context, CharSequence stopName){
 		super(context);
@@ -54,12 +58,25 @@ public class ClockView extends LinearLayout{
 		}
 	}
 
-	public void setClockTime(CharSequence clockTime){
-		time.setText(clockTime);
+	public void setClockTime(Map.Entry calendarAndLabel){
+		time.setText((String)calendarAndLabel.getValue());
+		setCalendar((GregorianCalendar)calendarAndLabel.getKey());
+	}
+
+	public CharSequence getClockTime(){
+		return time.getText();
 	}
 	
 	public CharSequence getStopName(){
 		return stopLabel.getText();
 	}	
+
+	public void setCalendar(GregorianCalendar cal){
+		this.cal = cal;
+	}
+	
+	public GregorianCalendar getCalendar(){
+		return cal;
+	}
 }
 		

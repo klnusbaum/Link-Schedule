@@ -24,6 +24,7 @@ import android.util.Log;
 
 import java.util.TreeMap;
 import java.util.SortedMap;
+import java.util.Map;
 import java.util.GregorianCalendar;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -73,7 +74,7 @@ public class LinkSchedule{
 		return (GregorianCalendar)GregorianCalendar.getInstance();
 	}
 
-	public String getNextTime(String busStop){
+	public Map.Entry getNextTime(String busStop){
 		if(busStop == null ||
 			busStop.equals(res.getString(R.string.unknown_stop)))
 		{
@@ -83,12 +84,18 @@ public class LinkSchedule{
 		queryPrep(currentTime);
 		TreeMap<GregorianCalendar, String> compositeSchedule = 
 			getCompositeSchedule(busStop);
-		for(GregorianCalendar c: compositeSchedule.keySet()){
+		/*for(GregorianCalendar c: compositeSchedule.keySet()){
 			if(currentTime.compareTo(c) <= 0){
 				return compositeSchedule.get(c);
 			}
+		}	*/
+		for(Map.Entry me: compositeSchedule.entrySet()){
+			if(currentTime.compareTo((GregorianCalendar)me.getKey()) <= 0){
+				return me;
+			}
 		}	
-		return "";
+		
+		return null;
 	}
 
 	/**

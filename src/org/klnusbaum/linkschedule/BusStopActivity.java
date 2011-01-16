@@ -103,12 +103,6 @@ public class BusStopActivity extends Activity implements Refreshable{
 
 			final View.OnClickListener stopListener = new View.OnClickListener(){
 				public void onClick(View v){
-					StopTimeView view = (StopTimeView)v;
-					currentTimeSelected = view.getCalendar();					
-					//We need to call getStandardLabel to ensure we don't get the
-					//potential "Next Bus:" prefix
-					currentLabelSelected = LinkSchedule.getStandardLabel(
-						currentTimeSelected);
 					v.showContextMenu();
 				}
 			};
@@ -148,6 +142,12 @@ public class BusStopActivity extends Activity implements Refreshable{
 		ContextMenu.ContextMenuInfo menuInfo)
 	{
 		super.onCreateContextMenu(menu, v, menuInfo);
+		StopTimeView view = (StopTimeView)v;
+		currentTimeSelected = view.getCalendar();					
+		//We need to call getStandardLabel to ensure we don't get the
+		//potential "Next Bus:" prefix
+		currentLabelSelected = LinkSchedule.getStandardLabel(
+			currentTimeSelected);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.bus_stop_context, menu);
 		menu.setHeaderTitle(

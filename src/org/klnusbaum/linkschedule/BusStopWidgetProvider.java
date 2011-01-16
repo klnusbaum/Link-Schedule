@@ -115,7 +115,7 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 				LinkSchedule.getLinkSchedule(context.getResources());
 			RemoteViews views = new RemoteViews(context.getPackageName(), 
 				R.layout.bus_stop_widget);
-			views.setTextViewText(R.id.time, linkSchedule.getNextTime(stopLabel));
+			views.setTextViewText(R.id.time, ((String)linkSchedule.getNextTime(stopLabel).getValue()));
 			views.setTextViewText(R.id.stopLabel, stopLabel);
 			
 			Intent busStopIntent = new Intent(context, BusStopActivity.class);

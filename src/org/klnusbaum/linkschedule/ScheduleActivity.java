@@ -47,8 +47,6 @@ public class ScheduleActivity extends Activity implements Refreshable{
 		}
 	};
 
-
-
   @Override
   protected void onCreate(Bundle savedInstanceState){
     super.onCreate(savedInstanceState);
@@ -56,18 +54,24 @@ public class ScheduleActivity extends Activity implements Refreshable{
 		linkSchedule = LinkSchedule.getLinkSchedule(getResources());
 		timeChangeReceiver = new TimeChangeReceiver(this);
 		timeChangeReceiver.registerIntents(this);
-		sextonClock = (ClockView)findViewById(R.id.sexton_clock);
-		goreckiClock = (ClockView)findViewById(R.id.gorecki_clock);
-		hccClock = (ClockView)findViewById(R.id.hcc_clock);
+	
 		flynntownClock = (ClockView)findViewById(R.id.flynntown_clock);
+		hccClock = (ClockView)findViewById(R.id.hcc_clock);
+		goreckiClock = (ClockView)findViewById(R.id.gorecki_clock);
+		sextonClock = (ClockView)findViewById(R.id.sexton_clock);
 
-		sextonClock.setOnClickListener(clockClickListener);
-		goreckiClock.setOnClickListener(clockClickListener);
-		hccClock.setOnClickListener(clockClickListener);
-		flynntownClock.setOnClickListener(clockClickListener);
+		initClockView(flynntownClock);
+		initClockView(hccClock);
+		initClockView(goreckiClock);
+		initClockView(sextonClock);
 
 		refreshSchedule();
   }
+
+	private void initClockView(ClockView view){
+		view.setOnClickListener(clockClickListener);
+		registerForContextMenu(view);
+	}
 
 	@Override
 	protected void onDestroy(){
