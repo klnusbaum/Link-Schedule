@@ -28,19 +28,23 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ContextMenu;
 import android.view.View;
 import android.net.Uri;
 import org.klnusbaum.aboutlib.AboutActivity;
 
-public class ScheduleActivity extends Activity implements Refreshable{
+public class OmniScheduleActivity extends BusStopActivity 
+	implements Refreshable
+{
 	private LinkSchedule linkSchedule;
 	private TimeChangeReceiver timeChangeReceiver;
 	private ClockView sextonClock, flynntownClock, hccClock, goreckiClock;
+	private String currentSelectedStop;
 
 	private View.OnClickListener clockClickListener = new View.OnClickListener(){
 		public void onClick(View v){
 			Intent busStopIntent = 
-				new Intent(ScheduleActivity.this, BusStopActivity.class);
+				new Intent(OmniScheduleActivity.this, SingleStopActivity.class);
 			busStopIntent.putExtra(BusStopActivity.EXTRA_STOPNAME,
 				((ClockView)v).getStopName());
 			startActivity(busStopIntent);
@@ -86,12 +90,19 @@ public class ScheduleActivity extends Activity implements Refreshable{
     return true;
   }
 
+	public void onCreateContextMenu(ContextMenu menu, View v, 
+		ContextMenu.ContextMenuInfo menuInfo)
+	{
+		currentSelectedStop = ((ClockView)v).getStopName().toString();
+		super.onCreateContextMenu(menu, v, menuInfo);
+	}
+
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
 		case R.id.menuAbout:
 			Intent showAboutIntent =
-				new Intent(ScheduleActivity.this, AboutActivity.class);
+				new Intent(OmniScheduleActivity.this, AboutActivity.class);
 				startActivity(showAboutIntent);
 				return true;
 		case R.id.menuLinkWebsite:
@@ -120,5 +131,8 @@ public class ScheduleActivity extends Activity implements Refreshable{
 		linkSchedule.reset();
 	}
 
+	public String getCurrentBusStop(){
+		return currentSelectedStop;
+	}
 
 }

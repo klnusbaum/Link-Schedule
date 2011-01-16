@@ -23,7 +23,7 @@
       android:versionName="1.0">
     <uses-permission android:name="android.permission.VIBRATE" />
     <application android:label="@string/app_name">
-        <activity android:name="ScheduleActivity"
+        <activity android:name="OmniScheduleActivity"
                   android:label="@string/app_name"
                 	android:theme="@android:style/Theme.Wallpaper.NoTitleBar">
             <intent-filter>
@@ -33,7 +33,7 @@
         </activity>
         <activity android:name="org.klnusbaum.aboutlib.AboutActivity"
                   android:label="@string/about"/>
-        <activity android:name="BusStopActivity"
+        <activity android:name="SingleStopActivity"
                   android:label="@string/bus_stop"/>
 				<activity android:name=".BusStopWidgetConfigure"
 									android:theme="@android:style/Theme.Dialog">

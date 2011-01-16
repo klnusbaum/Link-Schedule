@@ -43,7 +43,7 @@ public class AlarmReceiver extends BroadcastReceiver{
 			String contentTitle = context.getString(R.string.bus_coming);
 			String contentText = context.getString(R.string.bus_here_shortly);
 		
-			Intent busStopIntent = new Intent(context, BusStopActivity.class);
+			Intent busStopIntent = new Intent(context, SingleStopActivity.class);
 			busStopIntent.putExtra(
 				BusStopActivity.EXTRA_STOPNAME, 
 				intent.getStringExtra(BusStopActivity.EXTRA_STOPNAME));

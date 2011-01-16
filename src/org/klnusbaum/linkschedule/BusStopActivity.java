@@ -49,15 +49,11 @@ import java.util.Map;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class BusStopActivity extends Activity implements Refreshable{
-	private LinkSchedule linkSchedule;
-	private String busStop;
-	public static final String EXTRA_STOPNAME = "STOP_NAME";
-	private TimeChangeReceiver timeChangeReceiver;
+public abstract class BusStopActivity extends Activity{
 	private String currentLabelSelected;
 	private GregorianCalendar currentTimeSelected;
-	private int currentIndexSelected;
 	private static final int DIALOG_SET_ALARM = 0;
+	public static final String EXTRA_STOPNAME = "STOP_NAME";
 
 	private final TimePickerDialog.OnTimeSetListener alarmSetListener =
 		new TimePickerDialog.OnTimeSetListener(){
@@ -69,9 +65,11 @@ public class BusStopActivity extends Activity implements Refreshable{
 				if(alarmTime.before(GregorianCalendar.getInstance())){
 					alarmTime.add(Calendar.DATE, 1);
 				}
-				AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-				Intent busStopIntent = new Intent(AlarmReceiver.BROADCAST_BUS_STOP_ALARM);
-				busStopIntent.putExtra(EXTRA_STOPNAME, busStop);
+				AlarmManager alarmManager = 
+					(AlarmManager)getSystemService(Context.ALARM_SERVICE);
+				Intent busStopIntent = 
+					new Intent(AlarmReceiver.BROADCAST_BUS_STOP_ALARM);
+				busStopIntent.putExtra(EXTRA_STOPNAME, getCurrentBusStop());
 				PendingIntent pendingBuStopIntent = PendingIntent.getBroadcast(
 					BusStopActivity.this, 0, busStopIntent, 0);
 				alarmManager.set(
@@ -85,64 +83,11 @@ public class BusStopActivity extends Activity implements Refreshable{
 			}
 		};
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState){
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.bus_stop_activity);
-		busStop = getString(R.string.unknown_stop);
-		if(getIntent().hasExtra(EXTRA_STOPNAME)){
-			busStop = getIntent().getStringExtra(EXTRA_STOPNAME);
-		}
-		if(busStop.equals(getString(R.string.unknown_stop))){
-			Log.e("special", "unknow bus stop: " + busStop);
-			finish();
-		}
-		else{
-			TextView header = (TextView)findViewById(R.id.stop_name);
-			header.setText(busStop);
-
-			final View.OnClickListener stopListener = new View.OnClickListener(){
-				public void onClick(View v){
-					v.showContextMenu();
-				}
-			};
-			setupStopView(R.id.nextTime, stopListener);
-			setupStopView(R.id.time1, stopListener);
-			setupStopView(R.id.time2, stopListener);
-			setupStopView(R.id.time3, stopListener);
-			setupStopView(R.id.time4, stopListener);
-			setupStopView(R.id.time5, stopListener);
-			setupStopView(R.id.time6, stopListener);
-			setupStopView(R.id.time7, stopListener);
-			setupStopView(R.id.time8, stopListener);
-			
-			linkSchedule = LinkSchedule.getLinkSchedule(getResources());
-
-			timeChangeReceiver = new TimeChangeReceiver(this);
-			timeChangeReceiver.registerIntents(this);
-			refreshSchedule();
-		}
-  }
-
-	private void setupStopView(int id, final View.OnClickListener clickListener){
-		View v = findViewById(id);
-		v.setOnClickListener(clickListener);
-		registerForContextMenu(v);
-	}
-
-	@Override
-	protected void onDestroy(){
-		super.onDestroy();
-		if(timeChangeReceiver != null){
-			unregisterReceiver(timeChangeReceiver);
-		}
-	}
-
 	public void onCreateContextMenu(ContextMenu menu, View v, 
 		ContextMenu.ContextMenuInfo menuInfo)
 	{
 		super.onCreateContextMenu(menu, v, menuInfo);
-		StopTimeView view = (StopTimeView)v;
+		CalendarBackedView view = (CalendarBackedView)v;
 		currentTimeSelected = view.getCalendar();					
 		//We need to call getStandardLabel to ensure we don't get the
 		//potential "Next Bus:" prefix
@@ -168,7 +113,7 @@ public class BusStopActivity extends Activity implements Refreshable{
 			shareIntent.putExtra(
 				android.content.Intent.EXTRA_TEXT, 
 				getString(R.string.share_message_1) + " " + currentLabelSelected + " " +
-					getString(R.string.share_message_2) + " " + busStop +".");
+					getString(R.string.share_message_2) + " " + getCurrentBusStop() +".");
 			startActivity(Intent.createChooser(shareIntent, "Share via"));
 			return true;
 		default:
@@ -188,57 +133,7 @@ public class BusStopActivity extends Activity implements Refreshable{
 			return null;
 		}
 	}
-							
 
-	public void refreshSchedule(){
-		SortedMap<GregorianCalendar, String> snapshot = 
-			linkSchedule.getSnapshot(busStop);
-
-		Iterator it = snapshot.entrySet().iterator();
-		Map.Entry pair = (Map.Entry)it.next();
-
-		setStopTimeViewContents(R.id.previousTime, (GregorianCalendar)pair.getKey(),
-			getString(R.string.previous_bus) + " " + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.nextTime, (GregorianCalendar)pair.getKey(),
-			getString(R.string.next_bus) + " " + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time1, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time2, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time3, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time4, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time5, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time6, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time7, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time8, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-	}
-
-	private void setStopTimeViewContents(int id, 
-		GregorianCalendar cal, String label)
-	{
-		StopTimeView view = (StopTimeView)findViewById(id);
-		view.setText(label);
-		view.setCalendar(cal);
-	}
-
-	public void resetSchedule(){
-		linkSchedule.reset();	
-	}
-
+	public abstract String getCurrentBusStop();
 
 }

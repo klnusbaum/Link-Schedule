@@ -18,31 +18,8 @@
 
 package org.klnusbaum.linkschedule;
 
-import android.content.Context;
-import android.widget.TextView;
-import android.util.AttributeSet;
-
 import java.util.GregorianCalendar;
 
-public class StopTimeView extends TextView implements CalendarBackedView{
-
-	private GregorianCalendar cal;
-
-	public StopTimeView(Context context){
-		super(context);
-	}
-
-	public StopTimeView(Context context, AttributeSet attrs){
-		super(context, attrs);
-	}
-
-	public void setCalendar(GregorianCalendar cal){
-		this.cal = cal;
-	}
-
-	public GregorianCalendar getCalendar(){
-		return cal;
-	}
-
+public interface CalendarBackedView{
+	public GregorianCalendar getCalendar();
 }
-		

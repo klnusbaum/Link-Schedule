@@ -29,7 +29,7 @@ import android.view.LayoutInflater;
 import java.util.GregorianCalendar;
 import java.util.Map;
 
-public class ClockView extends LinearLayout{
+public class ClockView extends LinearLayout implements CalendarBackedView{
 
 	private TextView time, stopLabel;
 	private GregorianCalendar cal;

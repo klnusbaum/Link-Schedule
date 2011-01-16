@@ -118,7 +118,7 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 			views.setTextViewText(R.id.time, ((String)linkSchedule.getNextTime(stopLabel).getValue()));
 			views.setTextViewText(R.id.stopLabel, stopLabel);
 			
-			Intent busStopIntent = new Intent(context, BusStopActivity.class);
+			Intent busStopIntent = new Intent(context, SingleStopActivity.class);
 			busStopIntent.putExtra(BusStopActivity.EXTRA_STOPNAME, stopLabel);
 			busStopIntent.setAction("VIEW_" + stopLabel);
 			PendingIntent pendingIntent = 
