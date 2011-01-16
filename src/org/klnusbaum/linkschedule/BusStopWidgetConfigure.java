@@ -33,11 +33,16 @@ import android.appwidget.AppWidgetManager;
 
 import java.util.ArrayList;
 
-/** Class used for configureing a BusStopWidget */
+/**
+ * Class used for configureing a BusStopWidget 
+ *
+ * @author Kurtis Nusbaum
+ * @version 1.0
+ */
 public class BusStopWidgetConfigure extends ListActivity{
 
 	/** 
-   * Id of the widget being configured
+   * Id of the widget being configured.
 	 */
   int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 

@@ -33,6 +33,9 @@ import java.util.GregorianCalendar;
 
 /**
  * Class used for BusStopWidgets 
+ *
+ * @author Kurtis Nusbaum
+ * @version 1.0
  */
 public class BusStopWidgetProvider extends AppWidgetProvider{
 

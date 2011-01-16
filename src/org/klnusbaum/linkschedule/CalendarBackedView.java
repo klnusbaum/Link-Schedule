@@ -20,6 +20,19 @@ package org.klnusbaum.linkschedule;
 
 import java.util.GregorianCalendar;
 
+/** 
+ * Simple interface indicating that the view has some sort of calendar 
+ * associated with it which can be accessed via the getCalendar method.
+ *
+ * @author Kurtis Nusbaum
+ * @version 1.0
+ */
 public interface CalendarBackedView{
+	
+	/**
+	 * Get the calendar associated with this view.
+	 *
+ 	 * @return The calendar associated with this view.
+	 */
 	public GregorianCalendar getCalendar();
 }

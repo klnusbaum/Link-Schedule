@@ -29,6 +29,9 @@ import android.util.Log;
 /**
  * Basic class for receiving broadcasts indicating which are the result
  * of an alarm set by the user.
+ *
+ * @author Kurtis L. Nusbaum
+ * @version 1.0
  */
 public class AlarmReceiver extends BroadcastReceiver{
 

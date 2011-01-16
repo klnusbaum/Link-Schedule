@@ -29,16 +29,38 @@ import android.view.LayoutInflater;
 import java.util.GregorianCalendar;
 import java.util.Map;
 
+/**
+ * Compound component displaying a Bus Stop name and the time the next
+ * bus for that stop comes
+ * 
+ * @author Kurtis Nusbaum
+ * @version 1.0
+ */
 public class ClockView extends LinearLayout implements CalendarBackedView{
 
+	/** The two textviews that make up a ClockView */
 	private TextView time, stopLabel;
+
+	/** The calendar representing the content in the "time" TextView */
 	private GregorianCalendar cal;
 
+	/**
+	 * Constructs a new ClockView.
+	 *
+	 * @param context The context in which the view is being displayed.
+	 * @param stopName The name of the stop the ClockView is displaying.
+	 */
 	public ClockView(Context context, CharSequence stopName){
 		super(context);
 		initClock(context, stopName);
 	}
 
+	/**
+	 * Constructs a new ClockView.
+	 *
+	 * @param context The context in which the view is being displayed.
+	 * @param attrs Set of attributes used to define the ClockView.
+	 */
 	public ClockView(Context context, AttributeSet attrs){
 		super(context, attrs);
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ClockView);
@@ -46,6 +68,12 @@ public class ClockView extends LinearLayout implements CalendarBackedView{
 		initClock(context, stopName);
 	}
 
+	/**
+   * Initializes the ClockView.
+   *
+	 * @param context The context in which the view is being displayed.
+	 * @param stopName The name of the stop the ClockView is displaying.
+	 */
 	private void initClock(Context context, CharSequence stopName){
 		LayoutInflater inflater = 
 			(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -58,23 +86,37 @@ public class ClockView extends LinearLayout implements CalendarBackedView{
 		}
 	}
 
+	/**
+   * Set the time displayed by the clock.
+   *
+   * @param calendarAndLabel A value is the time to be displayed in the 
+	 * ClockView and whose key is a GregorianCalendar that corresponds to the
+   * time to be displyed.
+   */
 	public void setClockTime(Map.Entry calendarAndLabel){
 		time.setText((String)calendarAndLabel.getValue());
-		setCalendar((GregorianCalendar)calendarAndLabel.getKey());
+		cal = ((GregorianCalendar)calendarAndLabel.getKey());
 	}
 
+	/**
+   * Gets the time being displayed by this ClockView.
+   *
+ 	 * @return The time being displayed by the ClockView.
+	 */
 	public CharSequence getClockTime(){
 		return time.getText();
 	}
 	
+	/**
+   * Gets the stop name being used by this ClockView.
+   *
+ 	 * @return The stop name being displayed by this ClockView.
+	 */
 	public CharSequence getStopName(){
 		return stopLabel.getText();
 	}	
 
-	public void setCalendar(GregorianCalendar cal){
-		this.cal = cal;
-	}
-	
+	@Override
 	public GregorianCalendar getCalendar(){
 		return cal;
 	}

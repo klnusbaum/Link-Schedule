@@ -42,6 +42,9 @@ import java.util.GregorianCalendar;
 /**
  * Abstract Base Class used for all Activities that will be displaying times
  * at various bus stops.
+ *
+ * @author Kurtis Nusbaum
+ * @version 1.0
  */
 public abstract class BusStopActivity extends Activity{
 
