@@ -18,45 +18,50 @@
 
 package org.klnusbaum.linkschedule;
 
-import android.content.Intent;
 import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.content.Context;
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendintIntent;
+import android.app.PendingIntent;
+import android.util.Log;
 
 public class AlarmReceiver extends BroadcastReceiver{
-	public static String BROADCAST_BUS_STOP_ALARM = "BROADCAST_BUS_STOP_ALARM";	
-	public static int ALARM_NOTIFICATION_ID = 0;
+
+	public static final int ALARM_NOTIFICATION_ID = 0;
+	public static final String BROADCAST_BUS_STOP_ALARM = "BROADCAST_BUS_STOP_ALARM";
+
+	public AlarmReceiver(){
+		super();
+	}
 			
 	@Override
 	public void onReceive(Context context, Intent intent){
-		if(ACTION_BUS_STOP_ALARM.equals(Intent.getAction())){
-			CharSequence tickerText = "Bus is comming!";
+		if(intent.getAction().equals(BROADCAST_BUS_STOP_ALARM)){
+			String tickerText = context.getString(R.string.bus_coming);
 			long when = System.currentTimeMillis();
-			CharSequence contentTitle = "Bus is comming!";
-			CharSequence contentText = "The bus will be here in minute";
+			String contentTitle = context.getString(R.string.bus_coming);
+			String contentText = context.getString(R.string.bus_here_shortly);
 		
-			Intent busStopIntent = new Intent(this, BusStopActivity.class);
+			Intent busStopIntent = new Intent(context, BusStopActivity.class);
 			busStopIntent.putExtra(
 				BusStopActivity.EXTRA_STOPNAME, 
 				intent.getStringExtra(BusStopActivity.EXTRA_STOPNAME));
-			PendintIntent contentIntent = PendintIntent.getActivity(
-				this, 0, busStopIntent);
+			PendingIntent contentIntent = PendingIntent.getActivity(
+				context, 0, busStopIntent, 0);
 			
 			Notification busNotify = new Notification(
-				android.R.stat_sys_warning,
+				android.R.drawable.stat_sys_warning,
 				tickerText,
 				when);
 			busNotify.defaults |= Notification.DEFAULT_ALL;
-			busNotify.flags |= Notification.FLAG_INSISTENT;
+			busNotify.flags |= Notification.FLAG_INSISTENT | Notification.FLAG_AUTO_CANCEL;
 			busNotify.setLatestEventInfo(
 				context, contentTitle, contentText, contentIntent);
-			
+		
 			NotificationManager notifyManager = 
-				(NotificationManager)context.getService(Context.NOTIFICATION_SERVICE);
+				(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 			notifyManager.notify(ALARM_NOTIFICATION_ID, busNotify);
-		}	
+		}
 	}
-
 }

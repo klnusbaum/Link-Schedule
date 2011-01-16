@@ -93,15 +93,15 @@ public class LinkSchedule{
 
 	/**
  	 * 
-	 * @return ArrayList of Length 10
+	 * @return SorteMap of Length 10
 	 */
-	public void getSnapshot(String busStop, Snapshot snapshot){
+	public SortedMap<GregorianCalendar, String> getSnapshot(String busStop){
 		if(busStop == null ||
-			busStop.equals(res.getString(R.string.unknown_stop)) ||
-			snapshot == null)
+			busStop.equals(res.getString(R.string.unknown_stop)))
 		{
-			return;
+			return null;
 		}
+
 		GregorianCalendar currentTime = getCalendarInstance();
 		queryPrep(currentTime);
 		TreeMap<GregorianCalendar, String> compositeSchedule = 
@@ -109,11 +109,7 @@ public class LinkSchedule{
 		SortedMap<GregorianCalendar, String> snapshotMap = compositeSchedule.subMap(
 			findOneBeforeNext(compositeSchedule, currentTime),
 			findSeveralPastNext(compositeSchedule, currentTime, SNAPSHOT_NEXT_LENGTH));
-		snapshot.clear();
-		for(GregorianCalendar c: snapshotMap.keySet()){
-			snapshot.labels.add(new String(snapshotMap.get(c)));
-			snapshot.calendars.add((GregorianCalendar)c.clone());
-		}
+		return snapshotMap;
 	}
 
 	private TreeMap<GregorianCalendar, String> getCompositeSchedule(String busStop){
@@ -388,35 +384,4 @@ public class LinkSchedule{
 		return date1.get(Calendar.DAY_OF_WEEK) == date2.get(Calendar.DAY_OF_WEEK);
 	}
 
-	public class Snapshot{
-		public ArrayList<String> labels;
-		public ArrayList<GregorianCalendar> calendars;
-		public Snapshot(){
-			labels = new ArrayList<String>();
-			calendars = new ArrayList<GregorianCalendar>();
-		}
-		
-		public void clear(){
-			labels.clear();
-			calendars.clear();
-		}
-		
-		public String getLabel(int index){
-			return labels.get(index);
-		}
-
-		public GregorianCalendar getCalendar(int index){
-			return calendars.get(index);
-		}
-		
-		public GregorianCalendar getCalendarForString(Stirng str){
-			int targetIndex = labels.indexOf(str);
-			if(targetIndex == -1){
-				return null;
-			}
-			else{
-				return calendars.get(targetIndex);
-			}
-		}	
-	}
 }

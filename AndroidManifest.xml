@@ -21,6 +21,7 @@
       package="org.klnusbaum.linkschedule"
       android:versionCode="1"
       android:versionName="1.0">
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application android:label="@string/app_name">
         <activity android:name="ScheduleActivity"
                   android:label="@string/app_name"
@@ -50,11 +51,11 @@
 					<meta-data android:name="android.appwidget.provider"
 						android:resource="@xml/bus_stop_widget_info"/>
 				</receiver>
-<!--				<receiver android:name="AlarmReceiver">
+				<receiver android:name="AlarmReceiver">
 					<intent-filter>
 						<action 
-							android:name="ACTION_BUS_STOP_ALARM"/>
+							android:name="BROADCAST_BUS_STOP_ALARM"/>
 					</intent-filter>
-				</receiver> -->
+				</receiver> 
     </application>
 </manifest> 

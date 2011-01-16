@@ -27,7 +27,7 @@
 	android:orientation="vertical"
 >
 	
-	<TextView
+	<org.klnusbaum.linkschedule.StopTimeView
 		android:id="@+id/stop_name"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
 		android:focusable="false"
 	/>
 
-	<TextView
+	<org.klnusbaum.linkschedule.StopTimeView
 		android:id="@+id/previousTime"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
 		android:focusable="false"
 	/>
 
-	<TextView
+	<org.klnusbaum.linkschedule.StopTimeView
 		android:id="@+id/nextTime"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
@@ -59,36 +59,36 @@
 		android:background="@android:drawable/list_selector_background"
 	/>
 
-	<TextView
+	<org.klnusbaum.linkschedule.StopTimeView
 		android:id="@+id/time1"
 		style="@style/bus_stop_time_style"
 	/>
 
-	<TextView
+	<org.klnusbaum.linkschedule.StopTimeView
 		android:id="@+id/time2"
 		style="@style/bus_stop_time_style"
 	/>
-	<TextView
+	<org.klnusbaum.linkschedule.StopTimeView
 		android:id="@+id/time3"
 		style="@style/bus_stop_time_style"
 	/>
-	<TextView
+	<org.klnusbaum.linkschedule.StopTimeView
 		android:id="@+id/time4"
 		style="@style/bus_stop_time_style"
 	/>
-	<TextView
+	<org.klnusbaum.linkschedule.StopTimeView
 		android:id="@+id/time5"
 		style="@style/bus_stop_time_style"
 	/>
-	<TextView
+	<org.klnusbaum.linkschedule.StopTimeView
 		android:id="@+id/time6"
 		style="@style/bus_stop_time_style"
 	/>
-	<TextView
+	<org.klnusbaum.linkschedule.StopTimeView
 		android:id="@+id/time7"
 		style="@style/bus_stop_time_style"
 	/>
-	<TextView
+	<org.klnusbaum.linkschedule.StopTimeView
 		android:id="@+id/time8"
 		style="@style/bus_stop_time_style"
 	/>

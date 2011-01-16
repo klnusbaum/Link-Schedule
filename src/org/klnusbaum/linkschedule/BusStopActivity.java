@@ -30,18 +30,22 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.net.Uri;
-import android.widget.Toast;
+import android.widget.TimePicker;
 import android.content.DialogInterface;
 import android.app.AlertDialog;
+import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.view.ContextMenu;
-import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.Notification;
 import android.app.PendingIntent;
+import android.widget.Toast;
 import android.util.Log;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.SortedMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -50,9 +54,10 @@ public class BusStopActivity extends Activity implements Refreshable{
 	private String busStop;
 	public static final String EXTRA_STOPNAME = "STOP_NAME";
 	private TimeChangeReceiver timeChangeReceiver;
-	private String currentTimeSelected;
+	private String currentLabelSelected;
+	private GregorianCalendar currentTimeSelected;
+	private int currentIndexSelected;
 	private static final int DIALOG_SET_ALARM = 0;
-	private LinkSchedule.Snapshot currentSnapshot;
 
 	private final TimePickerDialog.OnTimeSetListener alarmSetListener =
 		new TimePickerDialog.OnTimeSetListener(){
@@ -61,36 +66,24 @@ public class BusStopActivity extends Activity implements Refreshable{
 					(GregorianCalendar)GregorianCalendar.getInstance();
 				alarmTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
 				alarmTime.set(Calendar.MINUTE, minute);
-				//if(validateTime(alarmTime)){
-				CharSequence tickerText = "Bus is comming!";
-				long when = alarmTime.getTimeInMillis();
-				CharSequence contentTitle = "Bus is comming!";
-				CharSequence contentText = "The bus will be here in minute";
-			
-				Intent busStopIntent = new Intent(this, BusStopActivity.class);
-				busStopIntent.putExtra(
-					BusStopActivity.EXTRA_STOPNAME, 
-					intent.getStringExtra(BusStopActivity.EXTRA_STOPNAME));
-				PendintIntent contentIntent = PendintIntent.getActivity(
-					this, 0, busStopIntent);
-				
-				Notification busNotify = new Notification(
-					android.R.stat_sys_warning,
-					tickerText,
-					when);
-				busNotify.defaults |= Notification.DEFAULT_ALL;
-				busNotify.flags |= Notification.FLAG_INSISTENT;
-				busNotify.setLatestEventInfo(
-					context, contentTitle, contentText, contentIntent);
-			
-				NotificationManager notifyManager = 
-					(NotificationManager)context.getService(Context.NOTIFICATION_SERVICE);
-				notifyManager.notify(ALARM_NOTIFICATION_ID, busNotify);
-				//}
+				if(alarmTime.before(GregorianCalendar.getInstance())){
+					alarmTime.add(Calendar.DATE, 1);
+				}
+				AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+				Intent busStopIntent = new Intent(AlarmReceiver.BROADCAST_BUS_STOP_ALARM);
+				busStopIntent.putExtra(EXTRA_STOPNAME, busStop);
+				PendingIntent pendingBuStopIntent = PendingIntent.getBroadcast(
+					BusStopActivity.this, 0, busStopIntent, 0);
+				alarmManager.set(
+					AlarmManager.RTC_WAKEUP,
+					alarmTime.getTimeInMillis(),
+					pendingBuStopIntent);
+				Toast.makeText(
+					BusStopActivity.this,
+					"Alarm set for " + LinkSchedule.getStandardLabel(alarmTime),
+					Toast.LENGTH_SHORT).show();
 			}
 		};
-				
-				
 
   @Override
   protected void onCreate(Bundle savedInstanceState){
@@ -110,7 +103,12 @@ public class BusStopActivity extends Activity implements Refreshable{
 
 			final View.OnClickListener stopListener = new View.OnClickListener(){
 				public void onClick(View v){
-					currentTimeSelected = ((TextView)v).getText().toString();
+					StopTimeView view = (StopTimeView)v;
+					currentTimeSelected = view.getCalendar();					
+					//We need to call getStandardLabel to ensure we don't get the
+					//potential "Next Bus:" prefix
+					currentLabelSelected = LinkSchedule.getStandardLabel(
+						currentTimeSelected);
 					v.showContextMenu();
 				}
 			};
@@ -125,7 +123,6 @@ public class BusStopActivity extends Activity implements Refreshable{
 			setupStopView(R.id.time8, stopListener);
 			
 			linkSchedule = LinkSchedule.getLinkSchedule(getResources());
-			currentSnapshot = new LinkSchedule.Snapshot();
 
 			timeChangeReceiver = new TimeChangeReceiver(this);
 			timeChangeReceiver.registerIntents(this);
@@ -153,6 +150,8 @@ public class BusStopActivity extends Activity implements Refreshable{
 		super.onCreateContextMenu(menu, v, menuInfo);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.bus_stop_context, menu);
+		menu.setHeaderTitle(
+			getString(R.string.bus_time) + " " + currentLabelSelected);
 	}
 
 	public boolean onContextItemSelected(MenuItem item){
@@ -160,7 +159,7 @@ public class BusStopActivity extends Activity implements Refreshable{
 		case R.id.set_alarm:
 			showDialog(DIALOG_SET_ALARM);
 			return true;
-		case R.id.share_stop:
+		case R.id.share_bus:
 			Intent shareIntent = new Intent(Intent.ACTION_SEND);
 			shareIntent.setType("text/plain");
 			shareIntent.putExtra(
@@ -168,7 +167,7 @@ public class BusStopActivity extends Activity implements Refreshable{
 				getString(R.string.share_subject));
 			shareIntent.putExtra(
 				android.content.Intent.EXTRA_TEXT, 
-				getString(R.string.share_message_1) + " " + currentTimeSelected + " " +
+				getString(R.string.share_message_1) + " " + currentLabelSelected + " " +
 					getString(R.string.share_message_2) + " " + busStop +".");
 			startActivity(Intent.createChooser(shareIntent, "Share via"));
 			return true;
@@ -181,10 +180,9 @@ public class BusStopActivity extends Activity implements Refreshable{
 	protected Dialog onCreateDialog(int id){
 		switch(id){
 		case DIALOG_SET_ALARM:
-			GregorianCalendar alarmTime = 
-				currentSnapshot.getCalendarForString(currentTimeSelected);
 			return new TimePickerDialog(this, alarmSetListener, 
-				alarmTime.get(Calendar.HOUR_OF_DAY), alarmTime.get(Calendar.MINUTE),
+				currentTimeSelected.get(Calendar.HOUR_OF_DAY), 
+				currentTimeSelected.get(Calendar.MINUTE),
 				false);
 		default:
 			return null;
@@ -193,19 +191,49 @@ public class BusStopActivity extends Activity implements Refreshable{
 							
 
 	public void refreshSchedule(){
-		linkSchedule.getSnapshot(busStop, currentSnapshot);
-		((TextView)findViewById(R.id.previousTime)).setText(
-			getString(R.string.previous_bus) + " " + currentSnapshot.getLabel(0));
-		((TextView)findViewById(R.id.nextTime)).setText(
-			getString(R.string.next_bus) + " " + currentSnapshot.getLabel(1));
-		((TextView)findViewById(R.id.time1)).setText(currentSnapshot.getLabel(2));
-		((TextView)findViewById(R.id.time2)).setText(currentSnapshot.getLabel(3));
-		((TextView)findViewById(R.id.time3)).setText(currentSnapshot.getLabel(4));
-		((TextView)findViewById(R.id.time4)).setText(currentSnapshot.getLabel(5));
-		((TextView)findViewById(R.id.time5)).setText(currentSnapshot.getLabel(6));
-		((TextView)findViewById(R.id.time6)).setText(currentSnapshot.getLabel(7));
-		((TextView)findViewById(R.id.time7)).setText(currentSnapshot.getLabel(8));
-		((TextView)findViewById(R.id.time8)).setText(currentSnapshot.getLabel(9));
+		SortedMap<GregorianCalendar, String> snapshot = 
+			linkSchedule.getSnapshot(busStop);
+
+		Iterator it = snapshot.entrySet().iterator();
+		Map.Entry pair = (Map.Entry)it.next();
+
+		setStopTimeViewContents(R.id.previousTime, (GregorianCalendar)pair.getKey(),
+			getString(R.string.previous_bus) + " " + pair.getValue());
+		pair = (Map.Entry)it.next();
+		setStopTimeViewContents(R.id.nextTime, (GregorianCalendar)pair.getKey(),
+			getString(R.string.next_bus) + " " + pair.getValue());
+		pair = (Map.Entry)it.next();
+		setStopTimeViewContents(R.id.time1, (GregorianCalendar)pair.getKey(), 
+			"" + pair.getValue());
+		pair = (Map.Entry)it.next();
+		setStopTimeViewContents(R.id.time2, (GregorianCalendar)pair.getKey(), 
+			"" + pair.getValue());
+		pair = (Map.Entry)it.next();
+		setStopTimeViewContents(R.id.time3, (GregorianCalendar)pair.getKey(), 
+			"" + pair.getValue());
+		pair = (Map.Entry)it.next();
+		setStopTimeViewContents(R.id.time4, (GregorianCalendar)pair.getKey(), 
+			"" + pair.getValue());
+		pair = (Map.Entry)it.next();
+		setStopTimeViewContents(R.id.time5, (GregorianCalendar)pair.getKey(), 
+			"" + pair.getValue());
+		pair = (Map.Entry)it.next();
+		setStopTimeViewContents(R.id.time6, (GregorianCalendar)pair.getKey(), 
+			"" + pair.getValue());
+		pair = (Map.Entry)it.next();
+		setStopTimeViewContents(R.id.time7, (GregorianCalendar)pair.getKey(), 
+			"" + pair.getValue());
+		pair = (Map.Entry)it.next();
+		setStopTimeViewContents(R.id.time8, (GregorianCalendar)pair.getKey(), 
+			"" + pair.getValue());
+	}
+
+	private void setStopTimeViewContents(int id, 
+		GregorianCalendar cal, String label)
+	{
+		StopTimeView view = (StopTimeView)findViewById(id);
+		view.setText(label);
+		view.setCalendar(cal);
 	}
 
 	public void resetSchedule(){
