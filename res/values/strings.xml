@@ -39,6 +39,7 @@
 		<string name="next_bus">Next Bus:</string>
 		<string name="share_bus">Share Bus Time</string>
 		<string name="set_alarm">Set Alarm</string>
+		<string name="share_via">Share via</string>
 		<string name="share_message_1">Hey, I\'m going to catch the</string>
 		<string name="share_message_2">from</string>
 		<string name="share_subject">I\'m catching the bus</string>

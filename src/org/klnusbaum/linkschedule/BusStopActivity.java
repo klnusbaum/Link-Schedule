@@ -19,20 +19,13 @@
 package org.klnusbaum.linkschedule;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.os.Bundle;
-import android.view.ViewGroup;
 import android.view.View;
-import android.widget.TextView;
 import android.content.Intent;
 import android.content.Context;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.net.Uri;
 import android.widget.TimePicker;
-import android.content.DialogInterface;
-import android.app.AlertDialog;
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -43,17 +36,20 @@ import android.app.PendingIntent;
 import android.widget.Toast;
 import android.util.Log;
 
-import java.util.SortedMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * Abstract Base Class used for all Activities that will be displaying times
+ * at various bus stops.
+ */
 public abstract class BusStopActivity extends Activity{
-	private String currentLabelSelected;
+
+	private String currentTimeStringSelected;
 	private GregorianCalendar currentTimeSelected;
 	private static final int DIALOG_SET_ALARM = 0;
 	public static final String EXTRA_STOPNAME = "STOP_NAME";
+	public static final String LOG_TAG = "BusStopActivity";
 
 	private final TimePickerDialog.OnTimeSetListener alarmSetListener =
 		new TimePickerDialog.OnTimeSetListener(){
@@ -83,20 +79,31 @@ public abstract class BusStopActivity extends Activity{
 			}
 		};
 
+	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, 
 		ContextMenu.ContextMenuInfo menuInfo)
 	{
 		super.onCreateContextMenu(menu, v, menuInfo);
 		CalendarBackedView view = (CalendarBackedView)v;
-		currentTimeSelected = view.getCalendar();					
+		try{
+			currentTimeSelected = view.getCalendar();					
+		}
+		catch(NullPointerException e){
+			if(!(v instanceof CalendarBackedView)){
+				Log.e(LOG_TAG, "All views registered for a ContextMenu " + 
+				"in a BusStopActivity must implement the CalendarBackedView " +
+				"interface!");
+			}
+			throw e;
+		}
 		//We need to call getStandardLabel to ensure we don't get the
 		//potential "Next Bus:" prefix
-		currentLabelSelected = LinkSchedule.getStandardLabel(
+		currentTimeStringSelected = LinkSchedule.getStandardLabel(
 			currentTimeSelected);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.bus_stop_context, menu);
 		menu.setHeaderTitle(
-			getString(R.string.bus_time) + " " + currentLabelSelected);
+			getString(R.string.bus_time) + " " + currentTimeStringSelected);
 	}
 
 	public boolean onContextItemSelected(MenuItem item){
@@ -112,9 +119,11 @@ public abstract class BusStopActivity extends Activity{
 				getString(R.string.share_subject));
 			shareIntent.putExtra(
 				android.content.Intent.EXTRA_TEXT, 
-				getString(R.string.share_message_1) + " " + currentLabelSelected + " " +
-					getString(R.string.share_message_2) + " " + getCurrentBusStop() +".");
-			startActivity(Intent.createChooser(shareIntent, "Share via"));
+				getString(R.string.share_message_1) + " " + 
+				currentTimeStringSelected + " " +
+				getString(R.string.share_message_2) + " " + getCurrentBusStop() +".");
+			startActivity(
+				Intent.createChooser(shareIntent, getString(R.string.share_via)));
 			return true;
 		default:
 			return super.onContextItemSelected(item);

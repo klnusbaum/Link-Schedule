@@ -26,6 +26,10 @@ import android.os.SystemClock;
 import android.util.Log;
 
 /**
+ * Here we're doing basic backend testing to make sure that the LinkSchedule
+ * DataStructure is functioning properly. We conduct these tests via the 
+ * OmniScheduleActivity.
+ *
  * This is a simple framework for a test of an Application.  See
  * {@link android.test.ApplicationTestCase ApplicationTestCase} for more information on
  * how to write and extend Application tests.
@@ -34,6 +38,7 @@ import android.util.Log;
  * adb shell am instrument -w \
  * -e class org.klnusbaum.linkschedule.OmniScheduleActivityTest \
  * org.klnusbaum.linkschedule.tests/android.test.InstrumentationTestRunner
+ *
  */
 public class OmniScheduleActivityTest extends ActivityInstrumentationTestCase2<OmniScheduleActivity> {
 		private Resources resources;

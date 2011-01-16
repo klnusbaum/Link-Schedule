@@ -26,11 +26,27 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.util.Log;
 
+/**
+ * Basic class for receiving broadcasts indicating which are the result
+ * of an alarm set by the user.
+ */
 public class AlarmReceiver extends BroadcastReceiver{
 
+	/**
+	 * ID used to identify a the notification used when notifying the user of
+   * the Alarm.
+	 */
 	public static final int ALARM_NOTIFICATION_ID = 0;
-	public static final String BROADCAST_BUS_STOP_ALARM = "BROADCAST_BUS_STOP_ALARM";
 
+	/**
+   * Constant used to identify a broadcast associated with a user set Alarm.
+   */
+	public static final String BROADCAST_BUS_STOP_ALARM = 
+		"BROADCAST_BUS_STOP_ALARM";
+
+	/**
+	 * Constructs a new AlarmReceiver
+ 	 */
 	public AlarmReceiver(){
 		super();
 	}
@@ -55,12 +71,14 @@ public class AlarmReceiver extends BroadcastReceiver{
 				tickerText,
 				when);
 			busNotify.defaults |= Notification.DEFAULT_ALL;
-			busNotify.flags |= Notification.FLAG_INSISTENT | Notification.FLAG_AUTO_CANCEL;
+			busNotify.flags |= 
+				Notification.FLAG_INSISTENT | Notification.FLAG_AUTO_CANCEL;
 			busNotify.setLatestEventInfo(
 				context, contentTitle, contentText, contentIntent);
 		
 			NotificationManager notifyManager = 
-				(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+				(NotificationManager)context.getSystemService(
+					Context.NOTIFICATION_SERVICE);
 			notifyManager.notify(ALARM_NOTIFICATION_ID, busNotify);
 		}
 	}
