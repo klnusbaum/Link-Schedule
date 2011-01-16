@@ -45,12 +45,21 @@ import java.util.GregorianCalendar;
  */
 public abstract class BusStopActivity extends Activity{
 
+	/** String representing the current time that has been selected. */
 	private String currentTimeStringSelected;
+	/** GregorianCalendar representing the current time that has been selected. */
 	private GregorianCalendar currentTimeSelected;
+
+	/** Constant identifying the set alarm dialog */
 	private static final int DIALOG_SET_ALARM = 0;
+	
+	/** Constant identifying the extra field STOP_NAME */
 	public static final String EXTRA_STOPNAME = "STOP_NAME";
+
+	/** Tag used for logging purposes */
 	public static final String LOG_TAG = "BusStopActivity";
 
+	/** Listener used for setting alarms for when a bus is comming */
 	private final TimePickerDialog.OnTimeSetListener alarmSetListener =
 		new TimePickerDialog.OnTimeSetListener(){
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute){
@@ -106,6 +115,7 @@ public abstract class BusStopActivity extends Activity{
 			getString(R.string.bus_time) + " " + currentTimeStringSelected);
 	}
 
+	@Override
 	public boolean onContextItemSelected(MenuItem item){
 		switch(item.getItemId()){
 		case R.id.set_alarm:
@@ -143,6 +153,13 @@ public abstract class BusStopActivity extends Activity{
 		}
 	}
 
+	/**
+	 * Should return the current bus stop for which a share or 
+   * alarm setting action is being performed on.
+	 *
+	 * @return The current bus stop for which a share or 
+   * alarm setting action is being performed on.
+   */
 	public abstract String getCurrentBusStop();
 
 }

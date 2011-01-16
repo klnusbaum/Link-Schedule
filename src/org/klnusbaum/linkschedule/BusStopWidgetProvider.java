@@ -27,17 +27,30 @@ import android.app.PendingIntent;
 import android.appwidget.AppWidgetProvider;
 import android.appwidget.AppWidgetManager;
 import android.widget.RemoteViews;
-import android.util.Log;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * Class used for BusStopWidgets 
+ */
 public class BusStopWidgetProvider extends AppWidgetProvider{
 
+	/**
+	 * The alarm manager responsible for controlling the alarm that updates
+	 * all widgets.
+	 */
 	private static AlarmManager alarmManager;
+
+	/**
+ 	 * The PendingIntent used to update all widgets
+	 */
 	private static PendingIntent pendingIntent;
+	
+	/**
+	 * File containing all preferences for widgets
+	 */
 	public static final String PREF_FILE_NAME = "WIDGET_PREFERENCES";
-			
 			
 	@Override
 	public void onReceive(Context context, Intent intent){
@@ -65,7 +78,7 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 		pendingIntent = 
 			PendingIntent.getBroadcast(context, 0, updateIntent, 0);
 		alarmManager = 
-			(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+			(AlarmManager)context.getSystemService(Context.ALARM_SERVICE); 
 		GregorianCalendar nextMinute = (GregorianCalendar)Calendar.getInstance();
 		nextMinute.add(Calendar.MINUTE, 1);
 		nextMinute.set(Calendar.SECOND, 0);
@@ -110,12 +123,21 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 		}
 	}
 	
+	/**
+	 * Used for createing a RemoteViews that should be displayed in a widget
+	 *
+	 * @param context The context in which the RemoteViews should be created.
+	 * @param stopLabel Label specifying for which stop the RemoteViews will be
+	 * showing times.
+   * @return A RemoteViews that can be used in the widgets display.
+	 */
 	public static RemoteViews getWidgetView(Context context, String stopLabel){
 			LinkSchedule linkSchedule = 
 				LinkSchedule.getLinkSchedule(context.getResources());
 			RemoteViews views = new RemoteViews(context.getPackageName(), 
 				R.layout.bus_stop_widget);
-			views.setTextViewText(R.id.time, ((String)linkSchedule.getNextTime(stopLabel).getValue()));
+			views.setTextViewText(R.id.time, 
+				((String)linkSchedule.getNextTime(stopLabel).getValue()));
 			views.setTextViewText(R.id.stopLabel, stopLabel);
 			
 			Intent busStopIntent = new Intent(context, SingleStopActivity.class);

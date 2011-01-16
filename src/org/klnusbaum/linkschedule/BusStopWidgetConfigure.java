@@ -22,7 +22,6 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
@@ -31,12 +30,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.RemoteViews;
 import android.content.SharedPreferences;
 import android.appwidget.AppWidgetManager;
-import android.util.Log;
 
 import java.util.ArrayList;
 
+/** Class used for configureing a BusStopWidget */
 public class BusStopWidgetConfigure extends ListActivity{
 
+	/** 
+   * Id of the widget being configured
+	 */
   int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
   @Override
