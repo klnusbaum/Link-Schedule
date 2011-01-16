@@ -27,7 +27,8 @@ containing a value of this type.
         public static final int stopName=0x7f010000;
     }
     public static final class drawable {
-        public static final int widgetbg=0x7f020000;
+        public static final int launcher=0x7f020000;
+        public static final int widgetbg=0x7f020001;
     }
     public static final class id {
         public static final int about_text=0x7f0b0003;

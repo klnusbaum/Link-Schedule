@@ -25,11 +25,28 @@ import java.util.Iterator;
 import android.util.Log;
 import android.content.res.Resources;
 
+/**
+ * Class representing the schedule for a single day at all four bus stops.
+ *
+ * @author Kurtis Nusbaum
+ * @version 1.0
+ */
 public class DaySchedule implements Comparable{
+	/** The schedules for each bus stop. */
 	private TreeMap<GregorianCalendar, String>
 		flynntownSchedule, goreckiSchedule, hccSchedule, sextonSchedule;
+	
+	/* Reference to the resources used by the application */
 	private Resources res;
 
+	/**
+   * Constructs a new DaySchedule.
+	 *
+ 	 * @param flynntownSchedule The schedule to be used for the flynntown stop.
+ 	 * @param goreckiSchedule The schedule to be used for the gorecki stop.
+ 	 * @param hccSchedule The schedule to be used for the hcc stop.
+ 	 * @param sextonSchedule The schedule to be used for the sexton stop.
+	 */
 	public DaySchedule(
 		TreeMap<GregorianCalendar, String> flynntownSchedule,
 		TreeMap<GregorianCalendar, String> goreckiSchedule,
@@ -44,6 +61,9 @@ public class DaySchedule implements Comparable{
 		this.res = res;
 	}
 
+	/**
+   * Increment all the calendars in all the schedules by 1 day.
+	 */
 	public void dayIncrement(){
 		flynntownSchedule = dayAddBusStop(flynntownSchedule,1);
 		goreckiSchedule = dayAddBusStop(goreckiSchedule,1);
@@ -51,6 +71,9 @@ public class DaySchedule implements Comparable{
 		sextonSchedule = dayAddBusStop(sextonSchedule,1);
 	}	
 
+	/**
+   * Decrement all the calendars in all the schedueles by 1 day.
+	 */
 	public void dayDecrement(){
 		flynntownSchedule = dayAddBusStop(flynntownSchedule,-1);
 		goreckiSchedule = dayAddBusStop(goreckiSchedule,-1);
@@ -58,6 +81,15 @@ public class DaySchedule implements Comparable{
 		sextonSchedule = dayAddBusStop(sextonSchedule,-1);
 	}	
 
+	/**
+	 * Add or subtract a day from all of the calendars in a given
+	 * schedule.
+	 *
+ 	 * @param map The schedule from which days will be added or substracted.
+	 * @param step The amount of days by which all the calendars should be 
+	 *	changed.
+	 * @return A schedule representing the requested changes.
+	 */
 	private TreeMap<GregorianCalendar, String> 
 		dayAddBusStop(TreeMap<GregorianCalendar, String> map, int step){
 		TreeMap<GregorianCalendar, String> newMap = 
@@ -71,7 +103,12 @@ public class DaySchedule implements Comparable{
 		return newMap;
 	}
 
-
+	/**
+	 * Get the schedule for a particular bus stop.
+ 	 *
+	 * @param busStop The bus stop for which a schedule is desired.
+	 * @return The desired schedule.
+	 */
 	public TreeMap<GregorianCalendar, String> getBusStopSched(String busStop){
 		if(busStop.equals(res.getString(R.string.sexton_name))){
 			return sextonSchedule;
@@ -89,11 +126,11 @@ public class DaySchedule implements Comparable{
 			return null;
 		}
 	}
-		
 
-
+	@Override
 	public int compareTo(Object o){
 		DaySchedule otherSchedule = (DaySchedule)o;
-		return flynntownSchedule.firstKey().compareTo(otherSchedule.flynntownSchedule.firstKey());
+		return flynntownSchedule.firstKey().compareTo(
+			otherSchedule.flynntownSchedule.firstKey());
 	}
 }

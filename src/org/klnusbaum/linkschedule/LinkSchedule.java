@@ -28,10 +28,18 @@ import java.util.Map;
 import java.util.GregorianCalendar;
 import java.util.Calendar;
 import java.util.Iterator;
-import java.util.ArrayList;
 
+/**
+ * Class representing the overall schedule for the link.
+ *
+ * @author Kurtis Nusbaum
+ * @version 1.0
+ */
 public class LinkSchedule{
 
+	/**
+	 * Reference to the resources of the application.
+   */
 	private Resources res;
 	private GregorianCalendar instanceToUse;
 	private boolean useCustomInstance;
