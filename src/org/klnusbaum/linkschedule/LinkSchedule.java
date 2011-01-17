@@ -41,15 +41,41 @@ public class LinkSchedule{
 	 * Reference to the resources of the application.
    */
 	private Resources res;
+	/**
+	 * Instance of the GregorianCalendar that should be used when requesting
+	 * a new GregorianCalendar. This is mostly here for testing purposes.
+	 */
 	private GregorianCalendar instanceToUse;
+	/**
+	 * Whether or not a custom instance of the GregorianCalendar has been
+	 * set and should be used.
+	 */
 	private boolean useCustomInstance;
+	/**
+	 * Last time the LinkSchedule was queried.
+	 */
 	private GregorianCalendar lastQueryDate;
+	/**
+	 * Current snapshots.
+	 */
 	private DaySchedule snapshotYesterday,
 		snapshotToday, snapshotTomorrow;
+	/**
+	 * How many forward bus times are included when a snapshot is queired for.
+	 */
 	private static final int SNAPSHOT_NEXT_LENGTH = 8;
 
+	/**
+	 * The singletonInstance of the LinkSchedule.
+	 */
 	private static LinkSchedule singletonInstance;
 
+	/**
+	 * Static method used to get the singleton instance of the LinkSchedule
+	 * 
+	 * @param res Resources that may be needed is the LinkSchedule hasn't
+	 * already been constructed.
+	 */
 	public static LinkSchedule getLinkSchedule(Resources res){
 		if(singletonInstance == null){
 			singletonInstance = new LinkSchedule(res);
@@ -57,24 +83,41 @@ public class LinkSchedule{
 		return singletonInstance;
 	}
 
-
-	public LinkSchedule(Resources res){
+	/**
+	 * Constructs a new LinkSchedule.
+	 *
+ 	 * @param res Resources for the application. 
+	 */
+	private LinkSchedule(Resources res){
 		useCustomInstance = false;
 		this.res = res;
 	}
 
+	/**
+	 * Constructs a new LinkSchedule.
+	 *
+ 	 * @param res Resources for the application. 
+	 * @param customInstance GregorianCalendar that should be returned 
+	 * when ever a new instance of the GregorianCalendar is needed.
+	 */
 	public LinkSchedule(Resources res, GregorianCalendar customInstance){
 		instanceToUse = customInstance;
 		useCustomInstance = true;
 		this.res = res;
 	}
 
-
+	/**
+	 * Resets the LinkSchedule
+	 */
 	public void reset(){
 		lastQueryDate = null;
 	}
 		
-
+	/**
+	 * Gets the GregorianCalendar that should be used as the current time.
+	 *
+ 	 * @return The GregorianCalendar that should be as the current time.
+	 */
 	public GregorianCalendar getCalendarInstance(){
 		if(useCustomInstance){
 			return (GregorianCalendar)instanceToUse.clone();
@@ -82,6 +125,14 @@ public class LinkSchedule{
 		return (GregorianCalendar)GregorianCalendar.getInstance();
 	}
 
+	/**
+	 * Retrieve the next time a Bus will come for a particular stop.
+	 *
+	 * @param busStop The bustop for which the next time is desired.
+	 * @return A Map.Entry whose value is a string describing the next
+	 * times a bus will come at the given stop, and whose key is a 
+	 * GregorianCalendar representing when the next bus will come.
+	 */
 	public Map.Entry getNextTime(String busStop){
 		if(busStop == null ||
 			busStop.equals(res.getString(R.string.unknown_stop)))
@@ -92,11 +143,6 @@ public class LinkSchedule{
 		queryPrep(currentTime);
 		TreeMap<GregorianCalendar, String> compositeSchedule = 
 			getCompositeSchedule(busStop);
-		/*for(GregorianCalendar c: compositeSchedule.keySet()){
-			if(currentTime.compareTo(c) <= 0){
-				return compositeSchedule.get(c);
-			}
-		}	*/
 		for(Map.Entry me: compositeSchedule.entrySet()){
 			if(currentTime.compareTo((GregorianCalendar)me.getKey()) <= 0){
 				return me;
@@ -107,8 +153,11 @@ public class LinkSchedule{
 	}
 
 	/**
- 	 * 
-	 * @return SorteMap of Length 10
+ 	 * Gets a snapshot of the times when a bus will arrive at the given stop.
+	 *
+ 	 * @param busStop Bus stop for which the snapshot it desired.
+	 * @return SortedMap of Length 10 containing the previous bus time, next bus
+	 * and the next 8 times for the given bus stop.
 	 */
 	public SortedMap<GregorianCalendar, String> getSnapshot(String busStop){
 		if(busStop == null ||
@@ -127,7 +176,16 @@ public class LinkSchedule{
 		return snapshotMap;
 	}
 
-	private TreeMap<GregorianCalendar, String> getCompositeSchedule(String busStop){
+	/**
+	 * Get a schedule containing yesterday, today, and tomorrows schedule for a
+	 * given stop.
+	 * 
+	 * @param busStop The Bus stop for which a composite schedule is desired.
+	 * @return A composite schedule for the given bus stop.
+	 */
+	private TreeMap<GregorianCalendar, String> getCompositeSchedule(
+		String busStop)
+	{
 		TreeMap<GregorianCalendar, String> compositeSchedule = 
 			new TreeMap<GregorianCalendar, String>();
 		compositeSchedule.putAll(snapshotYesterday.getBusStopSched(busStop));
@@ -136,6 +194,16 @@ public class LinkSchedule{
 		return compositeSchedule;
 	}
 
+	/**
+	 * Find the key occurs after a certain number of bus times from the current
+	 * time.
+	 *
+ 	 * @param compositeSchedule The schedule to search for the times.
+	 * @param currentTime What the current time is.
+	 * @param numberPast How far past the current time to go.
+	 * @return A key that points in compositeSchedule numberPast times after the
+	 * current time.
+	 */
 	private GregorianCalendar findSeveralPastNext(
 		SortedMap<GregorianCalendar, String> compositeSchedule, 
 		GregorianCalendar currentTime,
@@ -148,8 +216,14 @@ public class LinkSchedule{
 		}		
 		return itr.next();
 	}
-		
 
+	/**
+	 * Find the time that occurs before the next bus time.
+	 *
+ 	 * @param compositeSchedule The schedule to search.
+	 * @param currentTime The current next time.
+	 * @return The time that occurs before the next bus time.
+	 */
 	private GregorianCalendar findOneBeforeNext(
 		SortedMap<GregorianCalendar, String> compositeSchedule, 
 		GregorianCalendar currentTime)
@@ -163,8 +237,12 @@ public class LinkSchedule{
 		}
 		return previous;
 	}
-		
 
+	/**
+	 * Make sure the LinkSchedule is preped and ready to be queried.
+ 	 *
+ 	 * @param currentTime The current time of day. 
+	 */
 	private void queryPrep(GregorianCalendar currentTime){
 		if(lastQueryDate == null || 
 			!((isMidWeek(lastQueryDate) && isMidWeek(currentTime)) || 
@@ -201,7 +279,11 @@ public class LinkSchedule{
 		lastQueryDate = currentTime;	
 	}
 		
-
+	/**
+	 * Get the standard schedule for the weekend.
+	 *
+	 * @return The standard schedule for the weekend.
+	 */
 	public DaySchedule getWeekendSchedule(){
 		TreeMap<GregorianCalendar, String> goreckiMap = getSimpleCalendars(
 			getCalendarFromString(res.getString(R.string.gorecki_weekend_morning_start)),
@@ -245,6 +327,11 @@ public class LinkSchedule{
 		return new DaySchedule(flynntownMap, goreckiMap, hccMap, sextonMap, res);
 	}
 
+	/**
+ 	 * Get the standard schedule for the week.
+	 * 
+	 * @return The standard schedule for the week.
+	 */
 	public DaySchedule getDailySchedule(){
 		TreeMap<GregorianCalendar, String> goreckiMap = getCalendarsWithLabels(
 			res.getStringArray(R.array.gorecki_weekday_times),
@@ -276,6 +363,19 @@ public class LinkSchedule{
 		return new DaySchedule(flynntownMap, goreckiMap, hccMap, sextonMap, res);
 	}
 
+	/**
+	 * Get a simple Map of calendars and strings.
+	 *
+ 	 * @param morningStart When the morning bus starts.
+	 * @param morningEnd When the morning bus ends.
+	 * @param dayStart When the day bus starts.
+	 * @param dayEnd When the day bus ends.
+	 * @param nightStart When the night bus starts.
+	 * @param nightEnd When the night bus ends.
+	 * @param offset Any offset that should be applied to the calculated times.
+	 * 
+	 * @return A simple map of calendars and strings.
+	 */
 	private TreeMap<GregorianCalendar, String> getSimpleCalendars(
 		GregorianCalendar morningStart,
 		GregorianCalendar morningEnd,
@@ -293,6 +393,15 @@ public class LinkSchedule{
 		return toReturn;
 	}
 
+	/**
+ 	 * Get a Map of calendars and strings that have fixed times.
+	 *
+	 * @param dayTimes The times/lables for each time during the day.
+ 	 * @param nightStart The start of the night bus times.
+	 * @param nightEnd The end of the night bus times.
+	 * @param offset Any offset that should be applied to the calculated times.
+	 * @return A map of calendars and strings that have fixed times.
+	 */
 	private TreeMap<GregorianCalendar, String> getFixedDayCalendars(
 		String[] dayTimes, 
 		GregorianCalendar nightStart, 
@@ -310,6 +419,17 @@ public class LinkSchedule{
 		return toReturn;
 	}
 
+	/**
+ 	 * Get a Map of calendars and strings that have fixed times and particular
+	 * labels.
+	 *
+	 * @param dayTimes The times for each time during the day.
+	 * @param dayLabels The labels for each time during the day.
+ 	 * @param nightStart The start of the night bus times.
+	 * @param nightEnd The end of the night bus times.
+	 * @param offset Any offset that should be applied to the calculated times.
+	 * @return A map of calendars and strings that have fixed times.
+	 */
 	private TreeMap<GregorianCalendar, String> getCalendarsWithLabels(
 		String[] dayTimes, 
 		String[] dayLabels, 
@@ -327,6 +447,14 @@ public class LinkSchedule{
 		return toReturn;
 	}
 
+	/**
+ 	 * Insert a set of GregorianCalendar-String pairs into the given map.
+	 * 
+	 * @param map Map in which the paris should be inserted.
+	 * @param start The starting GregorianCalendar.
+	 * @param end The ending GregorianCalendar.
+	 * @param offset The offset that should be applied to all calculated times.
+	 */
 	private void iterateInsert(
 		TreeMap<GregorianCalendar, String> map, 
 		GregorianCalendar start, 
@@ -345,6 +473,13 @@ public class LinkSchedule{
 		}while(toInsert.compareTo(lastTime) <= 0);
 	}
 
+  /**
+ 	 * Create a GregorianCalendar from a string.
+	 * 
+	 * @param timeString The string from which the GregorianCalendar should be
+	 * created.
+	 * @return The created GregorianCalendar
+	 */
 	public GregorianCalendar getCalendarFromString(String timeString){
 		GregorianCalendar toReturn = getCalendarInstance();
 		String toks1[] = timeString.split(":");
@@ -353,6 +488,12 @@ public class LinkSchedule{
 		return toReturn;
 	}
 
+	/**
+	 * Get a standard label for a given GregorianCalendar.
+	 * 
+   * @param calendar The calendar for which a label should be created.
+	 * @return The label for the given calendar.
+	 */
 	public static String getStandardLabel(GregorianCalendar calendar){
 		String toReturn = "";
 		String minute = String.valueOf(calendar.get(Calendar.MINUTE));
@@ -368,34 +509,79 @@ public class LinkSchedule{
 		return toReturn;
 	}
 
+	/**
+	 * Test if a given GregorianCalendar is a weekday.
+   *
+	 * @param date GregorianCalendar to test.
+	 * @return True if the GregorianCalendar is a weekday, false otherwise.
+	 */
 	public static boolean isWeekday(GregorianCalendar date){
 		return !(date.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)
 			&& !(date.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY);
 	}
 
+	/**
+	 * Test if a given GregorianCalendar is a friday.
+   *
+	 * @param date GregorianCalendar to test.
+	 * @return True if the GregorianCalendar is a friday, false otherwise.
+	 */
 	public static boolean isFriday(GregorianCalendar date){
 		return date.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY; 
 	}
 
+	/**
+	 * Test if a given GregorianCalendar is a monday.
+   *
+	 * @param date GregorianCalendar to test.
+	 * @return True if the GregorianCalendar is a monday, false otherwise.
+	 */
 	public static boolean isMonday(GregorianCalendar date){
 		return date.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY; 
 	}
 
+	/**
+	 * Test if a given GregorianCalendar is a sunday.
+   *
+	 * @param date GregorianCalendar to test.
+	 * @return True if the GregorianCalendar is a sunday, false otherwise.
+	 */
 	public static boolean isSunday(GregorianCalendar date){
 		return date.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY; 
 	}
 
+	/**
+	 * Test if a given GregorianCalendar is a saturday.
+   *
+	 * @param date GregorianCalendar to test.
+	 * @return True if the GregorianCalendar is a saturday, false otherwise.
+	 */
 	public static boolean isSaturday(GregorianCalendar date){
 		return date.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY; 
 	}
 
+	/**
+	 * Test if a given GregorianCalendar is in midweek.
+   *
+	 * @param date GregorianCalendar to test.
+	 * @return True if the GregorianCalendar is in midweek, false otherwise.
+	 */
 	public static boolean isMidWeek(GregorianCalendar date){
 		return date.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY
 			|| date.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY
 			|| date.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY;
 	}
 
-	public static boolean sameDayOfWeek(GregorianCalendar date1, GregorianCalendar date2){
+	/**
+	 * Test if two calendars are the same day of the week.
+   *
+	 * @param date1 First GregorianCalendar to compare.
+	 * @param date2 Second GregorianCalendar to compare.
+	 * @return True if the dates are the same day of the week, false otherwise.
+	 */
+	public static boolean sameDayOfWeek(GregorianCalendar date1, 
+		GregorianCalendar date2)
+	{
 		return date1.get(Calendar.DAY_OF_WEEK) == date2.get(Calendar.DAY_OF_WEEK);
 	}
 
