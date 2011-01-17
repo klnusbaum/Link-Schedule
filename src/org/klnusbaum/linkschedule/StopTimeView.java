@@ -24,22 +24,48 @@ import android.util.AttributeSet;
 
 import java.util.GregorianCalendar;
 
+/**
+ * This class is just a TextView that has a GregorianCalendar attached to it.
+ *
+ * @author Kurtis Nusbaum
+ * @version 1.0
+ */
 public class StopTimeView extends TextView implements CalendarBackedView{
 
+	/**
+   * GregorianCalendar attached to this StopTimeView.
+	 */
 	private GregorianCalendar cal;
 
+	/**
+	 * Constructs a new StopTimeView.
+   *
+	 * @param context The context in which the StopTimeView is being shown.
+	 */
 	public StopTimeView(Context context){
 		super(context);
 	}
 
+	/**
+	 * Constructs a new StopTimeView.
+   *
+	 * @param context The context in which the StopTimeView is being shown.
+	 * @param attrs The given attributes for the StopTimeView.
+	 */
 	public StopTimeView(Context context, AttributeSet attrs){
 		super(context, attrs);
 	}
 
+	/**
+	 * Sets the calendar associated with this StopTimeView.
+   *
+	 * @param cal Calendar to be associted with this StopTimeView.
+	 */
 	public void setCalendar(GregorianCalendar cal){
 		this.cal = cal;
 	}
 
+	@Override
 	public GregorianCalendar getCalendar(){
 		return cal;
 	}

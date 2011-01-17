@@ -33,14 +33,38 @@ import android.view.View;
 import android.net.Uri;
 import org.klnusbaum.aboutlib.AboutActivity;
 
+/**
+ * Activity for displaying multiple bus stop times.
+ *
+ * @author Kurtis Nusbaum
+ * @version 1.0
+ */
 public class OmniScheduleActivity extends BusStopActivity 
 	implements Refreshable
 {
+	/**
+	 * Reference to the LinkSchedule object the Activity will use.
+ 	 */
 	private LinkSchedule linkSchedule;
+	
+	/**
+	 * BroadcastReceiver to receive broadcasts when the time changes.
+	 */
 	private TimeChangeReceiver timeChangeReceiver;
+
+	/**
+ 	 * The 4 views that comprise this activity.
+	 */
 	private ClockView sextonClock, flynntownClock, hccClock, goreckiClock;
+
+	/**
+ 	 * The bus stop the user currently has selected.
+ 	 */
 	private String currentSelectedStop;
 
+	/**
+	 * Click listener for each of the ClockViews.
+	 */
 	private View.OnClickListener clockClickListener = new View.OnClickListener(){
 		public void onClick(View v){
 			Intent busStopIntent = 
@@ -72,6 +96,11 @@ public class OmniScheduleActivity extends BusStopActivity
 		refreshSchedule();
   }
 
+	/**
+	 * Initializes a ClockView.
+   *
+	 * @param view ClockView to be initialized.
+ 	 */
 	private void initClockView(ClockView view){
 		view.setOnClickListener(clockClickListener);
 		registerForContextMenu(view);
@@ -90,6 +119,7 @@ public class OmniScheduleActivity extends BusStopActivity
     return true;
   }
 
+	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, 
 		ContextMenu.ContextMenuInfo menuInfo)
 	{
@@ -115,7 +145,7 @@ public class OmniScheduleActivity extends BusStopActivity
     }
   }
 
-			
+	@Override
 	public void refreshSchedule(){
 		sextonClock.setClockTime(
 			linkSchedule.getNextTime(getString(R.string.sexton_name)));
@@ -127,10 +157,12 @@ public class OmniScheduleActivity extends BusStopActivity
 			linkSchedule.getNextTime(getString(R.string.hcc_name)));
 	}
 
+	@Override
 	public void resetSchedule(){
 		linkSchedule.reset();
 	}
 
+	@Override
 	public String getCurrentBusStop(){
 		return currentSelectedStop;
 	}

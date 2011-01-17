@@ -26,33 +26,45 @@ import android.view.View;
 import android.widget.TextView;
 import android.content.Intent;
 import android.content.Context;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.net.Uri;
 import android.widget.TimePicker;
-import android.content.DialogInterface;
-import android.app.AlertDialog;
-import android.app.AlarmManager;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.view.ContextMenu;
-import android.app.NotificationManager;
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.widget.Toast;
 import android.util.Log;
 
 import java.util.SortedMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * Activity for displaying the contents for a single bus stop.
+ *
+ * @author Kurtis Nusbaum
+ * @version 1.0
+ */
 public class SingleStopActivity extends BusStopActivity implements Refreshable{
+	
+  /**
+	 * Reference to the LinkSchedule
+   */
 	private LinkSchedule linkSchedule;
+	/**
+   * Name of the bus stop this object is displaing.
+	 */
 	private String busStop;
+
+	/**
+	 * BroadcastReceiver to receive broadcasts when the time changes.
+	 */
 	private TimeChangeReceiver timeChangeReceiver;
+
+	/**
+	 * ClickListener for the StopViews.
+	 */
+	final View.OnClickListener stopListener = new View.OnClickListener(){
+		public void onClick(View v){
+			v.showContextMenu();
+		}
+	};
 
   @Override
   protected void onCreate(Bundle savedInstanceState){
@@ -70,20 +82,15 @@ public class SingleStopActivity extends BusStopActivity implements Refreshable{
 			TextView header = (TextView)findViewById(R.id.stop_name);
 			header.setText(busStop);
 
-			final View.OnClickListener stopListener = new View.OnClickListener(){
-				public void onClick(View v){
-					v.showContextMenu();
-				}
-			};
-			setupStopView(R.id.nextTime, stopListener);
-			setupStopView(R.id.time1, stopListener);
-			setupStopView(R.id.time2, stopListener);
-			setupStopView(R.id.time3, stopListener);
-			setupStopView(R.id.time4, stopListener);
-			setupStopView(R.id.time5, stopListener);
-			setupStopView(R.id.time6, stopListener);
-			setupStopView(R.id.time7, stopListener);
-			setupStopView(R.id.time8, stopListener);
+			setupStopView(R.id.nextTime);
+			setupStopView(R.id.time1);
+			setupStopView(R.id.time2);
+			setupStopView(R.id.time3);
+			setupStopView(R.id.time4);
+			setupStopView(R.id.time5);
+			setupStopView(R.id.time6);
+			setupStopView(R.id.time7);
+			setupStopView(R.id.time8);
 			
 			linkSchedule = LinkSchedule.getLinkSchedule(getResources());
 
@@ -93,9 +100,14 @@ public class SingleStopActivity extends BusStopActivity implements Refreshable{
 		}
   }
 
-	private void setupStopView(int id, final View.OnClickListener clickListener){
+	/**
+	 * Sets up a particular stop view.
+   * 
+	 * @param id The id of the view to be setup.
+	 */
+	private void setupStopView(int id){
 		View v = findViewById(id);
-		v.setOnClickListener(clickListener);
+		v.setOnClickListener(stopListener);
 		registerForContextMenu(v);
 	}
 
@@ -107,6 +119,7 @@ public class SingleStopActivity extends BusStopActivity implements Refreshable{
 		}
 	}
 
+	@Override
 	public void refreshSchedule(){
 		SortedMap<GregorianCalendar, String> snapshot = 
 			linkSchedule.getSnapshot(busStop);
@@ -145,18 +158,27 @@ public class SingleStopActivity extends BusStopActivity implements Refreshable{
 			"" + pair.getValue());
 	}
 
-	private void setStopTimeViewContents(int id, 
-		GregorianCalendar cal, String label)
+	/**
+	 * Set the contents of a stop view.
+   *
+   * @param id Id of the view to be setup.
+	 * @param cal Calendar that should put in the stop view.
+	 * @param label The label that should be put in the stop view.
+	 */
+	private void setStopTimeViewContents(int id, GregorianCalendar cal, 
+		String label)
 	{
 		StopTimeView view = (StopTimeView)findViewById(id);
 		view.setText(label);
 		view.setCalendar(cal);
 	}
 
+	@Override
 	public void resetSchedule(){
 		linkSchedule.reset();	
 	}
 
+	@Override
 	public String getCurrentBusStop(){
 		return busStop;
 	}

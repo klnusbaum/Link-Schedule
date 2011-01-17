@@ -18,7 +18,21 @@
 
 package org.klnusbaum.linkschedule;
 
+/**
+ * Inteface indicating that an Class can have it's LinkSchedule refreshed.
+ *
+ * @author Kurtis Nusbaum
+ * @version 1.0
+ */
 public interface Refreshable{
+	/**
+   * Execute and commands that have to do with the Schedule potentially being
+	 * changed.
+	 */
 	public void refreshSchedule();
+	/**
+   * Execute and commands that have to do with the Schedule potentially 
+	 * needing to be reset.
+	 */
 	public void resetSchedule();
 }

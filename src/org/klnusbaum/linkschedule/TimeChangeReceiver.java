@@ -23,15 +23,35 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.Context;
 
+/**
+ * A broadcast receiver that receives broadcasts whenever the time changes
+ * and refreshes an associated Refreshable object.
+ *
+ * @author Kurtis Nusbaum
+ * @version 1.0
+ */
 public class TimeChangeReceiver extends BroadcastReceiver{
 	
+	/**
+   * Object the reciever should refresh.
+   */
 	private Refreshable refreshObject;
 
+	/**
+	 * Constructs a new TimeChangeReceiver.
+ 	 *
+	 * @param refreshObject Object to be refreshed by this TimeChangeReceiver.
+	 */
 	public TimeChangeReceiver(Refreshable refreshObject){
 		super();
 		this.refreshObject = refreshObject;
 	}
 
+	/**
+	 * Registers the intents for which this receiver should listen.
+	 *
+	 * @param context The context in which the receiver is created.
+   */
 	public void registerIntents(Context context){
 		context.registerReceiver(
 			this, new IntentFilter(Intent.ACTION_TIME_TICK));
@@ -40,8 +60,6 @@ public class TimeChangeReceiver extends BroadcastReceiver{
 		context.registerReceiver(
 			this, new IntentFilter(Intent.ACTION_TIMEZONE_CHANGED));
 	}
-
-		
 			
 	@Override
 	public void onReceive(Context context, Intent intent){
