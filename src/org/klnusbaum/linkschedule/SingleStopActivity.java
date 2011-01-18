@@ -18,6 +18,9 @@
 
 package org.klnusbaum.linkschedule;
 
+import com.admob.android.ads.AdManager;
+import com.admob.android.ads.AdView;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.os.Bundle;
@@ -74,6 +77,11 @@ public class SingleStopActivity extends BusStopActivity implements Refreshable{
   protected void onCreate(Bundle savedInstanceState){
     super.onCreate(savedInstanceState);
     setContentView(R.layout.bus_stop_activity);
+		AdManager.setTestDevices( new String[] {
+			AdManager.TEST_EMULATOR});
+
+		AdView adView = (AdView)findViewById(R.id.ad2);
+		adView.requestFreshAd();
 		busStop = getString(R.string.unknown_stop);
 		if(getIntent().hasExtra(BusStopActivity.EXTRA_STOPNAME)){
 			busStop = getIntent().getStringExtra(BusStopActivity.EXTRA_STOPNAME);

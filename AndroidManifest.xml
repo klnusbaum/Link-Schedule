@@ -20,7 +20,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="org.klnusbaum.linkschedule"
       android:versionCode="1"
-      android:versionName="1.0"
+      android:versionName="1.0.1"
 			>
 		<uses-sdk android:minSdkVersion="7"/>
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -30,7 +30,7 @@
                   android:label="@string/app_name"
                 	android:theme="@android:style/Theme.Wallpaper.NoTitleBar"
 									android:launchMode="singleTop"
-									android:configChanges="orientation|keyboardHidden">
+									android:configChanges="keyboard|orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -40,7 +40,7 @@
                   android:label="@string/about"/>
         <activity android:name="SingleStopActivity"
                   android:label="@string/bus_stop"
-									android:configChanges="orientation|keyboardHidden"/>
+									android:configChanges="keyboard|orientation|keyboardHidden"/>
 				<activity android:name=".BusStopWidgetConfigure"
 									android:theme="@android:style/Theme.Dialog">
 					<intent-filter>
@@ -63,5 +63,21 @@
 							android:name="BROADCAST_BUS_STOP_ALARM"/>
 					</intent-filter>
 				</receiver> 
+
+	<!-- The application's publisher ID assigned by AdMob -->
+				<meta-data android:value="a14d351ae4a0ce5" android:name="ADMOB_PUBLISHER_ID" />
+<!-- AdMobActivity definition -->
+		<activity android:name="com.admob.android.ads.AdMobActivity"
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+			android:configChanges="orientation|keyboard|keyboardHidden" />
+<!-- Track Market installs -->
+			<receiver android:name="com.admob.android.ads.analytics.InstallReceiver"
+				android:exported="true">
+				<intent-filter>
+					<action android:name="com.android.vending.INSTALL_REFERRER" />
+				</intent-filter>
+			</receiver>
     </application>
+		<!-- AdMob SDK requires Internet permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest> 
