@@ -29,6 +29,7 @@ import android.content.Context;
 import android.widget.TimePicker;
 import android.view.ContextMenu;
 import android.util.Log;
+import android.net.Uri;
 
 import java.util.SortedMap;
 import java.util.Iterator;
@@ -120,6 +121,31 @@ public class SingleStopActivity extends BusStopActivity implements Refreshable{
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu)[
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.stop_menu, menu);
+    return true;
+	}
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+		case R.id.menuMainScreen:
+			Intent mainScreenIntent = new Intent(
+				SingleStopActivity.this, OmniScheduleActivity.this);
+			startActivity(mainScreenIntent);
+			return true;
+		case R.id.menuSpecificWebsite:
+			Intent linkWebsiteIntent =
+				new Intent(Intent.ACTION_VIEW, getBusStopLink(busStop));
+				startActivity(linkWebsiteIntent);
+			return true;	
+    default:
+      return super.onOptionsItemSelected(item);
+    }
+  }
+
+	@Override
 	public void refreshSchedule(){
 		SortedMap<GregorianCalendar, String> snapshot = 
 			linkSchedule.getSnapshot(busStop);
@@ -181,6 +207,31 @@ public class SingleStopActivity extends BusStopActivity implements Refreshable{
 	@Override
 	public String getCurrentBusStop(){
 		return busStop;
+	}
+
+	private static Uri getBusStopLink(String busStop){
+		Uri.Builder builder = new Uri.Builder();
+		builder.scheme("http").authority("csbsju.edu").appendPath("Transportation");
+		GregorianCalendar currentTime = 
+			(GregorianCalendar)GregorianCalendar.getInstance();
+		if(busStop.equals(getString(R.string.flynntown_name))){
+			if(LinkSchedule.isWeekday(currentTime)){
+				
+			}
+			else{
+			
+			}	
+		}
+		else if(busStop.equals(getString(R.string.gorecki_name))){
+
+		}
+		else if(busStop.equals(getString(R.string.hcc_name))){
+
+		}
+		else if(busStop.equals(getString(R.string.sexton_name))){
+
+		}
+		return builder.build();
 	}
 
 }

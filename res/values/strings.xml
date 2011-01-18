@@ -46,4 +46,5 @@
 		<string name="bus_coming">Bus Is Coming!</string>
 		<string name="bus_here_shortly">The bus will be hear shortly.</string>
 		<string name="bus_time">Bus Time:</string>
+		<string name="main_screen">Main Screen</string>
 </resources>

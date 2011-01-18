@@ -31,5 +31,10 @@
 	<string name="sexton_weekend_day_end">17:45</string>
 	<string name="sexton_weekend_morning_start">0:15</string>
 	<string name="sexton_weekend_morning_end">2:15</string>
+
+	<!-- These values aren't used for calculating times, they're just here
+	 for convience and reference -->
+
+	<string name="flynntown_weekday_end">17:38</string>
 </resources>
 
