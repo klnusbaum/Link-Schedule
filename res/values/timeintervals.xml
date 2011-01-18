@@ -34,7 +34,8 @@
 
 	<!-- These values aren't used for calculating times, they're just here
 	 for convience and reference -->
-
+<!--
 	<string name="flynntown_weekday_end">17:38</string>
+	<string name="flynntown_weekend_day_end">17:38</string> -->
 </resources>
 

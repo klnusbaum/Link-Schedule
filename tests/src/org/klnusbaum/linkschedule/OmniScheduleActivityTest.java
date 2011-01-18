@@ -40,8 +40,11 @@ import android.util.Log;
  * org.klnusbaum.linkschedule.tests/android.test.InstrumentationTestRunner
  *
  */
-public class OmniScheduleActivityTest extends ActivityInstrumentationTestCase2<OmniScheduleActivity> {
+public class OmniScheduleActivityTest extends 
+	ActivityInstrumentationTestCase2<OmniScheduleActivity> 
+{
 		private Resources resources;
+		private LinkSchedule schedule;
 
     public OmniScheduleActivityTest() {
         super("org.klnusbaum.linkschedule", OmniScheduleActivity.class);
@@ -50,7 +53,7 @@ public class OmniScheduleActivityTest extends ActivityInstrumentationTestCase2<O
 		protected void setUp() throws Exception{
 			super.setUp();
 			resources = this.getActivity().getResources();
-
+			schedule = LinkSchedule.getLinkSchedule(resources);
 		}
 
 		public void testIsWeekday(){
@@ -75,20 +78,20 @@ public class OmniScheduleActivityTest extends ActivityInstrumentationTestCase2<O
 		}
 
 		public void testIncrement(){
-			GregorianCalendar thursdayAt1150PM = createCalendar(Calendar.THURSDAY, 23, 50);
-			LinkSchedule goreckiSchedule = 
-				new LinkSchedule(resources, thursdayAt1150PM);
-			DaySchedule regularSchedule = goreckiSchedule.getDailySchedule();
-			DaySchedule toIncrement = goreckiSchedule.getDailySchedule();
+			GregorianCalendar thursdayAt1150PM = 
+				createCalendar(Calendar.THURSDAY, 23, 50);
+			LinkSchedule.setCustomInstance(resources, thursdayAt1150PM);
+			DaySchedule regularSchedule = schedule.getDailySchedule();
+			DaySchedule toIncrement = schedule.getDailySchedule();
 			toIncrement.dayIncrement();
 			assertTrue(toIncrement.compareTo(regularSchedule) > 0);
 		}
 			
 
 		public void testDaily(){
-			GregorianCalendar mondayCalendar = createCalendar(Calendar.MONDAY, 9, 50);
-			LinkSchedule schedule = 
-				new LinkSchedule(resources, mondayCalendar);
+			GregorianCalendar mondayCalendar = 
+				createCalendar(Calendar.MONDAY, 9, 50);
+			LinkSchedule.setCustomInstance(resources, mondayCalendar);
 			String acquiredTime = (String)schedule.getNextTime(
 				resources.getString(R.string.gorecki_name)).getValue();
 			assertEquals("10:15 a.m.", acquiredTime);
@@ -104,9 +107,9 @@ public class OmniScheduleActivityTest extends ActivityInstrumentationTestCase2<O
 		}
 
 		public void testWeekdayRollover(){
-			GregorianCalendar thursdayAt1150PM = createCalendar(Calendar.THURSDAY, 23, 50);
-			LinkSchedule schedule = 
-				new LinkSchedule(resources, thursdayAt1150PM);
+			GregorianCalendar thursdayAt1150PM = 
+				createCalendar(Calendar.THURSDAY, 23, 50);
+			LinkSchedule.setCustomInstance(resources, thursdayAt1150PM);
 			String acquiredTime = (String)schedule.getNextTime(
 				resources.getString(R.string.gorecki_name)).getValue();
 			assertEquals("12:00 a.m.", acquiredTime);
@@ -122,9 +125,9 @@ public class OmniScheduleActivityTest extends ActivityInstrumentationTestCase2<O
 		}
 
 		public void testFridayRollover(){
-			GregorianCalendar fridayLateCalendar = createCalendar(Calendar.FRIDAY, 23, 50);
-			LinkSchedule schedule = 
-				new LinkSchedule(resources, fridayLateCalendar);
+			GregorianCalendar fridayLateCalendar = 
+				createCalendar(Calendar.FRIDAY, 23, 50);
+			LinkSchedule.setCustomInstance(resources, fridayLateCalendar);
 			String acquiredTime = (String)schedule.getNextTime(
 				resources.getString(R.string.gorecki_name)).getValue();
 			assertEquals("12:00 a.m.", acquiredTime);
@@ -141,9 +144,9 @@ public class OmniScheduleActivityTest extends ActivityInstrumentationTestCase2<O
 		}
 
 		public void testSaturdayLateNight(){
-			GregorianCalendar saturdayLateCalendar = createCalendar(Calendar.SATURDAY, 1, 26);
-			LinkSchedule schedule = 
-				new LinkSchedule(resources, saturdayLateCalendar);
+			GregorianCalendar saturdayLateCalendar = 
+				createCalendar(Calendar.SATURDAY, 1, 26);
+			LinkSchedule.setCustomInstance(resources, saturdayLateCalendar);
 			String acquiredTime = (String)schedule.getNextTime(
 				resources.getString(R.string.gorecki_name)).getValue();
 			assertEquals("1:30 a.m.", acquiredTime);
@@ -160,9 +163,9 @@ public class OmniScheduleActivityTest extends ActivityInstrumentationTestCase2<O
 		}
 
 		public void testSaturday(){
-			GregorianCalendar saturdayCalendar = createCalendar(Calendar.SATURDAY, 12, 15);
-			LinkSchedule schedule = 
-				new LinkSchedule(resources, saturdayCalendar);
+			GregorianCalendar saturdayCalendar = 
+				createCalendar(Calendar.SATURDAY, 12, 15);
+			LinkSchedule.setCustomInstance(resources, saturdayCalendar);
 			String acquiredTime = (String)schedule.getNextTime(
 				resources.getString(R.string.gorecki_name)).getValue();
 			assertEquals("12:30 p.m.", acquiredTime);
@@ -179,9 +182,9 @@ public class OmniScheduleActivityTest extends ActivityInstrumentationTestCase2<O
 		}
 
 		public void testSaturdayRollover(){
-			GregorianCalendar saturdayLateCalendar = createCalendar(Calendar.SATURDAY, 23, 59);
-			LinkSchedule schedule = 
-				new LinkSchedule(resources, saturdayLateCalendar);
+			GregorianCalendar saturdayLateCalendar = 
+				createCalendar(Calendar.SATURDAY, 23, 59);
+			LinkSchedule.setCustomInstance(resources, saturdayLateCalendar);
 			String acquiredTime = (String)schedule.getNextTime(
 				resources.getString(R.string.gorecki_name)).getValue();
 			assertEquals("12:00 a.m.", acquiredTime);
@@ -198,9 +201,9 @@ public class OmniScheduleActivityTest extends ActivityInstrumentationTestCase2<O
 		}
 
 		public void testSundayLateNight(){
-			GregorianCalendar sundayLateCalendar = createCalendar(Calendar.SUNDAY, 1, 59);
-			LinkSchedule schedule = 
-				new LinkSchedule(resources, sundayLateCalendar);
+			GregorianCalendar sundayLateCalendar = 
+				createCalendar(Calendar.SUNDAY, 1, 59);
+			LinkSchedule.setCustomInstance(resources, sundayLateCalendar);
 			String acquiredTime = (String)schedule.getNextTime(
 				resources.getString(R.string.gorecki_name)).getValue();
 			assertEquals("2:00 a.m.", acquiredTime);
@@ -217,8 +220,7 @@ public class OmniScheduleActivityTest extends ActivityInstrumentationTestCase2<O
 
 		public void testSunday(){
 			GregorianCalendar sundayCalendar = createCalendar(Calendar.SUNDAY, 8, 40);
-			LinkSchedule schedule = 
-				new LinkSchedule(resources, sundayCalendar);
+			LinkSchedule.setCustomInstance(resources, sundayCalendar);
 			String acquiredTime = (String)schedule.getNextTime(
 				resources.getString(R.string.gorecki_name)).getValue();
 			assertEquals("10:00 a.m.", acquiredTime);
@@ -235,11 +237,9 @@ public class OmniScheduleActivityTest extends ActivityInstrumentationTestCase2<O
 		}
 
 		public void testSundayRollover(){
-			Log.i("special", "in sunday rollover");
-			GregorianCalendar sundayLateCalendar = createCalendar(Calendar.SUNDAY, 23, 59);
-			Log.i("special", "date " + sundayLateCalendar.get(Calendar.DATE));
-			LinkSchedule schedule = 
-				new LinkSchedule(resources, sundayLateCalendar);
+			GregorianCalendar sundayLateCalendar = 
+				createCalendar(Calendar.SUNDAY, 23, 59);
+			LinkSchedule.setCustomInstance(resources, sundayLateCalendar);
 			String acquiredTime = (String)schedule.getNextTime(
 				resources.getString(R.string.gorecki_name)).getValue();
 			assertEquals("12:00 a.m.", acquiredTime);
@@ -256,8 +256,10 @@ public class OmniScheduleActivityTest extends ActivityInstrumentationTestCase2<O
 		}
 
 
-		private GregorianCalendar createCalendar(int dayOfWeek, int hourOfDay, int minute){
-			GregorianCalendar toReturn = (GregorianCalendar)GregorianCalendar.getInstance();
+		private GregorianCalendar createCalendar(int dayOfWeek, int hourOfDay, 
+			int minute){
+			GregorianCalendar toReturn = 
+				(GregorianCalendar)GregorianCalendar.getInstance();
 			toReturn.set(Calendar.DAY_OF_WEEK, dayOfWeek);
 			toReturn.set(Calendar.HOUR_OF_DAY, hourOfDay);
 			toReturn.set(Calendar.MINUTE, minute);

@@ -30,6 +30,9 @@ import android.widget.TimePicker;
 import android.view.ContextMenu;
 import android.util.Log;
 import android.net.Uri;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import java.util.SortedMap;
 import java.util.Iterator;
@@ -121,7 +124,7 @@ public class SingleStopActivity extends BusStopActivity implements Refreshable{
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)[
+	public boolean onCreateOptionsMenu(Menu menu){
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.stop_menu, menu);
     return true;
@@ -132,14 +135,14 @@ public class SingleStopActivity extends BusStopActivity implements Refreshable{
     switch (item.getItemId()) {
 		case R.id.menuMainScreen:
 			Intent mainScreenIntent = new Intent(
-				SingleStopActivity.this, OmniScheduleActivity.this);
+				SingleStopActivity.this, OmniScheduleActivity.class);
 			startActivity(mainScreenIntent);
 			return true;
-		case R.id.menuSpecificWebsite:
+		case R.id.menuLinkWebsite:
 			Intent linkWebsiteIntent =
-				new Intent(Intent.ACTION_VIEW, getBusStopLink(busStop));
+				new Intent(Intent.ACTION_VIEW, new Uri.Builder().scheme("http").authority("csbsju.edu").appendPath("Transportation").build());
 				startActivity(linkWebsiteIntent);
-			return true;	
+				return true;
     default:
       return super.onOptionsItemSelected(item);
     }
@@ -209,17 +212,40 @@ public class SingleStopActivity extends BusStopActivity implements Refreshable{
 		return busStop;
 	}
 
-	private static Uri getBusStopLink(String busStop){
+	/*
+	private Uri getBusStopLink(String busStop){
 		Uri.Builder builder = new Uri.Builder();
 		builder.scheme("http").authority("csbsju.edu").appendPath("Transportation");
 		GregorianCalendar currentTime = 
 			(GregorianCalendar)GregorianCalendar.getInstance();
 		if(busStop.equals(getString(R.string.flynntown_name))){
 			if(LinkSchedule.isWeekday(currentTime)){
-				
+				GregorianCalendar dayEnd = 
+					LinkSchedule.getCalendarFromString(
+						getString(R.id.flynntown_weekday_end));
+				if(currentTime.before(dayEnd)){
+					builder.appendPath("Daily-Flynntown-Sexton.htm");
+				}
+				else if(LinkSchedule.isFriday(currentTime)){
+					builder.appendPath("Evening-Fri-Sat.htm");
+				}
+				else{
+					builder.appendPath("Evening-Sun-Thu.htm");
+				}
 			}
 			else{
-			
+				GregorianCalendar dayEnd = 
+					LinkSchedule.getCalendarFromString(
+						getString(R.id.flynntown_weekend_day_end));
+				if(currentTime.before(dayEnd)){
+					builder.appendPath("Weekend.htm");
+				}
+				else if(LinkSchedule.isSunday(currentTime)){
+					builder.appendPath("Evening-Sun-Thu.htm");
+				}
+				else{
+					builder.appendPath("Evening-Fri-Sat.htm");
+				}	
 			}	
 		}
 		else if(busStop.equals(getString(R.string.gorecki_name))){
@@ -232,6 +258,6 @@ public class SingleStopActivity extends BusStopActivity implements Refreshable{
 
 		}
 		return builder.build();
-	}
+	}*/
 
 }

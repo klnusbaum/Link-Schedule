@@ -21,7 +21,7 @@
     <item android:id="@+id/menuMainScreen"
 					android:icon="@android:drawable/ic_menu_revert"
           android:title="@string/main_screen" />
-    <item android:id="@+id/menuSpecificWebsite"
+    <item android:id="@+id/menuLinkWebsite"
 					android:icon="@android:drawable/ic_menu_info_details"
           android:title="@string/website" />
 </menu>

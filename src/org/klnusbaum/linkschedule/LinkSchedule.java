@@ -45,12 +45,12 @@ public class LinkSchedule{
 	 * Instance of the GregorianCalendar that should be used when requesting
 	 * a new GregorianCalendar. This is mostly here for testing purposes.
 	 */
-	private GregorianCalendar instanceToUse;
+	private static GregorianCalendar instanceToUse;
 	/**
 	 * Whether or not a custom instance of the GregorianCalendar has been
 	 * set and should be used.
 	 */
-	private boolean useCustomInstance;
+	private static boolean useCustomInstance = false;
 	/**
 	 * Last time the LinkSchedule was queried.
 	 */
@@ -89,20 +89,6 @@ public class LinkSchedule{
  	 * @param res Resources for the application. 
 	 */
 	private LinkSchedule(Resources res){
-		useCustomInstance = false;
-		this.res = res;
-	}
-
-	/**
-	 * Constructs a new LinkSchedule.
-	 *
- 	 * @param res Resources for the application. 
-	 * @param customInstance GregorianCalendar that should be returned 
-	 * when ever a new instance of the GregorianCalendar is needed.
-	 */
-	public LinkSchedule(Resources res, GregorianCalendar customInstance){
-		instanceToUse = customInstance;
-		useCustomInstance = true;
 		this.res = res;
 	}
 
@@ -112,13 +98,27 @@ public class LinkSchedule{
 	public void reset(){
 		lastQueryDate = null;
 	}
+
+	/**
+	 * Sets the custom instance to use when calling getCalendarInstance()
+	 *
+	 * @param instance Desired custome instance to use.
+	 *
+	 */
+	public static void setCustomInstance(Resources res, 
+		GregorianCalendar instance)
+	{
+		instanceToUse = instance;
+		useCustomInstance = true;
+		getLinkSchedule(res).reset();
+	}
 		
 	/**
 	 * Gets the GregorianCalendar that should be used as the current time.
 	 *
  	 * @return The GregorianCalendar that should be as the current time.
 	 */
-	public GregorianCalendar getCalendarInstance(){
+	public static GregorianCalendar getCalendarInstance(){
 		if(useCustomInstance){
 			return (GregorianCalendar)instanceToUse.clone();
 		}
@@ -480,7 +480,7 @@ public class LinkSchedule{
 	 * created.
 	 * @return The created GregorianCalendar
 	 */
-	public GregorianCalendar getCalendarFromString(String timeString){
+	public static GregorianCalendar getCalendarFromString(String timeString){
 		GregorianCalendar toReturn = getCalendarInstance();
 		String toks1[] = timeString.split(":");
 		toReturn.set(Calendar.HOUR_OF_DAY, Integer.parseInt(toks1[0]));
