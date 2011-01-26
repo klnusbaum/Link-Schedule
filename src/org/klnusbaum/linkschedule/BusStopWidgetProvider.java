@@ -27,6 +27,7 @@ import android.app.PendingIntent;
 import android.appwidget.AppWidgetProvider;
 import android.appwidget.AppWidgetManager;
 import android.widget.RemoteViews;
+import android.util.Log;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -54,6 +55,11 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 	 * File containing all preferences for widgets
 	 */
 	public static final String PREF_FILE_NAME = "WIDGET_PREFERENCES";
+
+	/**
+	 * Constant used for logging purposes.
+	 */
+	public static final String LOG_TAG = "BusStopWidgetProvider";
 			
 	@Override
 	public void onReceive(Context context, Intent intent){
@@ -139,8 +145,23 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 				LinkSchedule.getLinkSchedule(context.getResources());
 			RemoteViews views = new RemoteViews(context.getPackageName(), 
 				R.layout.bus_stop_widget);
+			try{
 			views.setTextViewText(R.id.time, 
 				((String)linkSchedule.getNextTime(stopLabel).getValue()));
+			}
+			catch(NullPointerException e){
+				if(views == null){
+					Log.e(LOG_TAG, "Views was null");
+				}
+				if(linkSchedule.getNextTime(stopLabel) == null){
+					Log.e(LOG_TAG, "getNextTime returned null, label was " + stopLabel);
+				}
+				else if(linkSchedule.getNextTime(stopLabel).getValue() == null){
+					Log.e(LOG_TAG, "getValue returned null, label was " + stopLabel);
+				}
+				throw e;
+			}
+					
 			views.setTextViewText(R.id.stopLabel, stopLabel);
 			
 			Intent busStopIntent = new Intent(context, SingleStopActivity.class);

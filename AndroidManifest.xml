@@ -47,6 +47,8 @@
 						<action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
 					</intent-filter>
 				</activity>	
+				<activity android:name="XMLPreferencesActivity"
+								android:label="@string/settings_name"/>
 				<receiver android:name="BusStopWidgetProvider">
 					<intent-filter>
 						<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

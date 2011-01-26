@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+/**
  * Copyright 2010 Kurtis Nusbaum
  *
  * This file is part of LinkSchedule.  
@@ -15,16 +14,22 @@
  * for more details.  You should have received a copy of the GNU  General 
  * Public License along with LinkSchedule. If not, see 
  * http://www.gnu.org/licenses/.
- --> 
+ */
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menuMainScreen"
-					android:icon="@android:drawable/ic_menu_revert"
-          android:title="@string/main_screen" />
-    <item android:id="@+id/menuLinkWebsite"
-					android:icon="@android:drawable/ic_menu_info_details"
-          android:title="@string/website" />
-    <item android:id="@+id/menuSettings"
-					android:icon="@android:drawable/ic_menu_preferences"
-          android:title="@string/settings" />
-</menu>
+package org.klnusbaum.linkschedule;
+
+import android.preference.PreferenceActivity;
+import android.os.Bundle;
+import android.content.Intent;
+
+/**
+ * Simple class for displaying preferences.
+ */
+public  class XMLPreferencesActivity extends PreferenceActivity{
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		addPreferencesFromResource(R.xml.app_preferences);
+	}
+}

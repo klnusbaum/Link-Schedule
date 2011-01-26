@@ -62,6 +62,13 @@ public abstract class BusStopActivity extends Activity{
 	/** Tag used for logging purposes */
 	public static final String LOG_TAG = "BusStopActivity";
 
+	/**
+	 * Constants used for saving state
+	 */
+	private static final String MY_STATE = "MY_STATE";
+	private static final String CURRENT_TIME_STRING = "CURRENT_TIME_STRING";
+	private static final String CURRENT_CALENDAR = "CURRENT_CALENDAR";
+
 	/** Listener used for setting alarms for when a bus is comming */
 	private final TimePickerDialog.OnTimeSetListener alarmSetListener =
 		new TimePickerDialog.OnTimeSetListener(){
@@ -147,13 +154,37 @@ public abstract class BusStopActivity extends Activity{
 	protected Dialog onCreateDialog(int id){
 		switch(id){
 		case DIALOG_SET_ALARM:
-			return new TimePickerDialog(this, alarmSetListener, 
-				currentTimeSelected.get(Calendar.HOUR_OF_DAY), 
-				currentTimeSelected.get(Calendar.MINUTE),
-				false);
+			if(currentTimeSelected != null){
+				return new TimePickerDialog(this, alarmSetListener, 
+					currentTimeSelected.get(Calendar.HOUR_OF_DAY), 
+					currentTimeSelected.get(Calendar.MINUTE),
+					false);
+			}
+			else{
+				Log.w(LOG_TAG, "Tried to create a set alarm dialog without the currentTimeStringSelected being set.");
+				return null;
+			}
 		default:
 			return null;
 		}
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState){
+		super.onSaveInstanceState(outState);
+		Bundle myState = new Bundle();
+		myState.putString(CURRENT_TIME_STRING, currentTimeStringSelected);
+		myState.putSerializable(CURRENT_CALENDAR, currentTimeSelected);
+		outState.putBundle(MY_STATE, myState);
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState){
+		super.onRestoreInstanceState(savedInstanceState);
+		Bundle myState = savedInstanceState.getBundle(MY_STATE);
+		currentTimeStringSelected = myState.getString(CURRENT_TIME_STRING);
+		currentTimeSelected = 
+			(GregorianCalendar)myState.getSerializable(CURRENT_CALENDAR);
 	}
 
 	/**
