@@ -146,20 +146,22 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 			RemoteViews views = new RemoteViews(context.getPackageName(), 
 				R.layout.bus_stop_widget);
 			try{
-			views.setTextViewText(R.id.time, 
-				((String)linkSchedule.getNextTime(stopLabel).getValue()));
+				views.setTextViewText(R.id.time, 
+					((String)linkSchedule.getNextTime(stopLabel).getValue()));
 			}
 			catch(NullPointerException e){
 				if(views == null){
 					Log.e(LOG_TAG, "Views was null");
+					throw new Exception("Views was null", e);
 				}
 				if(linkSchedule.getNextTime(stopLabel) == null){
 					Log.e(LOG_TAG, "getNextTime returned null, label was " + stopLabel);
+					throw new Exception("getNextTime returned null, label was " + stopLabel, e);
 				}
 				else if(linkSchedule.getNextTime(stopLabel).getValue() == null){
 					Log.e(LOG_TAG, "getValue returned null, label was " + stopLabel);
+					throw new Exception("getValue returned null, label was " + stopLabel, e);
 				}
-				throw e;
 			}
 					
 			views.setTextViewText(R.id.stopLabel, stopLabel);
