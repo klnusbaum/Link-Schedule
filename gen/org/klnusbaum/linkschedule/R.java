@@ -138,11 +138,11 @@ containing a value of this type.
         public static final int alarm_sound=0x7f06001e;
         public static final int alarm_sound_key=0x7f06001f;
         public static final int app_name=0x7f060005;
-        public static final int bad_bus_stop_error=0x7f060020;
         public static final int bus_coming=0x7f060017;
         public static final int bus_here_shortly=0x7f060018;
         public static final int bus_stop=0x7f06000c;
         public static final int bus_time=0x7f060019;
+        public static final int contact_dev=0x7f060020;
         public static final int flynntown_name=0x7f060006;
         public static final int gorecki_name=0x7f060007;
         public static final int gorecki_night_end=0x7f060022;

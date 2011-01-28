@@ -146,32 +146,16 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 				Log.e(LOG_TAG, "Can't create remote view for bus stop: " + stopLabel);
 				RemoteViews views = new RemoteViews(context.getPackageName(),
 					R.layout.error_widget);
-				views.setTextViewText(R.id.msg, "Error: \"" + stopLabel + "\", bad bus stop");
+				views.setTextViewText(R.id.msg, 
+					context.getString(R.string.contact_dev));
 				return views;
 			}	
 			LinkSchedule linkSchedule = 
 				LinkSchedule.getLinkSchedule(context.getResources());
 			RemoteViews views = new RemoteViews(context.getPackageName(), 
 				R.layout.bus_stop_widget);
-			try{
-				views.setTextViewText(R.id.time, 
-					((String)linkSchedule.getNextTime(stopLabel).getValue()));
-			}
-			catch(NullPointerException e){
-				if(views == null){
-					Log.e(LOG_TAG, "Views was null");
-					//throw new NullPointerException("Views was null");
-				}
-				if(linkSchedule.getNextTime(stopLabel) == null){
-					Log.e(LOG_TAG, "getNextTime returned null, label was " + stopLabel);
-					//throw new NullPointerException("getNextTime returned null, label was " + stopLabel);
-				}
-				else if(linkSchedule.getNextTime(stopLabel).getValue() == null){
-					Log.e(LOG_TAG, "getValue returned null, label was " + stopLabel);
-					//throw new NullPointerException("getValue returned null, label was " + stopLabel);
-				}
-				views.setTextViewText(R.id.time, "Error");
-			}
+			views.setTextViewText(R.id.time, 
+				((String)linkSchedule.getNextTime(stopLabel).getValue()));
 					
 			views.setTextViewText(R.id.stopLabel, stopLabel);
 			

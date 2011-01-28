@@ -52,5 +52,5 @@
 		<string name="alarm_preferences">Alarm Preferences</string>
 		<string name="alarm_sound">Alarm Sound</string>
 		<string name="alarm_sound_key">alarm_sound_key</string>
-		<string name="bad_bus_stop_error">Crap, couldn\'t get the schedule...</string>
+		<string name="contact_dev">Error, please contact application author.</string>
 </resources>

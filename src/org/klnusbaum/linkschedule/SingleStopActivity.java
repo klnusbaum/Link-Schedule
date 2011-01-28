@@ -90,7 +90,7 @@ public class SingleStopActivity extends BusStopActivity implements Refreshable{
 		if(!LinkSchedule.validBusStop(busStop, this)){
 			Log.e("special", "unknow bus stop: " + busStop);
 			Toast.makeText(
-				this, R.string.bad_bus_stop_error, Toast.LENGTH_SHORT).show();
+				this, R.string.contact_dev, Toast.LENGTH_SHORT).show();
 			finish();
 		}
 		else{
