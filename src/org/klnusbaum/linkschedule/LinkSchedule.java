@@ -18,6 +18,7 @@
 
 package org.klnusbaum.linkschedule;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.util.Log;
@@ -583,6 +584,20 @@ public class LinkSchedule{
 		GregorianCalendar date2)
 	{
 		return date1.get(Calendar.DAY_OF_WEEK) == date2.get(Calendar.DAY_OF_WEEK);
+	}
+
+	/**
+	 * Determines whether or not the given bus stop is a valid bus stop.
+	 * @param busStop Bus stop whose validity is to be determined.
+	 * @param context The context within the test is occuring.
+ 	 *
+	 * @return True if the given bus stop is valid, false otherwise.
+	 */
+	public static boolean validBusStop(String busStop, Context context){
+		return busStop.equals(context.getString(R.string.flynntown_name)) ||
+			busStop.equals(context.getString(R.string.gorecki_name)) ||	
+			busStop.equals(context.getString(R.string.hcc_name)) ||	
+			busStop.equals(context.getString(R.string.sexton_name));
 	}
 
 }

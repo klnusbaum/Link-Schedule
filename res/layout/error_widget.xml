@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Copyright 2010 Kurtis Nusbaum
  *
@@ -16,19 +16,13 @@
  * Public License along with LinkSchedule. If not, see 
  * http://www.gnu.org/licenses/.
  --> 
-<PreferenceScreen
-        xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <PreferenceCategory
-            android:title="@string/alarm_preferences">
-            
-        <RingtonePreference
-								android:key="@string/alarm_sound_key"
-                android:title="@string/alarm_sound"
-                android:ringtoneType="all"
-								android:showDefault="true"
-								android:showSilent="true"/>
-            
-    </PreferenceCategory>
-                
-</PreferenceScreen>
+			<TextView
+				xmlns:android="http://schemas.android.com/apk/res/android"
+				android:id="@+id/msg"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:singleLine="true"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:gravity="center_vertical|center_horizontal"
+			/>

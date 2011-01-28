@@ -44,11 +44,13 @@
 		<string name="share_message_2">from</string>
 		<string name="share_subject">I\'m catching the bus</string>
 		<string name="bus_coming">Bus Is Coming!</string>
-		<string name="bus_here_shortly">The bus will be hear shortly.</string>
+		<string name="bus_here_shortly">The bus will be here shortly.</string>
 		<string name="bus_time">Bus Time:</string>
 		<string name="main_screen">Main Screen</string>
 		<string name="settings_name">Settings</string>
 		<string name="settings">Settings</string>
 		<string name="alarm_preferences">Alarm Preferences</string>
 		<string name="alarm_sound">Alarm Sound</string>
+		<string name="alarm_sound_key">alarm_sound_key</string>
+		<string name="bad_bus_stop_error">Crap, couldn\'t get the schedule...</string>
 </resources>

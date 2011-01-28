@@ -24,6 +24,9 @@ import android.content.Context;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.preference.PreferenceManager;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.util.Log;
 
 /**
@@ -46,6 +49,12 @@ public class AlarmReceiver extends BroadcastReceiver{
    */
 	public static final String BROADCAST_BUS_STOP_ALARM = 
 		"BROADCAST_BUS_STOP_ALARM";
+
+	/**
+	 * Constant used to indicate that no ringtone preference was found.
+	 */
+	private static final String NO_RINGTONE_FOUND_PREFERENCE = 
+		"NO_RINGTONE_FOUND_PREFERENCE";
 
 	/**
 	 * Constructs a new AlarmReceiver
@@ -73,9 +82,21 @@ public class AlarmReceiver extends BroadcastReceiver{
 				android.R.drawable.stat_sys_warning,
 				tickerText,
 				when);
-			busNotify.defaults |= Notification.DEFAULT_ALL;
+			busNotify.defaults |= Notification.DEFAULT_VIBRATE 
+				| Notification.DEFAULT_LIGHTS;
 			busNotify.flags |= 
 				Notification.FLAG_INSISTENT | Notification.FLAG_AUTO_CANCEL;
+			SharedPreferences prefs = 
+				PreferenceManager.getDefaultSharedPreferences(context);
+			String soundUriString = prefs.getString(
+				context.getString(R.string.alarm_sound_key), 
+				NO_RINGTONE_FOUND_PREFERENCE);
+			if(soundUriString.equals(NO_RINGTONE_FOUND_PREFERENCE)){
+				busNotify.defaults |= Notification.DEFAULT_SOUND;
+			}
+			else{
+				busNotify.sound = Uri.parse(soundUriString);
+			}
 			busNotify.setLatestEventInfo(
 				context, contentTitle, contentText, contentIntent);
 		

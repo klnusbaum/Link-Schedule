@@ -31,6 +31,7 @@ import android.util.Log;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.lang.NullPointerException;
 
 /**
  * Class used for BusStopWidgets 
@@ -141,6 +142,13 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
    * @return A RemoteViews that can be used in the widgets display.
 	 */
 	public static RemoteViews getWidgetView(Context context, String stopLabel){
+			if(!LinkSchedule.validBusStop(stopLabel, context)){
+				Log.e(LOG_TAG, "Can't create remote view for bus stop: " + stopLabel);
+				RemoteViews views = new RemoteViews(context.getPackageName(),
+					R.layout.error_widget);
+				views.setTextViewText(R.id.msg, "Error: \"" + stopLabel + "\", bad bus stop");
+				return views;
+			}	
 			LinkSchedule linkSchedule = 
 				LinkSchedule.getLinkSchedule(context.getResources());
 			RemoteViews views = new RemoteViews(context.getPackageName(), 
@@ -152,16 +160,17 @@ public class BusStopWidgetProvider extends AppWidgetProvider{
 			catch(NullPointerException e){
 				if(views == null){
 					Log.e(LOG_TAG, "Views was null");
-					throw new Exception("Views was null", e);
+					//throw new NullPointerException("Views was null");
 				}
 				if(linkSchedule.getNextTime(stopLabel) == null){
 					Log.e(LOG_TAG, "getNextTime returned null, label was " + stopLabel);
-					throw new Exception("getNextTime returned null, label was " + stopLabel, e);
+					//throw new NullPointerException("getNextTime returned null, label was " + stopLabel);
 				}
 				else if(linkSchedule.getNextTime(stopLabel).getValue() == null){
 					Log.e(LOG_TAG, "getValue returned null, label was " + stopLabel);
-					throw new Exception("getValue returned null, label was " + stopLabel, e);
+					//throw new NullPointerException("getValue returned null, label was " + stopLabel);
 				}
+				views.setTextViewText(R.id.time, "Error");
 			}
 					
 			views.setTextViewText(R.id.stopLabel, stopLabel);

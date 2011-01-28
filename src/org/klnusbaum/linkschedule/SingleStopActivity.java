@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.content.Intent;
 import android.content.Context;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.view.ContextMenu;
 import android.util.Log;
 import android.net.Uri;
@@ -86,8 +87,10 @@ public class SingleStopActivity extends BusStopActivity implements Refreshable{
 		if(getIntent().hasExtra(BusStopActivity.EXTRA_STOPNAME)){
 			busStop = getIntent().getStringExtra(BusStopActivity.EXTRA_STOPNAME);
 		}
-		if(busStop.equals(getString(R.string.unknown_stop))){
+		if(!LinkSchedule.validBusStop(busStop, this)){
 			Log.e("special", "unknow bus stop: " + busStop);
+			Toast.makeText(
+				this, R.string.bad_bus_stop_error, Toast.LENGTH_SHORT).show();
 			finish();
 		}
 		else{

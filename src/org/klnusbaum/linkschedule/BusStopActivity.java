@@ -98,6 +98,16 @@ public abstract class BusStopActivity extends Activity{
 			}
 		};
 
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+		case R.id.menuSettings:
+			Intent prefIntent = new Intent(this, XMLPreferencesActivity.class);
+			startActivity(prefIntent);
+    default:
+      return super.onOptionsItemSelected(item);
+    }
+  }
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, 
 		ContextMenu.ContextMenuInfo menuInfo)
