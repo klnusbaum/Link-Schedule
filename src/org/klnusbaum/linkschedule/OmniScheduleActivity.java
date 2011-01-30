@@ -144,11 +144,6 @@ public class OmniScheduleActivity extends BusStopActivity
 				new Intent(OmniScheduleActivity.this, AboutActivity.class);
 				startActivity(showAboutIntent);
 				return true;
-		case R.id.menuLinkWebsite:
-			Intent linkWebsiteIntent =
-				new Intent(Intent.ACTION_VIEW, new Uri.Builder().scheme("http").authority("csbsju.edu").appendPath("Transportation").build());
-				startActivity(linkWebsiteIntent);
-				return true;
     default:
       return super.onOptionsItemSelected(item);
     }

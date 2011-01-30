@@ -149,14 +149,6 @@ public class SingleStopActivity extends BusStopActivity implements Refreshable{
 				SingleStopActivity.this, OmniScheduleActivity.class);
 			startActivity(mainScreenIntent);
 			return true;
-		case R.id.menuLinkWebsite:
-			Intent linkWebsiteIntent =
-				new Intent(Intent.ACTION_VIEW, new Uri.Builder().scheme("http").authority("csbsju.edu").appendPath("Transportation").build());
-				startActivity(linkWebsiteIntent);
-				return true;
-		case R.id.menuSettings:
-			Intent prefIntent = new Intent(this, XMLPreferencesActivity.class);
-			startActivity(prefIntent);
     default:
       return super.onOptionsItemSelected(item);
     }
