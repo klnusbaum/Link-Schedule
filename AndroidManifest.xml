@@ -87,9 +87,19 @@
 					<action android:name="com.android.vending.INSTALL_REFERRER" />
 				</intent-filter>
 			</receiver>
+
+
+
+			<activity android:name="com.paypal.android.MEP.PayPalActivity"
+				android:theme="@android:style/Theme.Translucent.NoTitleBar"
+				android:configChanges="keyboardHidden|orientation"/>
     </application>
-		<!-- AdMob SDK requires Internet permission -->
+		<!-- AdMob and Paypal SDK requires Internet permission -->
     <uses-permission android:name="android.permission.INTERNET" />
+		<!-- AdMob needs these permissions for location based ads -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+		<!-- PayPal needs this permission for some reason... -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
 </manifest> 

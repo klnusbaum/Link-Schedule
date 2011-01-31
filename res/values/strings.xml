@@ -59,4 +59,8 @@
 		promise to use the money to make more cool stuff! Just enter in the amount
 		you\'d like to donate and click on the button.
 		</string>
+		<string name="loading">Loading...</string>
+		<string name="paypal_error">Looks like there was an error starting your 
+		payment. Make sure you\'re phone is connected to the internet.
+		</string>
 </resources>
