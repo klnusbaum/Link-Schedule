@@ -20,6 +20,7 @@ package org.klnusbaum.linkschedule;
 
 import com.paypal.android.MEP.PayPal;
 import com.paypal.android.MEP.PayPalPayment;
+import com.paypal.android.MEP.CheckoutButton;
 
 import java.math.BigDecimal;
 import java.util.Locale;
@@ -157,6 +158,10 @@ public class DonateActivity extends Activity implements TextWatcher{
 
 		protected void onPostExecute(Boolean result){
 			dismissDialog(LOADING_DIALOG);
+			PayPal.getInstance().getCheckoutButton(
+				DonateActivity.this, 
+				PayPal.BUTTON_152x33,
+				CheckoutButton.TEXT_DONATE);
 			if(result.booleanValue()){
 				PayPalPayment payment = new PayPalPayment();
 				payment.setCurrencyType("USD");
