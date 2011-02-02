@@ -111,8 +111,20 @@ public abstract class BusStopActivity extends Activity{
 				startActivity(linkWebsiteIntent);
 				return true;
 		case R.id.menuDonate:
-			Intent donateIntent =
+/*			Intent donateIntent =
 				new Intent(this, DonateActivity.class);
+			startActivity(donateIntent);*/
+			Intent donateIntent = new Intent(
+				Intent.ACTION_VIEW,
+				new Uri.Builder()
+					.scheme("http")
+					.authority("www.bazaarsolutions.com")
+					.appendPath("index.php")
+					.appendQueryParameter("option","com_content")
+					.appendQueryParameter("view","article")
+					.appendQueryParameter("id","51")
+					.appendQueryParameter("Itemid","70")
+					.build());
 			startActivity(donateIntent);
 			return true;
     default:

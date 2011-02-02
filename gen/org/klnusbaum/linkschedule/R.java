@@ -76,28 +76,24 @@ containing a value of this type.
     public static final class id {
         public static final int about_text=0x7f0b0003;
         public static final int about_text_title=0x7f0b0000;
-        public static final int ad1=0x7f0b001d;
+        public static final int ad1=0x7f0b0019;
         public static final int ad2=0x7f0b000f;
         public static final int bus_stop_widget=0x7f0b0011;
-        public static final int currency_symbol=0x7f0b0016;
-        public static final int donate_amount=0x7f0b0017;
-        public static final int donate_button=0x7f0b0015;
-        public static final int donate_explain=0x7f0b0014;
         public static final int extra_text=0x7f0b0001;
-        public static final int flynntown_clock=0x7f0b001b;
-        public static final int gorecki_clock=0x7f0b001a;
-        public static final int hcc_clock=0x7f0b001c;
-        public static final int menuAbout=0x7f0b0020;
-        public static final int menuDonate=0x7f0b0023;
-        public static final int menuLinkWebsite=0x7f0b0021;
-        public static final int menuMainScreen=0x7f0b0024;
-        public static final int menuSettings=0x7f0b0022;
-        public static final int msg=0x7f0b0018;
+        public static final int flynntown_clock=0x7f0b0017;
+        public static final int gorecki_clock=0x7f0b0016;
+        public static final int hcc_clock=0x7f0b0018;
+        public static final int menuAbout=0x7f0b001c;
+        public static final int menuDonate=0x7f0b001f;
+        public static final int menuLinkWebsite=0x7f0b001d;
+        public static final int menuMainScreen=0x7f0b0020;
+        public static final int menuSettings=0x7f0b001e;
+        public static final int msg=0x7f0b0014;
         public static final int nextTime=0x7f0b0006;
         public static final int previousTime=0x7f0b0005;
-        public static final int set_alarm=0x7f0b001e;
-        public static final int sexton_clock=0x7f0b0019;
-        public static final int share_bus=0x7f0b001f;
+        public static final int set_alarm=0x7f0b001a;
+        public static final int sexton_clock=0x7f0b0015;
+        public static final int share_bus=0x7f0b001b;
         public static final int stopLabel=0x7f0b0013;
         public static final int stop_item=0x7f0b0010;
         public static final int stop_name=0x7f0b0004;
@@ -122,9 +118,8 @@ containing a value of this type.
         public static final int bus_stop_configure=0x7f030002;
         public static final int bus_stop_widget=0x7f030003;
         public static final int clock_layout=0x7f030004;
-        public static final int donate=0x7f030005;
-        public static final int error_widget=0x7f030006;
-        public static final int main=0x7f030007;
+        public static final int error_widget=0x7f030005;
+        public static final int main=0x7f030006;
     }
     public static final class menu {
         public static final int bus_stop_context=0x7f0a0000;
