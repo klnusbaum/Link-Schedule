@@ -34,6 +34,7 @@ import android.app.NotificationManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.widget.Toast;
+import android.net.Uri;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -104,6 +105,28 @@ public abstract class BusStopActivity extends Activity{
 		case R.id.menuSettings:
 			Intent prefIntent = new Intent(this, XMLPreferencesActivity.class);
 			startActivity(prefIntent);
+		case R.id.menuLinkWebsite:
+			Intent linkWebsiteIntent =
+				new Intent(Intent.ACTION_VIEW, new Uri.Builder().scheme("http").authority("csbsju.edu").appendPath("Transportation").build());
+				startActivity(linkWebsiteIntent);
+				return true;
+		case R.id.menuDonate:
+/*			Intent donateIntent =
+				new Intent(this, DonateActivity.class);
+			startActivity(donateIntent);*/
+			Intent donateIntent = new Intent(
+				Intent.ACTION_VIEW,
+				new Uri.Builder()
+					.scheme("http")
+					.authority("www.bazaarsolutions.com")
+					.appendPath("index.php")
+					.appendQueryParameter("option","com_content")
+					.appendQueryParameter("view","article")
+					.appendQueryParameter("id","51")
+					.appendQueryParameter("Itemid","70")
+					.build());
+			startActivity(donateIntent);
+			return true;
     default:
       return super.onOptionsItemSelected(item);
     }
