@@ -19,8 +19,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="org.klnusbaum.linkschedule"
-      android:versionCode="3"
-      android:versionName="1.1"
+      android:versionCode="4"
+      android:versionName="1.2"
 			>
 		<uses-sdk android:minSdkVersion="7"/>
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -36,9 +36,11 @@
             </intent-filter>
         </activity>
         <activity android:name="org.klnusbaum.aboutlib.AboutActivity"
+									android:theme="@android:style/Theme.NoTitleBar"
                   android:label="@string/about"/>
         <activity android:name="SingleStopActivity"
                   android:label="@string/bus_stop"
+									android:theme="@android:style/Theme.NoTitleBar"
 									android:configChanges="keyboard|orientation|keyboardHidden"/>
 				<activity android:name=".BusStopWidgetConfigure"
 									android:theme="@android:style/Theme.Dialog">
@@ -47,6 +49,7 @@
 					</intent-filter>
 				</activity>	
 				<activity android:name="XMLPreferencesActivity"
+									android:theme="@android:style/Theme.NoTitleBar"
 								android:label="@string/settings_name"/>
 
 

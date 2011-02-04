@@ -105,6 +105,7 @@ public abstract class BusStopActivity extends Activity{
 		case R.id.menuSettings:
 			Intent prefIntent = new Intent(this, XMLPreferencesActivity.class);
 			startActivity(prefIntent);
+			return true;
 		case R.id.menuLinkWebsite:
 			Intent linkWebsiteIntent =
 				new Intent(Intent.ACTION_VIEW, new Uri.Builder().scheme("http").authority("csbsju.edu").appendPath("Transportation").build());
