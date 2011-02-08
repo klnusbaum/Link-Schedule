@@ -63,4 +63,17 @@
 		<string name="paypal_error">Looks like there was an error starting your 
 		payment. Make sure you\'re phone is connected to the internet.
 		</string>
+		<string name="show_timetill_widget_key">show_timetill_widget_key</string>
+		<string name="show_timetill_widget">Time Until (widget)</string>
+		<string name="show_timetill_widget_summary">
+			Check this box to have all clock widgets show how much time is left 
+			until the next bus comes.
+		</string>
+		<string name="show_timetill_main_key">show_timetill_main_key</string>
+		<string name="show_timetill_main">Time Until (Main Window)</string>
+		<string name="show_timetill_main_summary">
+			Check this box to have all clocks in the main window show how much 
+			time is left until the next bus comes.
+		</string>
+		<string name="display_title">Display Options</string>
 </resources>

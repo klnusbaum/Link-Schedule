@@ -30,5 +30,19 @@
 								android:showSilent="true"/>
             
     </PreferenceCategory>
+		<PreferenceCategory android:title="@string/display_title">
+			<CheckBoxPreference
+				android:key="@string/show_timetill_main_key"
+				android:title="@string/show_timetill_main"
+				android:defaultValue="false"
+				android:summary="@string/show_timetill_main_summary"
+			/>
+			<CheckBoxPreference
+				android:key="@string/show_timetill_widget_key"
+				android:title="@string/show_timetill_widget"
+				android:defaultValue="false"
+				android:summary="@string/show_timetill_widget_summary"
+			/>
+		</PreferenceCategory>
                 
 </PreferenceScreen>

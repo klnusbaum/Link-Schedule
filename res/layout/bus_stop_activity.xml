@@ -59,7 +59,7 @@
 		android:id="@+id/nextTime"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:textSize="30sp"
+		android:textSize="26sp"
 		android:paddingBottom="10dp"
 		android:gravity="top|center_horizontal"
 		android:clickable="true"

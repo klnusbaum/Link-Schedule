@@ -34,7 +34,12 @@ import android.view.MenuItem;
 import android.view.ContextMenu;
 import android.view.View;
 import android.net.Uri;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import org.klnusbaum.aboutlib.AboutActivity;
+
+import java.util.GregorianCalendar;
 
 /**
  * Activity for displaying multiple bus stop times.
@@ -43,7 +48,7 @@ import org.klnusbaum.aboutlib.AboutActivity;
  * @version 1.0
  */
 public class OmniScheduleActivity extends BusStopActivity 
-	implements Refreshable
+	implements Refreshable, SharedPreferences.OnSharedPreferenceChangeListener
 {
 	/**
 	 * Reference to the LinkSchedule object the Activity will use.
@@ -102,6 +107,10 @@ public class OmniScheduleActivity extends BusStopActivity
 		initClockView(goreckiClock);
 		initClockView(sextonClock);
 
+		SharedPreferences settings = 
+			PreferenceManager.getDefaultSharedPreferences(this);
+		settings.registerOnSharedPreferenceChangeListener(this);
+
 		refreshSchedule();
   }
 
@@ -151,14 +160,26 @@ public class OmniScheduleActivity extends BusStopActivity
 
 	@Override
 	public void refreshSchedule(){
+		SharedPreferences settings = 
+			PreferenceManager.getDefaultSharedPreferences(this);
+		boolean showTimeTill = settings.getBoolean(
+			getString(R.string.show_timetill_main_key), false);
+		
+		GregorianCalendar currentTime = showTimeTill ? 
+			LinkSchedule.getCalendarInstance() : null;
+	
 		sextonClock.setClockTime(
-			linkSchedule.getNextTime(getString(R.string.sexton_name)));
+			linkSchedule.getNextTime(getString(R.string.sexton_name)),
+			currentTime);
 		goreckiClock.setClockTime(
-			linkSchedule.getNextTime(getString(R.string.gorecki_name)));
+			linkSchedule.getNextTime(getString(R.string.gorecki_name)),
+			currentTime);
 		flynntownClock.setClockTime(
-			linkSchedule.getNextTime(getString(R.string.flynntown_name)));
+			linkSchedule.getNextTime(getString(R.string.flynntown_name)),
+			currentTime);
 		hccClock.setClockTime(
-			linkSchedule.getNextTime(getString(R.string.hcc_name)));
+			linkSchedule.getNextTime(getString(R.string.hcc_name)),
+			currentTime);
 	}
 
 	@Override
@@ -169,6 +190,16 @@ public class OmniScheduleActivity extends BusStopActivity
 	@Override
 	public String getCurrentBusStop(){
 		return currentSelectedStop;
+	}
+
+	@Override
+	public void onSharedPreferenceChanged(
+		SharedPreferences sharedPreferences,
+		String key)
+	{
+		if(key.equals(getString(R.string.show_timetill_main_key))){
+			refreshSchedule();	
+		}
 	}
 
 }

@@ -21,15 +21,38 @@ package org.klnusbaum.linkschedule;
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.preference.Preference;
+import android.util.Log;
 
 /**
  * Simple class for displaying preferences.
  */
-public  class XMLPreferencesActivity extends PreferenceActivity{
+public class XMLPreferencesActivity extends PreferenceActivity
+	implements Preference.OnPreferenceChangeListener
+{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.app_preferences);
+		findPreference(getString(R.string.show_timetill_widget_key))
+			.setOnPreferenceChangeListener(this);
 	}
+
+	@Override
+	public boolean onPreferenceChange(
+		Preference preference,
+		Object newValue)
+	{
+		if(preference.getKey().equals(
+			getString(R.string.show_timetill_widget_key)))
+		{
+			Intent updateWidgetBroadcast = 
+				new Intent(BusStopWidgetProvider.ACTION_FORCE_UPDATE);
+			sendBroadcast(updateWidgetBroadcast);
+		}
+		return true;
+	}
+
+	
 }

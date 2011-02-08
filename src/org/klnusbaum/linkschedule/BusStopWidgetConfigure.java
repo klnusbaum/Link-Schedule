@@ -29,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.RemoteViews;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.appwidget.AppWidgetManager;
 
 import java.util.ArrayList;
@@ -79,15 +80,21 @@ public class BusStopWidgetConfigure extends ListActivity{
 			{
 				String selectedBusStop = 
 					((ArrayAdapter<String>)parent.getAdapter()).getItem(position);
-				SharedPreferences settings = getSharedPreferences(
-					BusStopWidgetProvider.PREF_FILE_NAME, MODE_PRIVATE);
+				/*SharedPreferences settings = getSharedPreferences(
+					BusStopWidgetProvider.PREF_FILE_NAME, MODE_PRIVATE);*/
+				SharedPreferences settings = 
+					PreferenceManager.getDefaultSharedPreferences(BusStopWidgetConfigure.this);
+				boolean showTimeTill = settings.getBoolean(
+						getString(R.string.show_timetill_widget_key), false);
 				SharedPreferences.Editor prefEditor = settings.edit();
 				prefEditor.putString(String.valueOf(appWidgetId), selectedBusStop);
 				prefEditor.commit();
 				AppWidgetManager widgetManager = 
 				AppWidgetManager.getInstance(BusStopWidgetConfigure.this);
 				RemoteViews views = BusStopWidgetProvider.getWidgetView(
-					BusStopWidgetConfigure.this, selectedBusStop);
+					BusStopWidgetConfigure.this, 
+					selectedBusStop, 
+					showTimeTill ? LinkSchedule.getCalendarInstance() : null);
 				widgetManager.updateAppWidget(appWidgetId, views);
 				Intent result = new Intent();
 				result.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);

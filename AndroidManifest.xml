@@ -60,6 +60,9 @@
 					<intent-filter>
 						<action android:name="ACTION_TIME_UPDATE"/>
 					</intent-filter>
+					<intent-filter>
+						<action android:name="ACTION_FORCE_UPDATE"/>
+					</intent-filter>
 					<meta-data android:name="android.appwidget.provider"
 						android:resource="@xml/bus_stop_widget_info"/>
 				</receiver>
