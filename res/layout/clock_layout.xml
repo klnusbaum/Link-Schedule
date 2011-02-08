@@ -23,8 +23,7 @@
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
 				android:singleLine="true"
-				android:textSize="20sp"
-				android:textColor="#FFFFFFFF"
+				android:textAppearance="?android:attr/textAppearanceLarge"
 				android:gravity="center_vertical|center_horizontal"
 			/>
 			<TextView
@@ -34,6 +33,7 @@
 				android:layout_weight="1"
 				android:singleLine="true"
 				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:textColor="#FFFFFFFF"
 				android:gravity="center_vertical|center_horizontal"
 				android:layout_below="@id/time"	
 			/>

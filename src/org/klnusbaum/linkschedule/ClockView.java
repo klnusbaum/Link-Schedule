@@ -25,6 +25,7 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.LayoutInflater;
+import android.text.method.TransformationMethod;
 
 import java.util.GregorianCalendar;
 import java.util.Map;
@@ -68,6 +69,8 @@ public class ClockView extends RelativeLayout implements CalendarBackedView{
 		initClock(context, stopName);
 	}
 
+		
+
 	/**
    * Initializes the ClockView.
    *
@@ -85,6 +88,15 @@ public class ClockView extends RelativeLayout implements CalendarBackedView{
 		if(stopName != null){
 			stopLabel.setText(stopName);
 		}
+	}
+
+	/**
+	 * Set the transformation method for the time TextView.
+	 *
+ 	 * @param transMethod The TransformationMethod to use.
+	 */
+	public void setTransformationMethod(TransformationMethod transMethod){
+		time.setTransformationMethod(transMethod);
 	}
 
 	/**

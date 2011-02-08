@@ -121,6 +121,7 @@ public class OmniScheduleActivity extends BusStopActivity
  	 */
 	private void initClockView(ClockView view){
 		view.setOnClickListener(clockClickListener);
+		//view.setTransformationMethod(TimeTransform.getInstance());
 		registerForContextMenu(view);
 	}
 
@@ -201,5 +202,6 @@ public class OmniScheduleActivity extends BusStopActivity
 			refreshSchedule();	
 		}
 	}
+
 
 }
