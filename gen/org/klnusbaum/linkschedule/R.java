@@ -131,16 +131,16 @@ containing a value of this type.
         public static final int about=0x7f050000;
     }
     public static final class string {
-        public static final int about=0x7f060002;
+        public static final int about=0x7f060003;
         public static final int about_activity=0x7f060000;
-        public static final int about_extra_text=0x7f060001;
-        public static final int about_title_text=0x7f060003;
-        public static final int about_website=0x7f060004;
-        public static final int admob_id=0x7f060005;
+        public static final int about_extra_text=0x7f060002;
+        public static final int about_title_text=0x7f060004;
+        public static final int about_website=0x7f060005;
+        public static final int admob_id=0x7f060006;
         public static final int alarm_preferences=0x7f06001e;
         public static final int alarm_sound=0x7f06001f;
         public static final int alarm_sound_key=0x7f060020;
-        public static final int app_name=0x7f060006;
+        public static final int app_name=0x7f060001;
         public static final int bus_coming=0x7f060018;
         public static final int bus_here_shortly=0x7f060019;
         public static final int bus_stop=0x7f06000d;

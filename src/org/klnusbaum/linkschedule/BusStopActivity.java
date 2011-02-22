@@ -1,5 +1,5 @@
 /**
- * Copyright 2010 Kurtis Nusbaum
+ * Copyright 2011 Kurtis Nusbaum
  *
  * This file is part of LinkSchedule.  
  *
