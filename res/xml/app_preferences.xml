@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright 2011 Kurtis Nusbaum
+ *
+ * This file is part of LinkSchedule.  
+ *
+ * LinkSchedule is free software: you can 
+ * redistribute it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either version 2 of the 
+ * License, or (at your option) any later version.  
+ *
+ * LinkSchedule is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License 
+ * for more details.  You should have received a copy of the GNU  General 
+ * Public License along with LinkSchedule. If not, see 
+ * http://www.gnu.org/licenses/.
+ --> 
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="@string/alarm_preferences">
+            
+        <RingtonePreference
+								android:key="@string/alarm_sound_key"
+                android:title="@string/alarm_sound"
+                android:ringtoneType="all"
+								android:showDefault="true"
+								android:showSilent="true"/>
+            
+    </PreferenceCategory>
+		<PreferenceCategory android:title="@string/display_title">
+			<CheckBoxPreference
+				android:key="@string/show_timetill_main_key"
+				android:title="@string/show_timetill_main"
+				android:defaultValue="false"
+				android:summary="@string/show_timetill_main_summary"
+			/>
+			<CheckBoxPreference
+				android:key="@string/show_timetill_widget_key"
+				android:title="@string/show_timetill_widget"
+				android:defaultValue="false"
+				android:summary="@string/show_timetill_widget_summary"
+			/>
+		</PreferenceCategory>
+                
+</PreferenceScreen>

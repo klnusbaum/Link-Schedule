@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright 2011 Kurtis Nusbaum
+ *
+ * This file is part of LinkSchedule.  
+ *
+ * LinkSchedule is free software: you can 
+ * redistribute it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either version 2 of the 
+ * License, or (at your option) any later version.  
+ *
+ * LinkSchedule is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License 
+ * for more details.  You should have received a copy of the GNU  General 
+ * Public License along with LinkSchedule. If not, see 
+ * http://www.gnu.org/licenses/.
+ --> 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:app="http://schemas.android.com/apk/res/org.klnusbaum.linkschedule"
+		android:id="@+id/bus_stop_widget"
+    android:layout_width="146dip"
+    android:layout_height="74dip"
+    android:background="@drawable/widgetbg"
+		android:layout_weight="1"
+		android:gravity="center_vertical|center_horizontal"
+		android:orientation="vertical"
+    >
+	<include layout="@layout/clock_layout"
+		android:gravity="center_horizontal"
+	/>
+</LinearLayout>
+

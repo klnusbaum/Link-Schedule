@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright 2011 Kurtis Nusbaum
+ *
+ * This file is part of LinkSchedule.  
+ *
+ * LinkSchedule is free software: you can 
+ * redistribute it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either version 2 of the 
+ * License, or (at your option) any later version.  
+ *
+ * LinkSchedule is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License 
+ * for more details.  You should have received a copy of the GNU  General 
+ * Public License along with LinkSchedule. If not, see 
+ * http://www.gnu.org/licenses/.
+ --> 
+
+<resources>
+	<array name="gorecki_weekday_times">
+		<item>0:00</item>
+		<item>7:31</item>
+		<item>8:00</item>
+		<item>8:30</item>
+		<item>9:26</item>
+		<item>9:45</item>
+		<item>10:15</item>
+		<item>11:06</item>
+		<item>11:15</item>
+		<item>11:45</item>
+		<item>12:46</item>
+		<item>13:00</item>
+		<item>13:30</item>
+		<item>14:26</item>
+		<item>14:45</item>
+		<item>15:15</item>
+		<item>16:03</item>
+		<item>16:30</item>
+		<item>17:00</item>	
+		<item>17:30</item>	
+	</array>
+
+	<array name="gorecki_weekday_labels">
+		<item>12:00 a.m.</item>
+		<item>7:20-7:31 a.m.</item>
+		<item>8:00 a.m.</item>
+		<item>8:30 a.m.</item>
+		<item>9:00-9:26 a.m.</item>
+		<item>9:45 a.m.</item>
+		<item>10:15 a.m.</item>
+		<item>10:40-11:06 a.m.</item>
+		<item>11:15 a.m.</item>
+		<item>11:45 a.m.</item>
+		<item>12:20-12:46 p.m.</item>
+		<item>1:00 p.m.</item>
+		<item>1:30 p.m.</item>
+		<item>2:00-2:26 p.m.</item>
+		<item>2:45 p.m.</item>
+		<item>3:15 p.m.</item>
+		<item>3:50-4:03 p.m.</item>
+		<item>4:30 p.m.</item>	
+		<item>5:00 p.m.</item>	
+		<item>5:30 p.m.</item>	
+	</array>
+
+	<array name="sexton_weekday_times">
+		<item>0:15</item>
+		<item>7:46</item>
+		<item>8:15</item>
+		<item>8:45</item>
+		<item>9:26</item>
+		<item>9:45</item>
+		<item>10:15</item>
+		<item>11:06</item>
+		<item>11:15</item>
+		<item>11:45</item>
+		<item>12:46</item>
+		<item>13:00</item>
+		<item>13:30</item>
+		<item>14:26</item>
+		<item>14:45</item>
+		<item>15:15</item>
+		<item>16:06</item>
+		<item>16:45</item>
+		<item>17:15</item>
+		<item>17:45</item>
+	</array>
+
+	<array name="sexton_weekday_labels">
+		<item>12:15 a.m.</item>
+		<item>7:35-7:46 a.m.</item>
+		<item>8:15 a.m.</item>
+		<item>8:45 a.m.</item>
+		<item>9:00-9:26 a.m.</item>
+		<item>9:45 a.m.</item>
+		<item>10:15 a.m.</item>
+		<item>10:40-11:06 a.m.</item>
+		<item>11:15 a.m.</item>
+		<item>11:45 a.m.</item>
+		<item>12:20-12:46 p.m.</item>
+		<item>1:00 p.m.</item>
+		<item>1:30 p.m.</item>
+		<item>2:00-2:26 p.m.</item>
+		<item>2:45 p.m.</item>
+		<item>3:15 p.m.</item>
+		<item>3:50-4:06 p.m.</item>
+		<item>4:45 p.m.</item>
+		<item>5:15 p.m.</item>
+		<item>5:45 p.m.</item>
+	</array>
+
+	<array name="flynntown_weekday_times">
+		<item>0:08</item>
+		<item>7:38</item>
+		<item>8:08</item>
+		<item>8:38</item>
+		<item>9:12</item>
+		<item>9:53</item>
+		<item>10:23</item>
+		<item>10:52</item>
+		<item>11:23</item>
+		<item>11:53</item>
+		<item>12:32</item>
+		<item>13:08</item>
+		<item>13:38</item>
+		<item>14:12</item>
+		<item>14:53</item>
+		<item>15:23</item>
+		<item>16:02</item>
+		<item>16:38</item>
+		<item>17:08</item>
+		<item>17:38</item>
+	</array>
+
+	<array name="hcc_weekday_times">
+		<item>0:00</item>
+		<item>8:30</item>
+		<item>10:15</item>
+		<item>11:45</item>
+		<item>13:30</item>
+		<item>15:15</item>
+		<item>16:30</item>
+		<item>17:30</item>
+	</array>
+
+</resources>

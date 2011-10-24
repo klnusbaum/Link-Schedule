@@ -1,0 +1,3 @@
+adb shell am instrument -w \
+-e class org.klnusbaum.linkschedule.ScheduleActivityTest \
+org.klnusbaum.linkschedule.tests/android.test.InstrumentationTestRunner

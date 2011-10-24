@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright 2011 Kurtis Nusbaum
+ *
+ * This file is part of LinkSchedule.  
+ *
+ * LinkSchedule is free software: you can 
+ * redistribute it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either version 2 of the 
+ * License, or (at your option) any later version.  
+ *
+ * LinkSchedule is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License 
+ * for more details.  You should have received a copy of the GNU  General 
+ * Public License along with LinkSchedule. If not, see 
+ * http://www.gnu.org/licenses/.
+ --> 
+
+<resources>
+	<string name="gorecki_night_start">18:00</string>
+	<string name="gorecki_night_end">23:30</string>
+	<string name="gorecki_weekend_day_start">10:00</string>
+	<string name="gorecki_weekend_day_end">17:30</string>
+	<string name="gorecki_weekend_morning_start">0:00</string>
+	<string name="gorecki_weekend_morning_end">2:00</string>
+
+	<string name="sexton_night_start">18:15</string>
+	<string name="sexton_night_end">23:45</string>
+	<string name="sexton_weekend_day_start">10:15</string>
+	<string name="sexton_weekend_day_end">17:45</string>
+	<string name="sexton_weekend_morning_start">0:15</string>
+	<string name="sexton_weekend_morning_end">2:15</string>
+
+	<!-- These values aren't used for calculating times, they're just here
+	 for convience and reference -->
+<!--
+	<string name="flynntown_weekday_end">17:38</string>
+	<string name="flynntown_weekend_day_end">17:38</string> -->
+</resources>
+
