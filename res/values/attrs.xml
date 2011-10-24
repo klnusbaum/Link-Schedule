@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright 2011 Kurtis Nusbaum
+ *
+ * This file is part of LinkSchedule.  
+ *
+ * LinkSchedule is free software: you can 
+ * redistribute it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either version 2 of the 
+ * License, or (at your option) any later version.  
+ *
+ * LinkSchedule is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License 
+ * for more details.  You should have received a copy of the GNU  General 
+ * Public License along with LinkSchedule. If not, see 
+ * http://www.gnu.org/licenses/.
+ --> 
+
+<resources>
+	<declare-styleable name="ClockView">
+		<attr name="stopName" format="string"/>
+	</declare-styleable>
+	<declare-styleable name="com.admob.android.ads.AdView">
+		<attr name="backgroundColor" format="color" />
+		<attr name="primaryTextColor" format="color" />
+		<attr name="secondaryTextColor" format="color" />
+		<attr name="keywords" format="string" />
+		<attr name="refreshInterval" format="integer" />
+	</declare-styleable>
+</resources>

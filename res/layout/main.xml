@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright 2011 Kurtis Nusbaum
+ *
+ * This file is part of LinkSchedule.  
+ *
+ * LinkSchedule is free software: you can 
+ * redistribute it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either version 2 of the 
+ * License, or (at your option) any later version.  
+ *
+ * LinkSchedule is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License 
+ * for more details.  You should have received a copy of the GNU  General 
+ * Public License along with LinkSchedule. If not, see 
+ * http://www.gnu.org/licenses/.
+ --> 
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res/org.klnusbaum.linkschedule"
+		xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#66000000"
+    >
+
+
+	<LinearLayout 
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+			android:layout_weight="1"
+	>
+		<org.klnusbaum.linkschedule.ClockView
+			android:id="@+id/sexton_clock"
+			app:stopName="@string/sexton_name"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:gravity="center_vertical|center_horizontal"
+		/>
+		<org.klnusbaum.linkschedule.ClockView
+			android:id="@+id/gorecki_clock"
+			app:stopName="@string/gorecki_name"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:gravity="center_vertical|center_horizontal"
+		/>
+	</LinearLayout>
+	<LinearLayout 
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+			android:layout_weight="1"
+	>
+		<org.klnusbaum.linkschedule.ClockView
+			android:id="@+id/flynntown_clock"
+			app:stopName="@string/flynntown_name"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:gravity="center_vertical|center_horizontal"
+		/>
+		<org.klnusbaum.linkschedule.ClockView
+			android:id="@+id/hcc_clock"
+			app:stopName="@string/hcc_name"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:gravity="center_vertical|center_horizontal"
+		/>
+	</LinearLayout>
+
+	<com.google.ads.AdView
+		android:id="@+id/ad1"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		ads:adUnitId="@string/admob_id"
+		ads:adSize="BANNER"
+		ads:loadAdOnCreate="true"
+	/>
+
+
+</LinearLayout>
+

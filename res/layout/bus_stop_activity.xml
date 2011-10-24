@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Copyright 2011 Kurtis Nusbaum
+ *
+ * This file is part of LinkSchedule.  
+ *
+ * LinkSchedule is free software: you can 
+ * redistribute it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either version 2 of the 
+ * License, or (at your option) any later version.  
+ *
+ * LinkSchedule is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License 
+ * for more details.  You should have received a copy of the GNU  General 
+ * Public License along with LinkSchedule. If not, see 
+ * http://www.gnu.org/licenses/.
+ --> 
+<ScrollView 	
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res/org.klnusbaum.linkschedule"
+	xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+	android:layout_alignParentTop="true"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:layout_gravity="center_vertical|center"
+	>
+<LinearLayout
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+>
+	
+	<org.klnusbaum.linkschedule.StopTimeView
+		android:id="@+id/stop_name"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="40sp"
+		android:gravity="bottom|center_horizontal"
+		android:clickable="false"
+		android:focusable="false"
+	/>
+
+	<org.klnusbaum.linkschedule.StopTimeView
+		android:id="@+id/previousTime"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="16sp"
+		android:gravity="center_vertical|center_horizontal"
+		android:clickable="false"
+		android:focusable="false"
+	/>
+
+	<org.klnusbaum.linkschedule.StopTimeView
+		android:id="@+id/nextTime"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="26sp"
+		android:paddingBottom="10dp"
+		android:gravity="top|center_horizontal"
+		android:clickable="true"
+		android:focusable="true"
+		android:background="@android:drawable/list_selector_background"
+	/>
+
+	<org.klnusbaum.linkschedule.StopTimeView
+		android:id="@+id/time1"
+		style="@style/bus_stop_time_style"
+	/>
+
+	<org.klnusbaum.linkschedule.StopTimeView
+		android:id="@+id/time2"
+		style="@style/bus_stop_time_style"
+	/>
+	<org.klnusbaum.linkschedule.StopTimeView
+		android:id="@+id/time3"
+		style="@style/bus_stop_time_style"
+	/>
+	<org.klnusbaum.linkschedule.StopTimeView
+		android:id="@+id/time4"
+		style="@style/bus_stop_time_style"
+	/>
+	<org.klnusbaum.linkschedule.StopTimeView
+		android:id="@+id/time5"
+		style="@style/bus_stop_time_style"
+	/>
+	<org.klnusbaum.linkschedule.StopTimeView
+		android:id="@+id/time6"
+		style="@style/bus_stop_time_style"
+	/>
+	<org.klnusbaum.linkschedule.StopTimeView
+		android:id="@+id/time7"
+		style="@style/bus_stop_time_style"
+	/>
+	<org.klnusbaum.linkschedule.StopTimeView
+		android:id="@+id/time8"
+		style="@style/bus_stop_time_style"
+	/>
+
+</LinearLayout>
+</ScrollView>

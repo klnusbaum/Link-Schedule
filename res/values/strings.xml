@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright 2011 Kurtis Nusbaum
+ *
+ * This file is part of LinkSchedule.  
+ *
+ * LinkSchedule is free software: you can 
+ * redistribute it and/or modify it under the terms of the GNU General Public 
+ * License as published by the Free Software Foundation, either version 2 of the 
+ * License, or (at your option) any later version.  
+ *
+ * LinkSchedule is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License 
+ * for more details.  You should have received a copy of the GNU  General 
+ * Public License along with LinkSchedule. If not, see 
+ * http://www.gnu.org/licenses/.
+ --> 
+
+<resources>
+    <string name="app_name">Link Schedule</string>
+		<string name="flynntown_name">Flynntown</string>
+		<string name="gorecki_name">Gorecki</string>
+		<string name="hcc_name">HCC</string>
+		<string name="unknown_stop">Unknown Stop</string>
+		<string name="sexton_name">Sexton</string>
+		<string name="about">About</string>
+		<string name="website">Link Website</string>
+		<string name="bus_stop">Bus Stop</string>
+		<string name="widget_update_action">ACTION_TIME_UPDATE</string>
+		<string name="no_bus_stop_selected">No bus stop has been selected. Please select a bus stop</string>
+		<string name="about_title_text">
+			Link Schedule by Bazaar Solutions 
+		</string>
+		<string name="about_extra_text">
+		NOTE: All times are approximate! This App does not take into account special bus schedules due to holidays, finals, etc. Please check the CSB/SJU website for the most up-to-date and accurate bus schedule.
+		</string>
+		<string name="previous_bus">Previous Bus:</string>
+		<string name="next_bus">Next Bus:</string>
+		<string name="share_bus">Share Bus Time</string>
+		<string name="set_alarm">Set Alarm</string>
+		<string name="share_via">Share via</string>
+		<string name="share_message_1">Hey, I\'m going to catch the</string>
+		<string name="share_message_2">from</string>
+		<string name="share_subject">I\'m catching the bus</string>
+		<string name="bus_coming">Bus Is Coming!</string>
+		<string name="bus_here_shortly">The bus will be here shortly.</string>
+		<string name="bus_time">Bus Time:</string>
+		<string name="main_screen">Main Screen</string>
+		<string name="settings_name">Settings</string>
+		<string name="settings">Settings</string>
+		<string name="alarm_preferences">Alarm Preferences</string>
+		<string name="alarm_sound">Alarm Sound</string>
+		<string name="alarm_sound_key">alarm_sound_key</string>
+		<string name="contact_dev">Error, please contact application author.</string>
+		<string name="donate">Donate</string>
+		<string name="donate_explain_text">
+		Wow! Thanks for wanting to support us. We really do appreciate it, and we
+		promise to use the money to make more cool stuff! Just enter in the amount
+		you\'d like to donate and click on the button.
+		</string>
+		<string name="loading">Loading...</string>
+		<string name="paypal_error">Looks like there was an error starting your 
+		payment. Make sure you\'re phone is connected to the internet.
+		</string>
+		<string name="show_timetill_widget_key">show_timetill_widget_key</string>
+		<string name="show_timetill_widget">Time Until (widget)</string>
+		<string name="show_timetill_widget_summary">
+			Check this box to have all clock widgets show how much time is left 
+			until the next bus comes.
+		</string>
+		<string name="show_timetill_main_key">show_timetill_main_key</string>
+		<string name="show_timetill_main">Time Until (Main Window)</string>
+		<string name="show_timetill_main_summary">
+			Check this box to have all clocks in the main window show how much 
+			time is left until the next bus comes.
+		</string>
+		<string name="display_title">Display Options</string>
+</resources>
