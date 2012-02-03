@@ -18,9 +18,6 @@
 
 package org.klnusbaum.linkschedule;
 
-import com.admob.android.ads.AdManager;
-import com.admob.android.ads.AdView;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.os.Bundle;
@@ -50,220 +47,215 @@ import java.util.GregorianCalendar;
  * @version 1.0
  */
 public class SingleStopActivity extends BusStopActivity implements Refreshable{
-	
+
   /**
-	 * Reference to the LinkSchedule
+   * Reference to the LinkSchedule
    */
-	private LinkSchedule linkSchedule;
-	/**
+  private LinkSchedule linkSchedule;
+  /**
    * Name of the bus stop this object is displaing.
-	 */
-	private String busStop;
+   */
+  private String busStop;
 
-	/**
-	 * BroadcastReceiver to receive broadcasts when the time changes.
-	 */
-	private TimeChangeReceiver timeChangeReceiver;
+  /**
+   * BroadcastReceiver to receive broadcasts when the time changes.
+   */
+  private TimeChangeReceiver timeChangeReceiver;
 
-	/**
-	 * ClickListener for the StopViews.
-	 */
-	final View.OnClickListener stopListener = new View.OnClickListener(){
-		public void onClick(View v){
-			v.showContextMenu();
-		}
-	};
+  /**
+   * ClickListener for the StopViews.
+   */
+  final View.OnClickListener stopListener = new View.OnClickListener(){
+    public void onClick(View v){
+      v.showContextMenu();
+    }
+  };
 
   @Override
   protected void onCreate(Bundle savedInstanceState){
     super.onCreate(savedInstanceState);
     setContentView(R.layout.bus_stop_activity);
-		AdManager.setTestDevices( new String[] {
-			AdManager.TEST_EMULATOR});
+    busStop = getString(R.string.unknown_stop);
+    if(getIntent().hasExtra(BusStopActivity.EXTRA_STOPNAME)){
+      busStop = getIntent().getStringExtra(BusStopActivity.EXTRA_STOPNAME);
+    }
+    if(!LinkSchedule.validBusStop(busStop, this)){
+      Log.e("special", "unknow bus stop: " + busStop);
+      Toast.makeText(
+        this, R.string.contact_dev, Toast.LENGTH_SHORT).show();
+      finish();
+    }
+    else{
+      TextView header = (TextView)findViewById(R.id.stop_name);
+      header.setText(busStop);
 
-		AdView adView = (AdView)findViewById(R.id.ad2);
-		adView.requestFreshAd();
-		busStop = getString(R.string.unknown_stop);
-		if(getIntent().hasExtra(BusStopActivity.EXTRA_STOPNAME)){
-			busStop = getIntent().getStringExtra(BusStopActivity.EXTRA_STOPNAME);
-		}
-		if(!LinkSchedule.validBusStop(busStop, this)){
-			Log.e("special", "unknow bus stop: " + busStop);
-			Toast.makeText(
-				this, R.string.contact_dev, Toast.LENGTH_SHORT).show();
-			finish();
-		}
-		else{
-			TextView header = (TextView)findViewById(R.id.stop_name);
-			header.setText(busStop);
+      setupStopView(R.id.nextTime);
+      setupStopView(R.id.time1);
+      setupStopView(R.id.time2);
+      setupStopView(R.id.time3);
+      setupStopView(R.id.time4);
+      setupStopView(R.id.time5);
+      setupStopView(R.id.time6);
+      setupStopView(R.id.time7);
+      setupStopView(R.id.time8);
 
-			setupStopView(R.id.nextTime);
-			setupStopView(R.id.time1);
-			setupStopView(R.id.time2);
-			setupStopView(R.id.time3);
-			setupStopView(R.id.time4);
-			setupStopView(R.id.time5);
-			setupStopView(R.id.time6);
-			setupStopView(R.id.time7);
-			setupStopView(R.id.time8);
-			
-			linkSchedule = LinkSchedule.getLinkSchedule(getResources());
+      linkSchedule = LinkSchedule.getLinkSchedule(getResources());
 
-			timeChangeReceiver = new TimeChangeReceiver(this);
-			timeChangeReceiver.registerIntents(this);
-			refreshSchedule();
-		}
+      timeChangeReceiver = new TimeChangeReceiver(this);
+      timeChangeReceiver.registerIntents(this);
+      refreshSchedule();
+    }
   }
 
-	/**
-	 * Sets up a particular stop view.
+  /**
+   * Sets up a particular stop view.
    * 
-	 * @param id The id of the view to be setup.
-	 */
-	private void setupStopView(int id){
-		View v = findViewById(id);
-		v.setOnClickListener(stopListener);
-		registerForContextMenu(v);
-	}
+   * @param id The id of the view to be setup.
+   */
+  private void setupStopView(int id){
+    View v = findViewById(id);
+    v.setOnClickListener(stopListener);
+    registerForContextMenu(v);
+  }
 
-	@Override
-	protected void onDestroy(){
-		super.onDestroy();
-		if(timeChangeReceiver != null){
-			unregisterReceiver(timeChangeReceiver);
-		}
-	}
+  @Override
+  protected void onDestroy(){
+    super.onDestroy();
+    if(timeChangeReceiver != null){
+      unregisterReceiver(timeChangeReceiver);
+    }
+  }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu){
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu){
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.stop_menu, menu);
     return true;
-	}
+  }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
-		case R.id.menuMainScreen:
-			Intent mainScreenIntent = new Intent(
-				SingleStopActivity.this, OmniScheduleActivity.class);
-			startActivity(mainScreenIntent);
-			return true;
+    case R.id.menuMainScreen:
+      Intent mainScreenIntent = new Intent(
+        SingleStopActivity.this, OmniScheduleActivity.class);
+      startActivity(mainScreenIntent);
+      return true;
     default:
       return super.onOptionsItemSelected(item);
     }
   }
 
-	@Override
-	public void refreshSchedule(){
-		SortedMap<GregorianCalendar, String> snapshot = 
-			linkSchedule.getSnapshot(busStop);
+  @Override
+  public void refreshSchedule(){
+    SortedMap<GregorianCalendar, String> snapshot = 
+      linkSchedule.getSnapshot(busStop);
 
-		Iterator it = snapshot.entrySet().iterator();
-		Map.Entry pair = (Map.Entry)it.next();
+    Iterator it = snapshot.entrySet().iterator();
+    Map.Entry pair = (Map.Entry)it.next();
 
-		setStopTimeViewContents(R.id.previousTime, (GregorianCalendar)pair.getKey(),
-			getString(R.string.previous_bus) + " " + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.nextTime, (GregorianCalendar)pair.getKey(),
-			getString(R.string.next_bus) + " " + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time1, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time2, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time3, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time4, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time5, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time6, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time7, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-		pair = (Map.Entry)it.next();
-		setStopTimeViewContents(R.id.time8, (GregorianCalendar)pair.getKey(), 
-			"" + pair.getValue());
-	}
+    setStopTimeViewContents(R.id.previousTime, (GregorianCalendar)pair.getKey(),
+      getString(R.string.previous_bus) + " " + pair.getValue());
+    pair = (Map.Entry)it.next();
+    setStopTimeViewContents(R.id.nextTime, (GregorianCalendar)pair.getKey(),
+      getString(R.string.next_bus) + " " + pair.getValue());
+    pair = (Map.Entry)it.next();
+    setStopTimeViewContents(R.id.time1, (GregorianCalendar)pair.getKey(), 
+      "" + pair.getValue());
+    pair = (Map.Entry)it.next();
+    setStopTimeViewContents(R.id.time2, (GregorianCalendar)pair.getKey(), 
+      "" + pair.getValue());
+    pair = (Map.Entry)it.next();
+    setStopTimeViewContents(R.id.time3, (GregorianCalendar)pair.getKey(), 
+      "" + pair.getValue());
+    pair = (Map.Entry)it.next();
+    setStopTimeViewContents(R.id.time4, (GregorianCalendar)pair.getKey(), 
+      "" + pair.getValue());
+    pair = (Map.Entry)it.next();
+    setStopTimeViewContents(R.id.time5, (GregorianCalendar)pair.getKey(), 
+      "" + pair.getValue());
+    pair = (Map.Entry)it.next();
+    setStopTimeViewContents(R.id.time6, (GregorianCalendar)pair.getKey(), 
+      "" + pair.getValue());
+    pair = (Map.Entry)it.next();
+    setStopTimeViewContents(R.id.time7, (GregorianCalendar)pair.getKey(), 
+      "" + pair.getValue());
+    pair = (Map.Entry)it.next();
+    setStopTimeViewContents(R.id.time8, (GregorianCalendar)pair.getKey(), 
+      "" + pair.getValue());
+  }
 
-	/**
-	 * Set the contents of a stop view.
+  /**
+   * Set the contents of a stop view.
    *
    * @param id Id of the view to be setup.
-	 * @param cal Calendar that should put in the stop view.
-	 * @param label The label that should be put in the stop view.
-	 */
-	private void setStopTimeViewContents(int id, GregorianCalendar cal, 
-		String label)
-	{
-		StopTimeView view = (StopTimeView)findViewById(id);
-		view.setText(label);
-		view.setCalendar(cal);
-	}
+   * @param cal Calendar that should put in the stop view.
+   * @param label The label that should be put in the stop view.
+   */
+  private void setStopTimeViewContents(int id, GregorianCalendar cal, 
+    String label)
+  {
+    StopTimeView view = (StopTimeView)findViewById(id);
+    view.setText(label);
+    view.setCalendar(cal);
+  }
 
-	@Override
-	public void resetSchedule(){
-		linkSchedule.reset();	
-	}
+  @Override
+  public void resetSchedule(){
+    linkSchedule.reset();
+  }
 
-	@Override
-	public String getCurrentBusStop(){
-		return busStop;
-	}
+  @Override
+  public String getCurrentBusStop(){
+    return busStop;
+  }
 
-	/*
-	private Uri getBusStopLink(String busStop){
-		Uri.Builder builder = new Uri.Builder();
-		builder.scheme("http").authority("csbsju.edu").appendPath("Transportation");
-		GregorianCalendar currentTime = 
-			(GregorianCalendar)GregorianCalendar.getInstance();
-		if(busStop.equals(getString(R.string.flynntown_name))){
-			if(LinkSchedule.isWeekday(currentTime)){
-				GregorianCalendar dayEnd = 
-					LinkSchedule.getCalendarFromString(
-						getString(R.id.flynntown_weekday_end));
-				if(currentTime.before(dayEnd)){
-					builder.appendPath("Daily-Flynntown-Sexton.htm");
-				}
-				else if(LinkSchedule.isFriday(currentTime)){
-					builder.appendPath("Evening-Fri-Sat.htm");
-				}
-				else{
-					builder.appendPath("Evening-Sun-Thu.htm");
-				}
-			}
-			else{
-				GregorianCalendar dayEnd = 
-					LinkSchedule.getCalendarFromString(
-						getString(R.id.flynntown_weekend_day_end));
-				if(currentTime.before(dayEnd)){
-					builder.appendPath("Weekend.htm");
-				}
-				else if(LinkSchedule.isSunday(currentTime)){
-					builder.appendPath("Evening-Sun-Thu.htm");
-				}
-				else{
-					builder.appendPath("Evening-Fri-Sat.htm");
-				}	
-			}	
-		}
-		else if(busStop.equals(getString(R.string.gorecki_name))){
+  /*
+  private Uri getBusStopLink(String busStop){
+    Uri.Builder builder = new Uri.Builder();
+    builder.scheme("http").authority("csbsju.edu").appendPath("Transportation");
+    GregorianCalendar currentTime = 
+      (GregorianCalendar)GregorianCalendar.getInstance();
+    if(busStop.equals(getString(R.string.flynntown_name))){
+      if(LinkSchedule.isWeekday(currentTime)){
+        GregorianCalendar dayEnd = 
+          LinkSchedule.getCalendarFromString(
+            getString(R.id.flynntown_weekday_end));
+        if(currentTime.before(dayEnd)){
+          builder.appendPath("Daily-Flynntown-Sexton.htm");
+        }
+        else if(LinkSchedule.isFriday(currentTime)){
+          builder.appendPath("Evening-Fri-Sat.htm");
+        }
+        else{
+          builder.appendPath("Evening-Sun-Thu.htm");
+        }
+      }
+      else{
+        GregorianCalendar dayEnd = 
+          LinkSchedule.getCalendarFromString(
+            getString(R.id.flynntown_weekend_day_end));
+        if(currentTime.before(dayEnd)){
+          builder.appendPath("Weekend.htm");
+        }
+        else if(LinkSchedule.isSunday(currentTime)){
+          builder.appendPath("Evening-Sun-Thu.htm");
+        }
+        else{
+          builder.appendPath("Evening-Fri-Sat.htm");
+        }  
+      }  
+    }
+    else if(busStop.equals(getString(R.string.gorecki_name))){
 
-		}
-		else if(busStop.equals(getString(R.string.hcc_name))){
+    }
+    else if(busStop.equals(getString(R.string.hcc_name))){
 
-		}
-		else if(busStop.equals(getString(R.string.sexton_name))){
+    }
+    else if(busStop.equals(getString(R.string.sexton_name))){
 
-		}
-		return builder.build();
-	}*/
+    }
+    return builder.build();
+  }*/
 
 }

@@ -18,7 +18,7 @@
  --> 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			xmlns:app="http://schemas.android.com/apk/res/org.klnusbaum.linkschedule"
+      xmlns:app="http://schemas.android.com/apk/res/org.klnusbaum.linkschedule"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -26,62 +26,51 @@
     >
 
 
-	<LinearLayout 
-    	android:orientation="horizontal"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-			android:layout_weight="1"
-	>
-		<org.klnusbaum.linkschedule.ClockView
-			android:id="@+id/sexton_clock"
-			app:stopName="@string/sexton_name"
-			android:layout_width="wrap_content"
-			android:layout_height="fill_parent"
-			android:layout_weight="1"
-			android:gravity="center_vertical|center_horizontal"
-		/>
-		<org.klnusbaum.linkschedule.ClockView
-			android:id="@+id/gorecki_clock"
-			app:stopName="@string/gorecki_name"
-			android:layout_width="wrap_content"
-			android:layout_height="fill_parent"
-			android:layout_weight="1"
-			android:gravity="center_vertical|center_horizontal"
-		/>
-	</LinearLayout>
-	<LinearLayout 
-    	android:orientation="horizontal"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-			android:layout_weight="1"
-	>
-		<org.klnusbaum.linkschedule.ClockView
-			android:id="@+id/flynntown_clock"
-			app:stopName="@string/flynntown_name"
-			android:layout_width="wrap_content"
-			android:layout_height="fill_parent"
-			android:layout_weight="1"
-			android:gravity="center_vertical|center_horizontal"
-		/>
-		<org.klnusbaum.linkschedule.ClockView
-			android:id="@+id/hcc_clock"
-			app:stopName="@string/hcc_name"
-			android:layout_width="wrap_content"
-			android:layout_height="fill_parent"
-			android:layout_weight="1"
-			android:gravity="center_vertical|center_horizontal"
-		/>
-	</LinearLayout>
-
-	<com.admob.android.ads.AdView
-		android:id="@+id/ad1"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		app:backgroundColor="#000000"
-		app:primaryTextColor="#FFFFFF"
-		app:secondaryTextColor="#CCCCCC"
-	/>
-
-
+  <LinearLayout 
+      android:orientation="horizontal"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+  >
+    <org.klnusbaum.linkschedule.ClockView
+      android:id="@+id/sexton_clock"
+      app:stopName="@string/sexton_name"
+      android:layout_width="wrap_content"
+      android:layout_height="fill_parent"
+      android:layout_weight="1"
+      android:gravity="center_vertical|center_horizontal"
+    />
+    <org.klnusbaum.linkschedule.ClockView
+      android:id="@+id/gorecki_clock"
+      app:stopName="@string/gorecki_name"
+      android:layout_width="wrap_content"
+      android:layout_height="fill_parent"
+      android:layout_weight="1"
+      android:gravity="center_vertical|center_horizontal"
+    />
+  </LinearLayout>
+  <LinearLayout 
+      android:orientation="horizontal"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+  >
+    <org.klnusbaum.linkschedule.ClockView
+      android:id="@+id/flynntown_clock"
+      app:stopName="@string/flynntown_name"
+      android:layout_width="wrap_content"
+      android:layout_height="fill_parent"
+      android:layout_weight="1"
+      android:gravity="center_vertical|center_horizontal"
+    />
+    <org.klnusbaum.linkschedule.ClockView
+      android:id="@+id/hcc_clock"
+      app:stopName="@string/hcc_name"
+      android:layout_width="wrap_content"
+      android:layout_height="fill_parent"
+      android:layout_weight="1"
+      android:gravity="center_vertical|center_horizontal"
+    />
+  </LinearLayout>
 </LinearLayout>
 

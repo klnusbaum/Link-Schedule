@@ -16,15 +16,9 @@
  * Public License along with LinkSchedule. If not, see 
  * http://www.gnu.org/licenses/.
  --> 
-<RelativeLayout
+<ScrollView 	
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res/org.klnusbaum.linkschedule"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:scrollbars="none">
-
-
-<ScrollView 	
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:layout_gravity="center_vertical|center"
@@ -103,13 +97,3 @@
 
 </LinearLayout>
 </ScrollView>
-<com.admob.android.ads.AdView
-	android:id="@+id/ad2"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	app:backgroundColor="#000000"
-	app:primaryTextColor="#FFFFFF"
-	app:secondaryTextColor="#CCCCCC"
-	android:layout_alignParentBottom="true"
-/>
-</RelativeLayout>

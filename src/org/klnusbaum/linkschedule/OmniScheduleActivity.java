@@ -18,9 +18,6 @@
 
 package org.klnusbaum.linkschedule;
 
-import com.admob.android.ads.AdManager;
-import com.admob.android.ads.AdView;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.ViewGroup;
@@ -88,11 +85,7 @@ public class OmniScheduleActivity extends BusStopActivity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
 
-		AdManager.setTestDevices( new String[] {
-			AdManager.TEST_EMULATOR});
 
-		AdView adView = (AdView)findViewById(R.id.ad1);
-		adView.requestFreshAd();
 		linkSchedule = LinkSchedule.getLinkSchedule(getResources());
 		timeChangeReceiver = new TimeChangeReceiver(this);
 		timeChangeReceiver.registerIntents(this);

@@ -1,0 +1,8 @@
+if [ $# == 0 ]
+then
+ant clean
+ant debug
+fi
+adb -e uninstall org.klnusbaum.linkschedule
+adb -e install  bin/LinkSchedule-debug.apk
+adb -e logcat
