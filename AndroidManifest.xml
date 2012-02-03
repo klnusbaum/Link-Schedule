@@ -19,11 +19,13 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="org.klnusbaum.linkschedule"
-      android:versionCode="5"
+      android:versionCode="7"
       android:versionName="1.4"
       >
     <uses-sdk android:minSdkVersion="7"/>
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <application android:label="@string/app_name"
                  android:icon="@drawable/launcher">
         <activity android:name="OmniScheduleActivity"
@@ -72,9 +74,6 @@
               android:name="BROADCAST_BUS_STOP_ALARM"/>
           </intent-filter>
         </receiver> 
-
-
-
 
     </application>
 

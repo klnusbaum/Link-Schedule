@@ -28,7 +28,9 @@ import android.view.MenuItem;
 import android.widget.TimePicker;
 import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.view.ContextMenu;
 import android.app.NotificationManager;
 import android.app.Notification;
@@ -36,6 +38,10 @@ import android.app.PendingIntent;
 import android.widget.Toast;
 import android.net.Uri;
 import android.util.Log;
+import android.net.ConnectivityManager;
+import java.net.URL;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -56,6 +62,7 @@ public abstract class BusStopActivity extends Activity{
 
 	/** Constant identifying the set alarm dialog */
 	private static final int DIALOG_SET_ALARM = 0;
+	private static final int DIALOG_NO_NETWORK = 1;
 	
 	/** Constant identifying the extra field STOP_NAME */
 	public static final String EXTRA_STOPNAME = "STOP_NAME";
@@ -112,21 +119,7 @@ public abstract class BusStopActivity extends Activity{
 				startActivity(linkWebsiteIntent);
 				return true;
 		case R.id.menuDonate:
-/*			Intent donateIntent =
-				new Intent(this, DonateActivity.class);
-			startActivity(donateIntent);*/
-			Intent donateIntent = new Intent(
-				Intent.ACTION_VIEW,
-				new Uri.Builder()
-					.scheme("http")
-					.authority("www.bazaarsolutions.com")
-					.appendPath("index.php")
-					.appendQueryParameter("option","com_content")
-					.appendQueryParameter("view","article")
-					.appendQueryParameter("id","51")
-					.appendQueryParameter("Itemid","70")
-					.build());
-			startActivity(donateIntent);
+			startDonation();
 			return true;
     default:
       return super.onOptionsItemSelected(item);
@@ -198,6 +191,16 @@ public abstract class BusStopActivity extends Activity{
 				Log.w(LOG_TAG, "Tried to create a set alarm dialog without the currentTimeStringSelected being set.");
 				return null;
 			}
+		case DIALOG_NO_NETWORK:
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("Oops. Please ensure your device is connected to " +
+				"the Internet before trying to donate.")
+			.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+				public void onClick(DialogInterface dialog, int id){
+					dialog.dismiss();
+				}
+			});
+			return builder.create();
 		default:
 			return null;
 		}
@@ -229,5 +232,55 @@ public abstract class BusStopActivity extends Activity{
    * alarm setting action is being performed on.
    */
 	public abstract String getCurrentBusStop();
+
+	/**
+   * Determines whether or not there is an active internet connection.
+   *
+   * @return True if there is an active internet connection, false otherwise.
+   */
+	private boolean isOnline(){
+		ConnectivityManager cm = (ConnectivityManager)getSystemService(
+			Context.CONNECTIVITY_SERVICE);
+		if(cm.getActiveNetworkInfo() == null){
+			return false;
+		}
+		else{
+			return cm.getActiveNetworkInfo().isConnectedOrConnecting();
+		}
+	}
+
+	/**
+	 * Starts the process of donating. If the device isn't connected to the
+	 * internet an error dialog is displayed.
+	 */
+	private void startDonation(){
+		if(isOnline()){
+	  	Intent donateIntent = new Intent(Intent.ACTION_VIEW, getDonateAddress());
+			startActivity(donateIntent);
+		}
+		else{
+			showDialog(DIALOG_NO_NETWORK);
+		}
+	}
+
+	/**
+   * Obtains the Uri of the webpage where the donation can be done.
+   *
+   * @return Uri of webpage where donation can be done.
+	 */
+	private static Uri getDonateAddress(){
+		try{
+    	URL paypal = new URL("http://www.bazaarsolutions.com/paypalurl.txt");
+    	BufferedReader in = new BufferedReader(
+      	new InputStreamReader(paypal.openStream()));
+    	String url = in.readLine();
+			in.close();
+			return Uri.parse(url);
+		}catch(Exception e){
+		  Log.e(LOG_TAG, "Something went terribly wrong when trying to obtain " +
+				"the donation URI: " + e.getMessage());
+			return null;
+		}
+	}
 
 }
